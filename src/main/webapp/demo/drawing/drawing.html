@@ -1,0 +1,130 @@
+<div class="container-fluid">
+	<script src="drawing.js"></script>
+	<div class="well col-md-4">
+		<b id="subscribersNumber">0</b>&nbsp;<b>Subscribers</b><br>
+		<canvas id="imageView" width="400" height="300" style="background-color: wheat"></canvas>
+		<div id="disqus_thread"></div>
+		<script type="text/javascript">
+			var disqus_shortname = 'ocelot';
+			/* * * DON'T EDIT BELOW THIS LINE * * */
+			(function () {
+				var dsq = document.createElement('script');
+				dsq.type = 'text/javascript';
+				dsq.async = true;
+				dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+				(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			})();
+		</script>
+		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+	</div>
+	<div class="well col-md-8">
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#about"	aria-controls="about"	role="tab" data-toggle="tab">About</a></li>
+			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">DrawingServices.java</a></li>
+			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">CanvasEvent.java</a></li>
+			<li role="presentation">					<a href="#js1"		aria-controls="js1"		role="tab" data-toggle="tab">Javascript</a></li>
+			<li role="presentation">					<a href="#html1"	aria-controls="html1"	role="tab" data-toggle="tab">Html</a></li>
+		</ul>
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="about">
+				<h2>About demo : collaborative painting</h2>
+				<p>This demo show how to do a collaborative page.</p>
+				<p>Open this page in multiple differents browsers, and magic <b><span style="color:cadetblue">O</span>celot.<span style="color:chocolate">ds</span>.</b></p>
+				<p>What's append ?</p>
+				<ul>
+					<li>The client subscribe to 2 topics, <b>eventCanvas</b> and <b>subscriber:eventCanvas</b></li>
+					<li>All events are send to topic <b>eventCanvas</b>, that resend them to all subscribvers.</li>
+					<li>When clients subscribe or unsubscribe to the <b>eventCanvas</b> Topic, the server send the number of subscribers to <b>subscriber:eventCanvas</b> topic.</li>
+				</ul>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="java1">
+				<pre><code class="java">
+@DataService(resolver = Constants.Resolver.CDI)
+public class DrawingServices {
+   // When someone call this method, 
+   // every subcribed clients receive the return method
+   @JsTopic("eventCanvas")
+   public CanvasEvent pushCanvasEvent(CanvasEvent evt) {
+      return evt;
+   }
+}
+				</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="java2">
+				<pre><code class="java">
+public class CanvasEvent {
+
+   private int x;
+   private int y;
+   private String type;
+
+   public CanvasEvent() {}
+
+   public CanvasEvent(int x, int y, String type) {
+      this.x = x;
+      this.y = y;
+      this.type = type;
+   }
+
+   // For reduce code, getters, setters have removed.
+}
+					</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="js1">
+				<pre><code class="js">
+ocelotController.addOpenListener(function () {
+   var subCanvasEvent, canvas, context, pencil, 
+   drawingServices = new DrawingServices();
+   pencil = {
+      mousedown: function (ev) {
+         context.beginPath();
+         context.moveTo(ev.x, ev.y);
+         canvas.addEventListener('mousemove', sendMouseMove, false);
+         canvas.addEventListener('mouseup', sendMouseUp, false);
+      },
+      mousemove: function (ev) {
+         context.lineTo(ev.x, ev.y);
+         context.stroke();
+      },
+      mouseup: function (ev) {
+         this.mousemove(ev);
+         canvas.removeEventListener('mousemove', sendMouseMove);
+         canvas.removeEventListener('mouseup', sendMouseUp);
+      }
+   };
+   canvas = document.getElementById('imageView');
+   if (!canvas || !canvas.getContext) {
+      alert('Error: Canvas element or Context not accessible!');
+      return;
+   }
+   context = canvas.getContext('2d');
+   canvas.addEventListener('mousedown', sendMouseDown, false);
+   new Subscriber("subscribers:eventCanvas").message(function (nb) {
+      document.getElementById("subscribersNumber").innerHTML = nb;
+   });
+   subCanvasEvent = new Subscriber("eventCanvas").message(function (evt) {
+      pencil[evt.type](evt);
+   });
+   function sendMouseDown(ev) {
+      drawingServices.pushCanvasEvent({"x": ev.offsetX, "y": ev.offsetY, "type": ev.type});
+   }
+   function sendMouseMove(ev) {
+      drawingServices.pushCanvasEvent({"x": ev.offsetX, "y": ev.offsetY, "type": ev.type});
+   }
+   function sendMouseUp(ev) {
+      drawingServices.pushCanvasEvent({"x": ev.offsetX, "y": ev.offsetY, "type": ev.type});
+   }
+});
+					</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="html1">
+				<pre><code class="html">
+&lt;div&gt;
+	&lt;canvas id="imageView" width="400" height="300"&gt;&lt;/canvas&gt;
+&lt;/div&gt;
+					</code></pre>
+			</div>
+		</div>
+	</div>

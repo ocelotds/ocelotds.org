@@ -1,0 +1,103 @@
+<div class="container theme-showcase" role="main">
+	<div class="well">
+		<h2>Notifications</h2>
+		<p>Message Driven bean features, can be used to implement a mecanism for push message from server to a client.<br />
+			For exemple a chat or notify something to the client.</p>
+		<h3>In Javascript</h3>
+		<h4>Subscribe to topic on front-end (javascript)</h4>
+		<p>In javascript, create <strong>Subscriber</strong></p>
+		<pre><code class="javascript">
+var sub = new Subscriber("mytopic").then(function() {
+   // confirm subscrition
+}).catch(function(fault) {
+   // subscrition fail
+}).message(function(payload) {
+   doSomethingWithMsg(payload); // payload in json : object format
+});
+			</code></pre>
+		<h4>Unsubscribe to topic on front-end (javascript)</h4>
+		<p>In javascript, get <strong>Subscriber</strong> and call unsubscribe</p>
+		<pre><code class="javascript">
+sub.unsubscribe().then(function() {
+   // confirm unsubscrition
+}).catch(function(fault) {
+   // unsubscrition fail
+});
+			</code></pre>
+		<h3>In Java</h3>
+		<h4>Publish for all subscribers</h4>
+		<p>Just annotate java class method with @JsTopic</p>
+		<pre><code class="java">
+@DataService(resolver = Constants.Resolver.CDI)
+public class MessageServices {
+   @JsTopic("TopicName")
+   public String publish(String message) {
+      return message;
+   }
+...
+			</code></pre>
+		<p>Call method from javascript</p>
+		<pre><code class="javascript">
+new MessageServices().publish(message).then(function() {
+   // confirm send
+}).catch(function(fault) {
+   // send fail
+});
+			</code></pre>
+		<p>You can use dynamic topicname with @JsTopicName</p>
+		<pre><code class="java">
+@JsTopic
+public String publishToTopic(String message, @JsTopicName topic) {
+   return message;
+}
+			</code></pre>
+		<p>Call method from javascript</p>
+		<pre><code class="javascript">
+new MessageServices().publish(message, topic).then(function() {
+   // confirm send
+}).catch(function(fault) {
+   // send fail
+});
+			</code></pre>
+		<h3>Advanced features</h3>
+		<p>Listen subscribers number</p>
+		<p>When you use previous features, you can listen a special topic for know how many subscribers are connected</p>
+		<p>Simply subscribe to topic name preceded by <b>subscribers:</b></p>
+		<pre><code class="javavascript">
+var sub = new Subscriber("subscribers:mytopic").then(function() {
+   // confirm subscrition
+}).catch(function(fault) {
+   // subscrition fail
+}).message(function(payload) {
+   doSomethingWithMsg(payload); // payload in json : object format
+});
+
+			</code></pre>
+		<h3>Publish message from backend java</h3>
+		<p>In java, publish message to all subcriber clients</p>
+		<pre><code class="java">
+@Inject
+@MessageEvent
+Event&lt;MessageToClient&gt; wsEvent;
+
+public void publish() {
+	MessageToClient messageToClient = new MessageToClient("mytopic");
+	messageToClient.setResult("Message From server"); // You can send all serializable objects
+	wsEvent.fire(messageToClient);
+}
+			</code></pre>
+	</div>
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'ocelot';
+		/* * * DON'T EDIT BELOW THIS LINE * * */
+		(function () {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>

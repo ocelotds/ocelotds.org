@@ -1,0 +1,110 @@
+<div class="container theme-showcase" role="main">
+	<div class="well">
+		<h2>Use internationalization features</h2>
+		<p>With ocelot is very simple to localized your messages.</p>
+		<h3>Ocelot uses standards mechanisms of Java SE.</h3>
+		<p><a href="http://docs.oracle.com/javase/tutorial/i18n/">Tutorial</a></p>
+		<p><a href="https://docs.oracle.com/javase/8/docs/api/java/text/MessageFormat.html">messageFormat</a></p>
+		<h3>Create bundles</h3>
+		<p>In your module (jar or war) add your locale properties files in resources folder of your maven project.</p>
+		<pre><code class="bash">
+test_fr_FR.properties
+test_en_US.properties
+			</code></pre>
+		<p>In files add entries for translations</p>
+		<pre><code class="properties">
+// test_fr_FR.properties
+HELLOGUY=Bonjour {0}
+// test_en_US.properties
+HELLOGUY=Hello {0}
+			</code></pre>
+		<h3>Inject OcelotServices</h3>
+		<p>Now in your managed Bean (CDI Bean, EJB, Spring Bean) inject OcelotServices</p>
+		<pre><code class="java">
+@Inject 
+OcelotServices ocelotServices;
+			</code></pre>
+		<h3 id="use-it">Use it</h3>
+		<p>When you want to use localization service, just call method <strong>getLocalizedMEssage</strong></p>
+		<pre><code class="java">
+public String getLocaleHello(String who) {
+	return ocelotServices.getLocalizedMessage("test", "HELLOGUY", new Object[]{who});
+}
+			</code></pre>
+		<pre><code class="java">
+String msg = getLocaleHello("François");
+System.out.println(" - "+msg);
+			</code></pre>
+		<p>Result :</p>
+		<pre><code class="log">
+- Bonjour François
+			</code></pre>
+		<h3 id="highlight">Highlight</h3>
+		<p>You cannot set directly the locale from the business layout.</p>
+		<p>If you want change the locale use the javascript ocelot services</p>
+		<pre><code class="javascript">
+var ocelotServices = new OcelotServices();
+ocelotServices.setLocale({"language":"fr","country":"FR"}).then(function(msg) {
+  // Reload 
+  location.reload(); 
+});
+			</code></pre>
+		<p>The getLocale is cached during 1 year on cache client so you can set the locale choosen by the client easily during load of page.</p>
+		<pre><code class="javascript">
+var ocelotServices = new OcelotServices();
+ocelotServices.getLocale().then(function(locale) {
+
+});
+			</code></pre>
+		<p>If you want save the locale in user profile, in db maybe. Call your own service during loading page.</p>
+		<pre><code class="javascript">
+var ocelotServices = new OcelotServices();
+var userServices = new UserServices();
+userServices.getUserLocale()then(function(locale) {
+   ocelotServices.setLocale(locale).then(function(msg) {
+      // Reload 
+      location.reload(); 
+   });
+});
+			</code></pre>
+		<h4 id="example">Example</h4>
+		<pre><code class="javascript">
+...
+   var ocelotServices = new OcelotServices();
+   ocelotServices.getLocale().then(function(locale) {
+      var localeSelector = document.getElementById("localeSelector");
+      for (i = 0; i < localeSelector.options.length; i++) {
+         var currentLocale = JSON.parse(localeSelector.options[i].value);
+         if(currentLocale.language === locale.language && currentLocale.country === locale.country) {
+            localeSelector.options.selectedIndex = i;
+            break;
+         }
+      }
+   });
+   function changeLocale() {
+      var localeSelector = document.getElementById("localeSelector");
+      var idx = localeSelector.options.selectedIndex;
+      var currentLocale = JSON.parse(localeSelector.options[idx].value);
+      ocelotServices.setLocale(currentLocale);
+   }
+&lt;/script&gt;
+&lt;select id="localeSelector" onchange="changeLocale()"&gt;
+   &lt;option value='{"language":"fr","country":"FR"}' selected>fr&lt;/option&gt;
+   &lt;option value='{"language":"en","country":"US"}'&gt;en&lt;/option&gt;
+&lt;/select&gt;
+			</code></pre>
+	</div>
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'ocelot';
+		/* * * DON'T EDIT BELOW THIS LINE * * */
+		(function () {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>

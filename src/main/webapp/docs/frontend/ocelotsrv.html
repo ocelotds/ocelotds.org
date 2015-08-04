@@ -1,0 +1,51 @@
+<div class="container theme-showcase" role="main">
+	<div class="well">
+		<h2>OcelotServices</h2>
+		<p>OcelotService is service serve by Ocelot allow doing some actions</p>
+		<p>You have to instance it for use it.</p>
+		<h3>Create</h3>
+		<pre><code class="javascript">
+var srv = new OcelotServices();
+				</code></pre>
+		<blockquote>
+			<p>OcelotServices is a standard services like every service like you can create.</p>
+		</blockquote>
+		<h3>Method getLocale</h3>
+		<pre><code class="javascript">
+srv.getLocale():String
+				</code></pre>
+		<blockquote>
+			<p>Get user locale from server
+				Exemple</p>
+		</blockquote>
+		<pre><code class="javascript">
+srv.getLocale().then(function(loc) {
+   doSmethingWithLocale(loc);
+});
+				</code></pre>
+		<h3>Method setLocale</h3>
+		<pre><code class="javascript">
+srv.setLocale(loc:String)
+				</code></pre>
+		<blockquote>
+			<p>set user locale to server
+				Exemple</p>
+		</blockquote>
+		<pre><code class="javascript">
+srv.setLocale({"language":"fr", "country":"FR"});
+				</code></pre>
+	</div>
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'ocelot';
+		/* * * DON'T EDIT BELOW THIS LINE * * */
+		(function () {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>

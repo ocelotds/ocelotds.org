@@ -1,0 +1,103 @@
+<div class="container theme-showcase" role="main">
+	<div class="well">
+		<h2>Use frontend cache features</h2>
+		<p>Ocelot allow simple cache on front end</p>
+		<h3>Add Result to javascript Cache</h3>
+		<p>You have just annotate method that you like cache to the client.</p>
+		<pre><code class="java">
+package test;
+@DataService(resolver = ...)
+public class TestService {
+  @JsCacheResult(minute=2, keys={"a.id"})
+  public Result methodCached(A a, B b, Collection&lt;C&gt; cs) {
+     // the result of this methode will be cached on the client.
+     // The key entry is the footprint of test.TestService.methodCached(a.getId())
+     ...
+  }
+}				
+			</code></pre>
+		<h4>JsCacheResult</h4>
+		<pre><code class="java">
+/**
+ * Define where should be store the result
+ * NONE The result will not be store in cache
+ * BROWSER The result should be store in browser storage (localStorage)
+ * SESSION The result should be store in session storage (sessionStorage)
+ */
+int year() default 0;
+int month() default 0;
+int day() default 0;
+int hour() default 0;
+int minute() default 0;
+int second() default 0;
+int millisecond() default 0;
+/**
+ * Rules for parameters about key for cache, separate by coma<br>
+ * The order is important<br>
+ * use json notation.<br>
+ * '*' : use all arguments in calculating cache key<br>
+ * 'obj.id' : mean that for compute the key the value of id from argument named obj will be used.<br>
+ * Exemple {"i", "u.id", "f.name"}
+ * finally if you set nothing that means that you want to remove all result of this method without considering arguments
+ * @return set of used keys ordered
+ */
+String[] keys() default {"*"};
+			</code></pre>
+		<h3>Remove Result to javascript Cache</h3>
+		<p>Add a result in cache is easy, but sometime you want to remove cache entry before the limit date.</p>
+		<pre><code class="java">
+@DataService(resolver = ...)
+public class TestService {
+  @JsCacheRemove(cls=TestService.class, methodName="methodCached", keys={"a.id"})
+  public void doSomethingAndRemoveCache(Z z, A a) {
+     // After the success of this method all cache where the entry key is footprint of 
+     // test.TestService.methodCached(a.getId()) will be remove on all clients connected.
+     ...
+  }
+}
+			</code></pre>
+		<h3>Remove All Results in specific javascript Cache</h3>
+		<p>Add a result in cache is easy, but sometime you want to remove cache entry before the limit date.</p>
+		<pre><code class="java">
+@DataService(resolver = ...)
+public class TestService {
+  @JsCacheRemoveAll()
+  public void doSomethingAndRemoveCache(Z z, A a) {
+     // After the success of this method all cache in BROWSER will be clear
+     ...
+  }
+}
+			</code></pre>
+		<h3>Manage cache from Client</h3>
+		<p>In javascript you can use object ocelotController.cacheManager for clear all cache.</p>
+		<pre><code class="javavascript">
+ocelotController.cacheManager.clearCache();
+			</code></pre>
+		<p>Moreover, you can attach listener on cacheManager for catch events</p>
+		<pre><code class="javavascript">
+// listen add entry
+ocelotController.cacheManager.addEventListener("add", function(evt) {
+	// evt.msg : msgToClient
+});
+
+// listen remove entry
+ocelotController.cacheManager.addEventListener("remove", function(evt) {
+	// evt.msg : msgToClient
+});
+			</code></pre>
+	</div>
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'ocelot';
+		/* * * DON'T EDIT BELOW THIS LINE * * */
+		(function () {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+

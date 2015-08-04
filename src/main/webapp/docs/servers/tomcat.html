@@ -1,0 +1,77 @@
+<div class="container theme-showcase" role="main">
+	<div class="well">
+		<h2><a href="http://tomcat.apache.org/">Apache Tomcat 7/8</a></h2>
+		<h3 id="overview">Overview</h3>
+		<p>Apache Tomcat™ is an open source software implementation of the Java Servlet, JavaServer Pages, Java Expression Language and Java WebSocket technologies. The Java Servlet, JavaServer Pages, Java Expression Language and Java WebSocket specifications are developed under the Java Community Process.</p>
+
+		<h3 id="dependencies">Dependencies</h3>
+		<p>Ocelot Framework use massively cdi. So ocelot need cdi implementation for worked.<br />
+			Tomcat do not use CDI implementation, so we have to add one. We choose to add <a href="http://weld.cdi-spec.org/">Weld</a> implementation.<br />
+			TomEE use an other CDI implementation <a href="http://openwebbeans.apache.org/index.html">OpenWebBean</a>, so it’s probably possible to use it.<br />
+			Moreever we have to add json-p api and implementation.</p>
+
+		<h4 id="war-module">WAR Module</h4>
+
+		<pre><code class="xml">
+&lt;!-- IN WEB MODULE --&gt;
+&lt;!-- OCELOT --&gt;
+&lt;dependency&gt;
+   &lt;groupId&gt;org.ocelotds&lt;/groupId&gt;
+   &lt;artifactId&gt;ocelot-web&lt;/artifactId&gt;
+   &lt;version&gt;${ocelot.version}&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!-- END OCELOT --&gt;
+&lt;!-- JSONP --&gt;
+&lt;dependency&gt;
+   &lt;groupId&gt;javax.json&lt;/groupId&gt;
+   &lt;artifactId&gt;javax.json-api&lt;/artifactId&gt;
+   &lt;version&gt;1.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+   &lt;groupId&gt;org.glassfish&lt;/groupId&gt;
+   &lt;artifactId&gt;javax.json&lt;/artifactId&gt;
+   &lt;version&gt;1.0.4&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!-- END JSONP --&gt;
+&lt;!-- WELD --&gt;
+&lt;dependency&gt;
+   &lt;groupId&gt;org.jboss.weld.servlet&lt;/groupId&gt;
+   &lt;artifactId&gt;weld-servlet-core&lt;/artifactId&gt;
+   &lt;version&gt;2.2.14.Final&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!-- END WELD --&gt;
+			</code></pre>
+		<h3 id="configuration">Configuration</h3>
+		<p>CDI is not native in Tomcat, so we have to bootstrap it in the Web archive</p>
+		<h4>WAR Module</h4>
+		<h5>In web.xml</h5>
+		<pre><code class="xml">
+&lt;!-- WELD --&gt;
+&lt;listener&gt;
+   &lt;listener-class&gt;org.jboss.weld.environment.servlet.Listener&lt;/listener-class&gt;
+&lt;/listener&gt;
+&lt;resource-env-ref&gt;
+   &lt;resource-env-ref-name&gt;BeanManager&lt;/resource-env-ref-name&gt;
+   &lt;resource-env-ref-type&gt;javax.enterprise.inject.spi.BeanManager&lt;/resource-env-ref-type&gt;
+&lt;/resource-env-ref&gt;--&gt;
+			</code></pre>
+		<h5>In context.xml</h5>
+		<pre><code class="xml">
+&lt;!-- WELD --&gt;
+&lt;Resource name=&quot;BeanManager&quot; auth=&quot;Container&quot; type=&quot;javax.enterprise.inject.spi.BeanManager&quot; factory=&quot;org.jboss.weld.resources.ManagerObjectFactory&quot;/&gt;
+			</code></pre>
+	</div>
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'ocelot';
+		/* * * DON'T EDIT BELOW THIS LINE * * */
+		(function () {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>

@@ -1,0 +1,186 @@
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+<link rel="stylesheet" href="angular.css">
+<script src="angular.js"></script>
+<div class="container-fluid">
+	<div class="well col-md-4" ng-app="todoApp">
+		<img src="https://angularjs.org/img/AngularJS-large.png"/>
+		<div ng-controller="TodoListController as todoList" ng-init="init()">
+			<span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
+			[ <a href="" ng-click="todoList.archive()">archive</a> ]
+			<ul class="unstyled">
+				<li ng-repeat="todo in todoList.todos">
+					<input type="checkbox" ng-model="todo.done" ng-change="todoList.update(todo)">
+					<span class="done-{{todo.done}}">{{todo.text}}</span>
+				</li>
+			</ul>
+			<form class="form-inline" ng-submit="todoList.addTodo()">
+				<input class="form-control" type="text" ng-model="todoList.todoText"  size="30" value="{{todoList.todoText}}" placeholder="add new todo here">
+				<input class="btn btn-primary" type="submit" value="Add">
+				<input class="btn btn-primary" type="button" ng-click="todoList.refresh()" value="Refresh">
+				<input class="btn btn-danger" type="button" ng-click="todoList.init()" value="Init">
+			</form>
+		</div>
+		<div id="disqus_thread"></div>
+		<script type="text/javascript">
+            var disqus_shortname = 'ocelot';
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+               (function() {
+               var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+               })();		</script>
+		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+	</div>
+	<div class="well col-md-8">
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#about"	aria-controls="about"	role="tab" data-toggle="tab">About</a></li>
+			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">TodoServices.java</a></li>
+			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">Todo.java</a></li>
+			<li role="presentation">					<a href="#js1"		aria-controls="js1"		role="tab" data-toggle="tab">Javascript</a></li>
+			<li role="presentation">					<a href="#html1"	aria-controls="html1"	role="tab" data-toggle="tab">Html</a></li>
+		</ul>
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="about">
+				<h2><span style="color:darkred">A</span>ngular<span style="color:darkred">js</span> and <span style="color:cadetblue">O</span>celot<span style="color:cadetblue">ds</span>...</h2>
+				<p>This is demonstration improved from the web site of <a href="https://angularjs.org/">angularjs</a>.<br>With Ocelot your front end application communicate elegantly with your java back-end</p>
+				<p>Compare them from angular website and see the beautifull of <b><span style="color:cadetblue">O</span>celot<span style="color:cadetblue">ds</span>.</b></p>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="java1">
+				<pre><code class="java">
+@Singleton
+@DataService(resolver = Constants.Resolver.CDI)
+public class TodoServices {
+	private List&lt;Todo&gt; todos;
+	@PostConstruct
+	protected void init() {
+		todos = new ArrayList&lt;&gt;();
+		todos.add(new Todo("learn angular", true));
+		todos.add(new Todo("build an angular app", false));
+	}
+	public List&lt;Todo&gt; getTodos() {
+		return todos;
+	}
+	public Todo addTodo(String text) {
+		Todo todo = new Todo(text, false);
+		todos.add(todo);
+		return todo;
+	}
+	public Todo updateTodo(Todo todo) {
+		for (Todo t : todos) {
+			if (t.equals(todo)) {
+				t.setDone(todo.isDone());
+			}
+		}
+		return todo;
+	}
+	public List&lt;Todo> archive() {
+		List&lt;Todo&gt; saved = new ArrayList&lt;&gt;();
+		saved.addAll(todos);
+		todos.clear();
+		for (Todo t : saved) {
+			if (!t.isDone()) {
+				todos.add(t);
+			}
+		}
+		return todos;
+	}
+					</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="java2">
+				<pre><code class="java">
+public class Todo {
+	private String text;
+	private boolean done = false;
+
+	public String getText() {
+		return text;
+	}
+	public void setText(String text) {
+		this.text = text;
+	}
+	public boolean isDone() {
+		return done;
+	}
+	public void setDone(boolean done) {
+		this.done = done;
+	}
+}
+					</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="js1">
+				<pre><code class="js">
+angular.module('todoApp', []).controller('TodoListController', 
+['$scope', function ($scope) {
+   var todoList = this;
+   todoList.todos = [];
+   todoList.todoText = "";
+   var todoServices = new TodoServices();
+   todoList.addTodo = function () {
+      todoServices.addTodo(todoList.todoText).then(function (todo) {
+         $scope.$apply(function () {
+            todoList.todos.push(todo);
+            todoList.todoText = '';
+         });
+      }).catch(onFault);
+   };
+   todoList.remaining = function () {
+      var count = 0;
+      angular.forEach(todoList.todos, function (todo) {
+         count += todo.done ? 0 : 1;
+      });
+      return count;
+   };
+   todoList.archive = function () {
+      todoServices.archive().then(function (todos) {
+         $scope.$apply(function () {
+            todoList.todos = todos;
+        });
+      }).catch(onFault);
+   };
+   todoList.update = function (todo) {
+      todoServices.updateTodo(todo).then(function (todo) {
+      }).catch(onFault);
+   };
+   todoList.refresh = function () {
+      todoServices.getTodos().then(function (todos) {
+         $scope.$apply(function () {
+            todoList.todos = todos;
+        });
+      }).catch(onFault);
+   };
+   var onFault = function (fault) {
+      alert(fault.message + "\n" + fault.classname + "\n" + fault.stacktrace.join('\n'));
+   };
+   $scope.init = function() {
+      ocelotController.addOpenListener(function() {
+         todoList.refresh();
+      });
+   };
+}]);
+					</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="html1">
+				<pre><code class="html">
+&lt;div ng-controller="TodoListController as todoList" ng-init="init()"&gt;
+   &lt;span&gt;{{todoList.remaining()}} of {{todoList.todos.length}} remaining&lt;/span&gt;
+   [ &lt;a href="" ng-click="todoList.archive()"&gt;archive&lt;/a&gt; ]
+   &lt;ul class="unstyled"&gt;
+      &lt;li ng-repeat="todo in todoList.todos"&gt;
+         &lt;input type="checkbox" ng-model="todo.done" ng-change="todoList.update(todo)"&gt;
+         &lt;span class="done-{{todo.done}}"&gt;{{todo.text}}&lt;/span&gt;
+      &lt;/li&gt;
+   &lt;/ul&gt;
+   &lt;form ng-submit="todoList.addTodo()"&gt;
+      &lt;input type="text" ng-model="todoList.todoText"  size="30" value="{{todoList.todoText}}" placeholder="add new todo here"&gt;
+      &lt;input class="btn-primary" type="submit" value="add"&gt;
+      &lt;input class="btn-primary" type="button" ng-click="todoList.refresh()" value="refresh"&gt;
+   &lt;/form&gt;
+&lt;/div&gt;
+					</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,64 @@
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+<script src="chat.js"></script>
+<div class="container-fluid">
+	<div class="well col-md-4" ng-app="chatApp">
+		<img id="status" src="assets/ws-closed.svg" class="pull-right" alt="Websocket status"/>
+		<div ng-controller="ChatController as chatCtrl" ng-init="init()">
+			<form class="form-inline">
+				<input class="form-control" type="text" ng-model="chatCtrl.chatter" required size="30" value="{{chatCtrl.chatter}}" placeholder="Register chatter here">
+				<input class="btn btn-primary" type="button" ng-click="chatCtrl.register()" value="Register">
+				<input class="btn btn-danger" type="button" ng-click="chatCtrl.unregister()" value="Unregister">
+			</form>
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="input-group" ng-repeat="msg in chatCtrl.messages">
+						<span class="input-group-addon">{{msg.user}}</span>
+						<input type="text" class="form-control" disabled value="{{msg.text}}">
+						<span class="input-group-addon">{{msg.chatter}}</span>
+					</div>					
+				</div>
+			</div>
+			<div class="pull-right">
+				<div ng-repeat="chatter in chatCtrl.chatters">
+					<span>{{chatter}}</span>
+				</div>
+			</div>
+			<form class="form-inline" ng-submit="chatCtrl.post()">
+				<textarea class="form-control" ng-model="chatCtrl.message" value="{{chatCtrl.message}}" required placeholder="Write message here" cols="57"></textarea>
+				<input class="btn btn-primary" type="submit" value="Post">
+			</form>
+		</div>
+	</div>
+	<div class="well col-md-8">
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#about"	aria-controls="about"	role="tab" data-toggle="tab">About</a></li>
+			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">ChatServices.java</a></li>
+			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">Message.java</a></li>
+			<li role="presentation">					<a href="#js1"		aria-controls="js1"		role="tab" data-toggle="tab">Javascript</a></li>
+			<li role="presentation">					<a href="#html1"	aria-controls="html1"	role="tab" data-toggle="tab">HTml</a></li>
+		</ul>
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="about">
+			</div>
+			<div role="tabpanel" class="tab-pane" id="java1">
+				<pre><code class="java">
+					</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="java2">
+				<pre><code class="java">
+					</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="js1">
+				<pre><code class="js">
+					</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="html1">
+				<pre><code class="html">
+					</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+

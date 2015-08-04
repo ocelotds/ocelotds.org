@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<meta name="description" content="java html javascript framework communication">
+		<meta name="author" content="Francois Achache">
+		<link rel="icon" href="assets/favicon.ico">
+
+		<title>Ocelotds - Java/Javascript Communication Framework</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="%ROOT%/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Bootstrap theme -->
+		<link href="%ROOT%/css/bootstrap-theme.min.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="%ROOT%/css/theme.css" rel="stylesheet">
+
+		<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+		<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+		<script src="%ROOT%/assets/js/ie-emulation-modes-warning.js"></script>
+
+		<!-- highlight -->
+      <script src="%ROOT%/assets/js/highlight.pack.js"></script>
+      <link rel="stylesheet" href="%ROOT%/css/monokai_sublime.css">
+
+      <script src="%ROOT%/ocelot.js" type="text/javascript"></script>
+      <script src="%ROOT%/assets/js/status.js"></script>
+		
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body role="document">
+
+		<!-- Fixed navbar -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Ocelotds.org</a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">Home</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Demo<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a href="%ROOT%/demo/angularjs/angular.html">Angularjs</a></li>
+								<li><a href="%ROOT%/demo/drawing/drawing.html">Collaborative painting</a></li>
+								<li><a href="%ROOT%/demo/chat/chat.html">Chat</a></li>
+								<li><a href="%ROOT%/demo/knockout/knockout.html">Knockoutjs</a></li>
+								<li><a href="%ROOT%/demo/tests/tests.html">Test Qunit</a></li>
+							</ul>
+						</li>
+						<li><a href="%ROOT%/docs/quickstart.html">Quick start</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Documentations <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li class="dropdown-header">Servers Guide</li>
+								<li><a href="%ROOT%/docs/servers/glassfish.html">Glassfish 4</a></li>
+								<li><a href="%ROOT%/docs/servers/wildfly.html">Wildfly 9</a></li>
+								<li><a href="%ROOT%/docs/servers/tomcat.html">Tomcat 7/8</a></li>
+								<li><a href="%ROOT%/docs/servers/other.html">Other</a></li>
+								<li class="dropdown-header">Back-end Guide</li>
+								<li><a href="%ROOT%/docs/backend/ejb.html">EJB</a></li>
+								<li><a href="%ROOT%/docs/backend/cdi.html">CDI</a></li>
+								<li><a href="%ROOT%/docs/backend/spring.html">Spring</a></li>
+								<li><a href="%ROOT%/docs/backend/cache.html">Cache features</a></li>
+								<li><a href="%ROOT%/docs/backend/push.html">Notification Features</a></li>
+								<li><a href="%ROOT%/docs/backend/security.html">Security</a></li>
+								<li><a href="%ROOT%/docs/backend/i18n.html">i18n</a></li>
+								<li><a href="%ROOT%/docs/backend/advanced.html">Advanced</a></li>
+								<li class="dropdown-header">Front-end Guide</li>
+								<li><a href="%ROOT%/docs/frontend/html.html">Html/js</a></li>
+								<li><a href="%ROOT%/docs/frontend/ocelotsrv.html">ocelotServices</a></li>
+								<li><a href="%ROOT%/docs/frontend/ocelotctrl.html">ocelotController</a></li>
+								<li><a href="%ROOT%/docs/frontend/ocelotpromise.html">ocelotPromise</a></li>
+								<li><a href="%ROOT%/docs/frontend/objects.html">Objects</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="%ROOT%/docs/extends.html">Extend Ocelot.ds</a></li>
+							</ul>
+						</li>
+						<li><a href="%ROOT%/contact">Contact</a></li>
+					</ul>
+					<form class="navbar-form navbar-right" method="GET" action="https://www.google.com/search">
+						<input type="text" name="as_q" class="form-control" placeholder="Search...">
+						<input type="hidden" name="as_sitesearch" value="ocelotds.org">
+					</form>
+					<img id="status" src="%ROOT%/assets/ws-closed.svg" class="pull-right" alt="Websocket status"/>
+				</div><!--/.nav-collapse -->
+			</div>
+		</nav>

@@ -1,0 +1,42 @@
+<div class="container theme-showcase" role="main">
+	<div class="well">
+		<h2><a href="https://glassfish.java.net/">Glassfish 4</a></h2>
+		<h3>Overview</h3>
+		<p>GlassFish Server Open Source Edition is a Java EE compatible application server that is developed by Oracle and the GlassFish community using an open source license. The Java EE Reference Implementation is a subset of GlassFish, and therefore the GlassFish roadmap is closely tied to Java EE releases. GlassFish Server is typically released with support for the latest Java EE platform release shortly when the platform has been released, well ahead of other application server implementations.</p>
+		<p>Glassfish is the easiest way to use Ocelot, cause everything is in glassfish with lastest reference implementation. Also, just add ocelot dependencies, and use it.</p>
+		<h3>Dependencies</h3>
+		<h4>JAR Module</h4>
+		<pre><code class="xml">
+&lt;!-- IN EJB MODULE --&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.ocelotds&lt;/groupId&gt;
+	&lt;artifactId&gt;ocelot-core&lt;/artifactId&gt;
+	&lt;version&gt;${ocelot.version}&lt;/version&gt;
+&lt;/dependency&gt;
+			</code></pre>
+		<h4>WAR Module</h4>
+		<pre><code class="xml">
+&lt;!-- IN WEB MODULE --&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.ocelotds&lt;/groupId&gt;
+	&lt;artifactId&gt;ocelot-web&lt;/artifactId&gt;
+	&lt;version&gt;${ocelot.version}&lt;/version&gt;
+&lt;/dependency&gt;
+			</code></pre>
+		<h3>Configuration</h3>
+		<p>Nothing... :-)</p>
+	</div>
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'ocelot';
+		/* * * DON'T EDIT BELOW THIS LINE * * */
+		(function () {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>

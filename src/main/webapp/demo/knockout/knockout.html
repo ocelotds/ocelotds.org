@@ -1,0 +1,74 @@
+<script src="http://knockoutjs.com/downloads/knockout-3.3.0.js"></script>
+<div class="container-fluid">
+	<div class="well col-md-4">
+		<h2>Live example</h2>
+		<img src="http://knockoutjs.com/img/ko-logo.png"/>
+		<div id="liveExample">
+			<p>
+				Choose a ticket class:
+				<select data-bind="options: tickets, optionsCaption: 'Choose...', optionsText: 'name', value: chosenTicket"></select>
+				<button data-bind="enable: chosenTicket, click: resetTicket">Clear</button>
+			</p>                   
+			<p data-bind="with: chosenTicket">
+				You have chosen <b data-bind="text: name"></b>
+				($<span data-bind="text: price"></span>)    
+			</p>
+		</div>
+	</div>
+	<div class="well col-md-8">
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#about"	aria-controls="about"	role="tab" data-toggle="tab">About</a></li>
+			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">TodoServices.java</a></li>
+			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">Todo.java</a></li>
+			<li role="presentation">					<a href="#js1"		aria-controls="js1"		role="tab" data-toggle="tab">Javascript</a></li>
+			<li role="presentation">					<a href="#html1"	aria-controls="html1"	role="tab" data-toggle="tab">Html</a></li>
+		</ul>
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="about">
+			</div>
+			<div role="tabpanel" class="tab-pane" id="java1">
+				<pre><code class="java">
+				</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="java2">
+				<pre><code class="java">
+					</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="js1">
+				<pre><code class="js">
+function TicketsViewModel() {
+	var ticketServices = new TicketServices();
+	var model = this;
+	model.tickets = ko.observableArray([]);
+	model.chosenTicket = ko.observable();
+	model.resetTicket = function () {
+		this.chosenTicket(null);
+	};
+	var onFault = function (fault) {
+		alert(fault.message + "\n" + fault.classname + "\n" + fault.stacktrace.join('\n'));
+	};
+	model.loadTickets = function () {
+		ticketServices.getTickets().then(function (tickets) {
+			model.tickets.remove(function(item) { return true;});
+			for (var key in tickets){
+				model.tickets.push(tickets[key]);
+			}
+		}).catch(onFault);
+	};
+	model.loadTickets();
+}
+ocelotController.addOpenListener(function (event) {
+	ko.applyBindings(new TicketsViewModel(), document.getElementById("liveExample"));
+});
+			</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="html1">
+				<pre><code class="html">
+				</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="knockout.js"></script>
