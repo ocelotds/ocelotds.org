@@ -19,8 +19,8 @@
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#about"	aria-controls="about"	role="tab" data-toggle="tab">About</a></li>
-			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">TodoServices.java</a></li>
-			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">Todo.java</a></li>
+			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">TicketServices.java</a></li>
+			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">Ticket.java</a></li>
 			<li role="presentation">					<a href="#js1"		aria-controls="js1"		role="tab" data-toggle="tab">Javascript</a></li>
 			<li role="presentation">					<a href="#html1"	aria-controls="html1"	role="tab" data-toggle="tab">Html</a></li>
 		</ul>
@@ -30,10 +30,47 @@
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java1">
 				<pre><code class="java">
+@Singleton
+@DataService(resolver = Constants.Resolver.CDI)
+public class TicketServices {
+	private List&lt;Ticket&gt; tickets;
+	@PostConstruct
+	private void init() {
+		tickets = new ArrayList&lt;&gt;();
+		tickets.add(new Ticket("Economy", 199.95));
+		tickets.add(new Ticket("Business", 449.22));
+		tickets.add(new Ticket("First Class", 1199.99));
+	}
+	public List&lt;Ticket&gt; getTickets() {
+		return tickets;
+	}
+}
 				</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java2">
 				<pre><code class="java">
+public class Ticket {
+	private String name;
+	private double price;
+	public Ticket(String name, double price) {
+		this.name = name;
+		this.price = price;
+	}
+	public Ticket() {
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+}
 					</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="js1">

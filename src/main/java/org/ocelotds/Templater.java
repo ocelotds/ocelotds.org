@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @WebFilter(filterName = "Templater", urlPatterns = {"*.html", "/"})
 public class Templater implements Filter {
+
 	/**
 	 *
 	 * @param request The servlet request we are processing
@@ -34,19 +35,30 @@ public class Templater implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest servletRequest = HttpServletRequest.class.cast(request);
-
+		String pageRequested = servletRequest.getRequestURI();
 		InputStream before = request.getServletContext().getResourceAsStream("/templates/before.html");
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(before, "UTF-8"))) {
-			while(reader.ready()) {
-				response.getWriter().println(reader.readLine().replaceAll("%ROOT%", servletRequest.getContextPath()));
+			while (reader.ready()) {
+				String line = reader.readLine();
+				if (line != null) {
+					line = line.replaceAll("%ROOT%", servletRequest.getContextPath());
+					if (line.contains("\""+pageRequested+"\"")) {
+						line = line.replace("<li", "<li class='active'");
+					}
+					response.getWriter().println(line);
+				}
 			}
 		}
 		chain.doFilter(request, response);
 
 		InputStream after = request.getServletContext().getResourceAsStream("/templates/after.html");
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(after, "UTF-8"))) {
-			while(reader.ready()) {
-				response.getWriter().println(reader.readLine().replaceAll("%ROOT%", servletRequest.getContextPath()));
+			while (reader.ready()) {
+				String line = reader.readLine();
+				if (line != null) {
+					line = line.replaceAll("%ROOT%", servletRequest.getContextPath());
+					response.getWriter().println(line);
+				}
 			}
 		}
 	}

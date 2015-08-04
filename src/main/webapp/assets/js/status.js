@@ -1,11 +1,17 @@
 ocelotController.addOpenListener(function () {
    new OcelotServices().subscribe("ocelot-status").message(function (msg) {
-      var status = document.getElementById("status");
-      if (msg === "OPEN") {
-         status.src="assets/ws-opened.svg";
-      } else {
-         status.src="assets/ws-closed.svg";
+      var statusText = document.getElementById("status-text");
+      var statusColor = document.getElementById("status-color");
+      var statusTextShadow = document.getElementById("status-text-shadow");
+      var color = "#97CA00";
+      var status = "opened";
+      if (msg !== "OPEN") {
+         status = "closed";
+         color = "#e05d44";
       }
+      statusColor.setAttribute("fill", color);
+      statusText.innerHTML = status;
+      statusTextShadow.innerHTML = status;
    });
 });
 
