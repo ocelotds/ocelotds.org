@@ -1,47 +1,15 @@
 <div class="container theme-showcase" role="main">
 	<div class="well">
 		<h2>Advanced</h2>
-		<h3>Launch services at document loading</h3>
-		<p>Understand that ocelot framework is completly asynchronous.<br />
-			So if you try to call server before the connection is etablished, there will be probably a problem.<br />
-			For fix this problem (not really one) the ocelotController have a method for add handlers for when the connection is ready.<br />
-			It’s particulary usefull for javascript testing for exemple with <a href="http://qunitjs.com/">Qunit</a></p>
-		<pre><code class="javascript">
-ocelotController.addOpenListener(function() {
-   QUnit.test("Test MyService", function (assert) {
-      var done = assert.async();
-      var srv = new MyService();
-      srv.getMessage(5).Then(function (msg) {
-         assert.equal(msg, "expected");
-         done();
-      });
-   };
+		<h3>Hide method to the front-end</h3>
+		<p>As said previously, adding annotation <b>@DataService(resolver = "RESOLVERID")</b> expose all public methods to the front-end.<br/>
+			But sometimes, you have to hide methods for many reasons.<br/>
+			Hide it, just add an annotation @TransientDataService.</p>
+		<pre><code class="java">
+@TransientDataService
+public void methodNotExposed() {
 }
-			</code></pre>
-		<h2>Optional configuration</h2>
-		<h3>minify/magnify javascript</h3>
-		<p>By default javascript ocelot serves ocelot.js minified<br />
-			This is usefull for preserve the band width.<br />
-			You can read them to magnify them.<br />
-			In you html page add javascript with minify option for switch mode</p>
-		<pre><code class="html">
-&lt;body&gt;
-   &lt;script src="ocelot.js?minify=false" type="text/javascript"&gt;&lt;/script&gt;
-			</code></pre>
-		<h3>configure stacktrace size sent to client</h3>
-		<p>In your web project, you can specify the size of stacktrace sent on client side.<br />
-			The default value is <strong>50</strong><br />
-			If you set <strong>0</strong> the stacktrace will be flush in backend logger.<br />
-			In deed, you can internationalize the error message easily. Show i18n section <a href="https://github.com/hhdevelopment/ocelot/wiki/i18n">i18n</a>.<br />
-			But for debugging, it’s usefull to get the full stacktrace throwed from back-end.<br />
-			Limit the size in production environnement for preserve the cpu.<br />
-			Add section in the standard web descriptor <strong>web.xml</strong></p>
-		<pre><code class="xml">
-&lt;context-param&gt;
-   &lt;param-name>ocelot.stacktrace.length&lt;/param-name&gt;
-   &lt;param-value>50&lt;/param-value&gt;
-&lt;/context-param&gt;
-			</code></pre>
+		</code></pre>
 	</div>
 	<div id="disqus_thread"></div>
 	<script type="text/javascript">

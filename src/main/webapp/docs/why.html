@@ -2,9 +2,9 @@
 
 	<h2>What Ocelot do ?</h2>
 
-	<p>Actually, when you write java back-end and javascript front-end, you probably something like that :</p>
+	<p>Actually, when you write java back-end and javascript front-end, you probably do something like that :</p>
 
-	<p>You write your business layer like it :</p>
+	<p>You write your business layer :</p>
 
 	<pre><code class="java">
 public class MyObject {  
@@ -21,8 +21,8 @@ public class MyService { // EJB, CDI, Spring
 }
 	</code></pre>
 
-	<p>But at that time, your service is not reachable from the front-end.<br />
-		So You have to write a web component for access it, for example with JAX-RS REST Service.  </p>
+	<p>But at this time, your service is not reachable from the front-end.<br />
+		So You have to write a web component for access it, for example a JAX-RS REST Service.  </p>
 
 	<pre><code class="java">
 @Path("/myservice")
@@ -58,12 +58,13 @@ req.send("{\"prop1\":\"foo\",\"prop2\":true}");
 	<h2>About the previous code :</h2>
 	<ul>
 		<li>You have to write a REST service, but it not business code, it’s boilerplate code.  </li>
-		<li>For access to the REST, Event with the helper, it’s not really developper friendly.</li>
+		<li>For access to the REST, Even with the helper, it’s not really developper friendly and really different of code that you write in java.</li>
+		<li><b>And you have to do that for all methods that you want expose to the front-end.</b></li>
 	</ul>
 
-	<p>Ascertainment, it will be nicer if we could write in javascript the samething that in Java.  </p>
+	<p>Finally, it should be nicer if we could write a similar javascript code to Java code.  </p>
 
-	<h2>Now with Ocelot</h2>
+	<h2>Now with Ocelotds</h2>
 	<p>So You write your business layer like previously :  </p>
 
 	<pre><code class="java">
@@ -73,10 +74,10 @@ public class MyObject {
 }
 	</code></pre>
 
-	<p>Just add an annotation indicate the service is exposed on the web layer, and the proper resolver</p>
+	<p>Just add an annotation indicate all publics methods are exposed on the web layer, and the proper resolver</p>
 
 	<pre><code class="java">
-@DataService(resolver = Constants.Resolver...) // use the correct resolver
+<b class="cc" title="This annotation expose all publics methods to the front-end.">@DataService(resolver = Constants.Resolver...)</b> // use the correct resolver
 public class MyService { // EJB, CDI, Spring
    public Result getResult(String str, MyObject arg2) {
       ...
@@ -87,23 +88,23 @@ public class MyService { // EJB, CDI, Spring
 	<p>For java layer, it’s finish. Now in javascript : </p>
 
 	<pre><code class="javascript">
-var srv = new MyService(); // You wrote MyService in java, you use MyService in javascript, marvelous
+var srv = <b class="cc" title="MyService, as in java...">new MyService()</b>; // You wrote MyService in java, you use MyService in javascript, marvelous
 srv.getResult("foo", {"prop1":"foo","prop2":true}).then(function(res) {
    // do something with res
 });
 	</code></pre>
 
 	<p>That’s all, you front-end communicate elegantly with the back-end, with less boilerplate codes.
-		Ocelot framework allow to call differents services directly from simple classes methods call, like you can do in the backend.</p>
+		Ocelot framework allow to call differents services directly from simple classes methods call, like you can do in the back-end.</p>
 
 	<p>And more : </p>
 
 	<p>Ocelot use one bidirection connection websocket.</p>
 
 	<p>Ocelot allow to implement the Message driven bean paragdim but for javascript with topic destination.
-		For push message/object to the client.</p>
+		For push message/object to the client. See <a href="backend/push.html">Notifications Features</a> for details</p>
 
-	<p>Ocelot allow a simple cache on browser.</p>
+	<p>Ocelot allow a simple cache on browser. See <a href="backend/cache.html">Cache Features</a> for details</p>
 
 	<p>Enjoy…</p>
 	<div id="disqus_thread"></div>

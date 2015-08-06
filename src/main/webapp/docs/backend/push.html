@@ -3,6 +3,8 @@
 		<h2>Notifications</h2>
 		<p>Message Driven bean features, can be used to implement a mecanism for push message from server to a client.<br />
 			For exemple a chat or notify something to the client.</p>
+		<p>Publish and Subscribe-Messages are broadcast to all registered listeners through Topics. </p>
+		<img src="../../assets/topic.jpg" alt="topic schema"/>
 		<h3>In Javascript</h3>
 		<h4>Subscribe to topic on front-end (javascript)</h4>
 		<p>In javascript, create <strong>Subscriber</strong></p>
@@ -25,7 +27,7 @@ sub.unsubscribe().then(function() {
 });
 			</code></pre>
 		<h3>In Java</h3>
-		<h4>Publish for all subscribers</h4>
+		<h4>Expose method for publish payload to all subscribers</h4>
 		<p>Just annotate java class method with @JsTopic</p>
 		<pre><code class="java">
 @DataService(resolver = Constants.Resolver.CDI)
@@ -35,7 +37,7 @@ public class MessageServices {
       return message;
    }
 ...
-			</code></pre>
+		</code></pre>
 		<p>Call method from javascript</p>
 		<pre><code class="javascript">
 new MessageServices().publish(message).then(function() {
@@ -43,14 +45,14 @@ new MessageServices().publish(message).then(function() {
 }).catch(function(fault) {
    // send fail
 });
-			</code></pre>
+		</code></pre>
 		<p>You can use dynamic topicname with @JsTopicName</p>
 		<pre><code class="java">
 @JsTopic
 public String publishToTopic(String message, @JsTopicName topic) {
    return message;
 }
-			</code></pre>
+		</code></pre>
 		<p>Call method from javascript</p>
 		<pre><code class="javascript">
 new MessageServices().publish(message, topic).then(function() {
@@ -58,7 +60,7 @@ new MessageServices().publish(message, topic).then(function() {
 }).catch(function(fault) {
    // send fail
 });
-			</code></pre>
+		</code></pre>
 		<h3>Advanced features</h3>
 		<p>Listen subscribers number</p>
 		<p>When you use previous features, you can listen a special topic for know how many subscribers are connected</p>
@@ -72,7 +74,7 @@ var sub = new Subscriber("subscribers:mytopic").then(function() {
    doSomethingWithMsg(payload); // payload in json : object format
 });
 
-			</code></pre>
+		</code></pre>
 		<h3>Publish message from backend java</h3>
 		<p>In java, publish message to all subcriber clients</p>
 		<pre><code class="java">
@@ -85,7 +87,7 @@ public void publish() {
 	messageToClient.setResult("Message From server"); // You can send all serializable objects
 	wsEvent.fire(messageToClient);
 }
-			</code></pre>
+		</code></pre>
 	</div>
 	<div id="disqus_thread"></div>
 	<script type="text/javascript">

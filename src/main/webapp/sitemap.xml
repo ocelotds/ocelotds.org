@@ -76,6 +76,12 @@
 		<changefreq>daily</changefreq>
 	</url>
 	<url>
+		<loc>http://www.ocelotds.org/docs/backend/advanced.html</loc>
+		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
+		<priority>0.99</priority>
+		<changefreq>daily</changefreq>
+	</url>
+	<url>
 		<loc>http://www.ocelotds.org/docs/backend/ejb.html</loc>
 		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
 		<priority>0.99</priority>
@@ -118,7 +124,7 @@
 		<changefreq>daily</changefreq>
 	</url>
 	<url>
-		<loc>http://www.ocelotds.org/docs/backend/advanced.html</loc>
+		<loc>http://www.ocelotds.org/docs/frontend/advanced.html</loc>
 		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
 		<priority>0.99</priority>
 		<changefreq>daily</changefreq>
