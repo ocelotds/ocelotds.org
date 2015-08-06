@@ -10,7 +10,7 @@
    &lt;artifactId&gt;ocelot-web&lt;/artifactId&gt;
    &lt;version&gt;${ocelot.version}&lt;/version&gt;
 &lt;/dependency&gt;
-			</code></pre>
+		</code></pre>
 		<h4>For EAR Package</h4>
 		<p>Add <em>ocelot-core</em> dependency in your maven ejb module project</p>
 		<pre><code class="xml">
@@ -19,7 +19,7 @@
    &lt;artifactId&gt;ocelot-core&lt;/artifactId&gt;
    &lt;version&gt;${ocelot.version}&lt;/version&gt;
 &lt;/dependency&gt;
-			</code></pre>
+		</code></pre>
 		<p>Add <em>ocelot-web</em> dependency in your maven web module project</p>
 		<pre><code class="xml">
 &lt;dependency&gt;
@@ -27,7 +27,7 @@
    &lt;artifactId&gt;ocelot-web&lt;/artifactId&gt;
    &lt;version&gt;${ocelot.version}&lt;/version&gt;
 &lt;/dependency&gt;
-			</code></pre>
+		</code></pre>
 		<p>Don’t add anything else in ear pom.xml_ (except your own dependencies). Add ocelot only in ejb.jar modules and web.war module, only one web module.</p>
 		<h3>beans.xml</h3>
 		<p>In all modules, web and ejb add bean.xml.</p>
@@ -40,7 +40,7 @@
        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
        bean-discovery-mode="all"&gt;
 &lt;/beans&gt;
-			</code></pre>
+		</code></pre>
 		<p>In web module add beans.xml in src/main/webapp/WEB-INF</p>
 		<p>In ejb module add beans.xml in src/main/resources/META-INF</p>
 		<h3 id="annotate-classe-service">Annotate classe service</h3>
@@ -49,7 +49,7 @@
 @Stateless
 @DataService(resolver = Constants.Resolver.EJB)
 public class TestEJBService {
-			</code></pre>
+		</code></pre>
 		<h3>If you need services be cached on client annotate method</h3>
 		<pre><code class="java">
 @Stateless
@@ -59,7 +59,7 @@ public class TestEJBService {
    @JsCacheResult(minute=2)
    String getMessageCached() {...} // this service will be cached during 2 minute on the client
 }
-			</code></pre>
+		</code></pre>
 		<h3>For remove cache from front-end just call method annotated with cache method information</h3>
 		<pre><code class="java">
 @Stateless
@@ -71,14 +71,14 @@ public class TestEJBService {
    @JsCacheRemove(cls = TestEJBService.class, methodName = "getMessageCached")
    String addMessage(String newEntry) {...} // this service will remove the cache on all client
 }
-			</code></pre>
+		</code></pre>
 		<p>Compilation generate javascript stub by introspection of annotated classes</p>
 		<h3>Add Framework to html</h3>
 		<p>Add core and generated services in html page (those scripts are provided by ocelot servlets)</p>
 		<pre><code class="html">
 &lt;body&gt;
 	&lt;script src="ocelot.js" type="text/javascript"&gt;&lt;/script&gt;
-			</code></pre>
+		</code></pre>
 		<h3>Use it</h3>
 		<p>Use services directly in your code</p>
 		<pre><code class="javascript">
@@ -98,7 +98,7 @@ srv.getMessage(Math.floor(Math.random()*10)).event(function (evt) {
 }).catch(function (fault) {
    doSomethingWithFault(fault);
 });
-			</code></pre>
+		</code></pre>
 		<h3 id="notifications">Notifications</h3>
 		<p>Message Driven bean features, can be used to implement a chat for example or notify something to the client.</p>
 		<h4>create TopicConsumer</h4>
@@ -117,7 +117,7 @@ sub.unsubscribe().then(function (res) {
 }).catch(function (f) {
    unsubscriptionNok();
 });
-			</code></pre>
+		</code></pre>
 		<h4 id="publish-message">publish message</h4>
 		<p>In java, publish message to all subcriber clients</p>
 		<pre><code class="java">
@@ -131,7 +131,7 @@ sub.unsubscribe().then(function (res) {
 		messageToClient.setResult("Message From server");
 		wsEvent.fire(messageToClient);
 	}
-			</code></pre>
+		</code></pre>
 	</div>
 	<div id="disqus_thread"></div>
 	<script type="text/javascript">

@@ -1,5 +1,4 @@
 'use strict';
-ocelotController.cacheManager.clearCache();
 ocelotController.addOpenListener(function () {
    var subCanvasEvent, canvas, context, pencil,
       drawingServices = new DrawingServices();
@@ -8,8 +7,8 @@ ocelotController.addOpenListener(function () {
       mousedown: function (ev) {
          context.beginPath();
          context.moveTo(ev.x, ev.y);
-         canvas.addEventListener('mousemove', sendMouseMove, false);
-         canvas.addEventListener('mouseup', sendMouseUp, false);
+         canvas.addEventListener('mousemove', sendMouseEvent, false);
+         canvas.addEventListener('mouseup', sendMouseEvent, false);
       },
       mousemove: function (ev) {
          context.lineTo(ev.x, ev.y);
@@ -17,8 +16,8 @@ ocelotController.addOpenListener(function () {
       },
       mouseup: function (ev) {
          this.mousemove(ev);
-         canvas.removeEventListener('mousemove', sendMouseMove);
-         canvas.removeEventListener('mouseup', sendMouseUp);
+         canvas.removeEventListener('mousemove', sendMouseEvent);
+         canvas.removeEventListener('mouseup', sendMouseEvent);
       }
    };
    // Get the 2D canvas context.
@@ -29,7 +28,7 @@ ocelotController.addOpenListener(function () {
    }
    context = canvas.getContext('2d');
    // Attach mouse event listeners for send to back-end
-   canvas.addEventListener('mousedown', sendMouseDown, false);
+   canvas.addEventListener('mousedown', sendMouseEvent, false);
    // Subscribe Topic
    new Subscriber("subscribers:eventCanvas").message(function (nb) {
       document.getElementById("subscribersNumber").innerHTML = nb;
@@ -37,13 +36,7 @@ ocelotController.addOpenListener(function () {
    subCanvasEvent = new Subscriber("eventCanvas").message(function (evt) {
       pencil[evt.type](evt);
    });
-   function sendMouseDown(ev) {
-      drawingServices.pushCanvasEvent({"x": ev.offsetX, "y": ev.offsetY, "type": ev.type});
-   }
-   function sendMouseMove(ev) {
-      drawingServices.pushCanvasEvent({"x": ev.offsetX, "y": ev.offsetY, "type": ev.type});
-   }
-   function sendMouseUp(ev) {
+   function sendMouseEvent(ev) {
       drawingServices.pushCanvasEvent({"x": ev.offsetX, "y": ev.offsetY, "type": ev.type});
    }
 });

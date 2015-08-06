@@ -2,31 +2,36 @@
 <script src="chat.js"></script>
 <div class="container-fluid">
 	<div class="well col-md-4" ng-app="chatApp">
-		<img id="status" src="assets/ws-closed.svg" class="pull-right" alt="Websocket status"/>
+		<div style="height:130px;">
+			<img class="logo pull-left" title="Ocelotds" src="../../assets/ocelot_128x128.png" alt="Ocelotds"/>
+			<img src="https://angularjs.org/img/AngularJS-large.png" width="200" alt="Angularjs" style="padding-top: 30px"/>
+		</div>
 		<div ng-controller="ChatController as chatCtrl" ng-init="init()">
-			<form class="form-inline">
-				<input class="form-control" type="text" ng-model="chatCtrl.chatter" required size="30" value="{{chatCtrl.chatter}}" placeholder="Register chatter here">
-				<input class="btn btn-primary" type="button" ng-click="chatCtrl.register()" value="Register">
-				<input class="btn btn-danger" type="button" ng-click="chatCtrl.unregister()" value="Unregister">
-			</form>
-			<div class="row">
-				<div class="col-lg-8">
-					<div class="input-group" ng-repeat="msg in chatCtrl.messages">
-						<span class="input-group-addon">{{msg.user}}</span>
-						<input type="text" class="form-control" disabled value="{{msg.text}}">
-						<span class="input-group-addon">{{msg.chatter}}</span>
-					</div>					
+			<div class="col-md-10">
+				<form class="navbar-form form-inline">
+					<input class="form-control" type="text" ng-model="chatCtrl.chatter" required size="20" value="{{chatCtrl.chatter}}" placeholder="Register chatter here">
+					<button class="btn btn-success fa fa-user-plus {{chatCtrl.registerOn}}" ng-click="chatCtrl.register()" title="Register"></button>
+					<button class="btn btn-warning fa fa-user-times {{chatCtrl.unregisterOn}}" ng-click="chatCtrl.unregister()" title="Unregister"></button>
+				</form>
+				<div class="chatmsg" ng-repeat="msg in chatCtrl.messages" style="padding:0px">
+					<div class="popover {{msg.pos}}">
+						<div class="arrow"></div>
+						<h3 class="popover-title">{{msg.chatter}}</h3>
+						<div class="popover-content">
+							<p>{{msg.text}}</p>
+						</div>
+					</div>
 				</div>
+				<form class="form-inline">
+					<textarea class="form-control" ng-model="chatCtrl.message" value="{{chatCtrl.message}}" required placeholder="Write message here" cols="40"></textarea>
+					<button class="btn btn-primary {{chatCtrl.unregisterOn}} fa fa-envelope" ng-click="chatCtrl.post()"></button>
+				</form>
 			</div>
-			<div class="pull-right">
+			<div class="col-md-2">
 				<div ng-repeat="chatter in chatCtrl.chatters">
 					<span>{{chatter}}</span>
 				</div>
 			</div>
-			<form class="form-inline" ng-submit="chatCtrl.post()">
-				<textarea class="form-control" ng-model="chatCtrl.message" value="{{chatCtrl.message}}" required placeholder="Write message here" cols="57"></textarea>
-				<input class="btn btn-primary" type="submit" value="Post">
-			</form>
 		</div>
 	</div>
 	<div class="well col-md-8">
@@ -36,27 +41,174 @@
 			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">ChatServices.java</a></li>
 			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">Message.java</a></li>
 			<li role="presentation">					<a href="#js1"		aria-controls="js1"		role="tab" data-toggle="tab">Javascript</a></li>
-			<li role="presentation">					<a href="#html1"	aria-controls="html1"	role="tab" data-toggle="tab">HTml</a></li>
+			<li role="presentation">					<a href="#html1"	aria-controls="html1"	role="tab" data-toggle="tab">Html</a></li>
 		</ul>
 		<!-- Tab panes -->
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane active" id="about">
+				<h2>About demo : <span style="color:darkred">A</span>ngular<span style="color:darkred">js</span> and <span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>...</h2>
+				<p>This is an other demonstration base on <a href="https://angularjs.org/">angularjs</a>.<br>With Ocelot your front end application communicate elegantly with your java back-end</p>
+				<p>This show how to implement a simple chat.</p>
+				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java1">
+				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<pre><code class="java">
-					</code></pre>
+@Singleton
+<b class="cc" title="Annotate service for expose it to the front-end">@DataService(resolver = Constants.Resolver.CDI)</b>
+public class ChatServices {
+   private static final Collection&lt;String&gt; chatters = new ArrayList&lt;&gt;();
+   // Register chatter and broadcast chatters updater list to Chatters topic subscribers
+   @JsTopic("Chatters")
+   public Collection&lt;String&gt; register(String chatter) throws ChatterAlreadyExistException, ChatterInconsistentException {
+      if (null == chatter || chatter.isEmpty()) {
+         throw new ChatterInconsistentException("empty");
+      }
+      if (chatters.contains(chatter)) {
+         throw new ChatterAlreadyExistException(chatter);
+      }
+      chatters.add(chatter);
+      return chatters;
+   }
+
+   // Unregister chatter and broadcast chatters updater list to Chatters topic subscribers
+   @JsTopic("Chatters")
+   public Collection&lt;String&gt; unregister(String chatter) {
+      if (chatters.contains(chatter)) {
+         chatters.remove(chatter);
+      }
+      return chatters;
+   }
+   
+   // Post message and broadcast to all ChatRoom topic subscribers 
+   @JsTopic("ChatRoom")
+   public Message postMessage(Message message) throws MessageInconsistentException {
+      if (null == message || message.getChatter() == null || message.getText()==null || message.getChatter().isEmpty() || message.getText().isEmpty()) {
+         throw new MessageInconsistentException();
+      }
+      return message;
+   }
+}
+			</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java2">
+				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<pre><code class="java">
-					</code></pre>
+public class Message {
+	public String chatter;
+	public String text;
+	public String getChatter() {
+		return chatter;
+	}
+	public void setChatter(String chatter) {
+		this.chatter = chatter;
+	}
+	public String getText() {
+		return text;
+	}
+	public void setText(String text) {
+		this.text = text;
+	}
+}
+			</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="js1">
+				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<pre><code class="js">
-					</code></pre>
+angular.module('chatApp', []).controller('ChatController', ['$scope', function ($scope) {
+   var chatCtrl = this, <b class="cc" title="Get ChatServices java service">chatServices = new ChatServices();</b>
+   chatCtrl.chatters = [], chatCtrl.messages = [], 
+   chatCtrl.chatter = "", chatCtrl.message = "", 
+   chatCtrl.subChatRoom, chatCtrl.subChatters, 
+   chatCtrl.registerOn = "", chatCtrl.unregisterOn = "disabled";
+   chatCtrl.unregister = function () {
+      <b class="cc" title="Call ChatServices.unregister(String chatter) java service&#013;Directly, as you would if you were in java side.">chatServices.unregister(chatCtrl.chatter)</b>.<b class="cc" title="Handle method return">then</b>(function () {
+         $scope.$apply(function () {
+            chatCtrl.registerOn = "";
+            chatCtrl.unregisterOn = "disabled";
+            chatCtrl.subChatRoom.unsubscribe();
+            chatCtrl.subChatters.unsubscribe();
+            chatCtrl.chatters = [];
+         });
+      }).<b class="cc" title="Handle method exceptions">catch</b>(onFault);
+   };
+   chatCtrl.register = function () {
+      <b class="cc" title="Subcribe to topic 'Chatters' and receive list chatters by.">chatCtrl.subChatters = new Subscriber("Chatters")</b>.<b class="cc" title="Receive messages from topic 'Chatters'">message</b>(function (<b class="cc" title="Message payload from topic 'Chatters'">list</b>) {
+         $scope.$apply(function () {
+            chatCtrl.chatters = list;
+         });
+      });
+      <b class="cc" title="Call ChatServices.register(String chatter) java service&#013;Directly, as you would if you were in java side.">chatServices.register(chatCtrl.chatter)</b>.<b class="cc" title="Handle method return">then</b>(function () {
+         $scope.$apply(function () {
+            chatCtrl.registerOn = "disabled";
+            chatCtrl.unregisterOn = "";
+            chatCtrl.subChatRoom = <b class="cc" title="When user is registered, subscribes to 'ChatRoom'.">new Subscriber("ChatRoom")</b>.<b class="cc" title="Receive messages from topic 'ChatRoom'">message</b>(<b class="cc" title="Message payload from topic 'ChatRoom', the message">msg</b>) {
+               $scope.$apply(function () {
+                  msg.pos = "left";
+                  if (msg.chatter === chatCtrl.chatter) {
+                     msg.pos = "right";
+                  }
+                  chatCtrl.messages.push(msg);
+               });
+            });
+         });
+      }).catch(onFault);
+   };
+   chatCtrl.post = function () {
+      if (chatCtrl.message) {
+         <b class="cc" title="Call ChatServices.postMessage(Message message) java service&#013;Directly, as you would if you were in java side.">chatServices.postMessage({"chatter": chatCtrl.chatter, "text": chatCtrl.message})</b>.<b class="cc" title="Handle method return">then</b>(function () {
+            $scope.$apply(function () {
+               chatCtrl.message = "";
+            });
+         }).catch(onFault);
+      }
+   };
+   var onFault = function (<b class="cc" title="Fault object from ocelotds">fault</b>) {
+      alert(fault.message + "\n" + fault.classname + "\n" + fault.stacktrace.join('\n'));
+   };
+   $scope.init = function () {
+      <b class="cc" title="Do something when websocket is ready">ocelotController.addOpenListener</b>(function() {
+	      <b class="cc" title="Do something when websocket is ready">ocelotController.addCloseListener</b>(function() {
+            <b class="cc" title="Call ChatServices.unregister(String chatter) java service&#013;Directly, as you would if you were in java side.">chatServices.unregister(chatCtrl.chatter)</b>.then(function () {});
+         });
+      });
+   };
+}]);
+			</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="html1">
+				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<pre><code class="html">
-					</code></pre>
+&lt;div class="well" ng-app="chatApp"&gt;
+   &lt;div ng-controller="ChatController as chatCtrl" ng-init="init()"&gt;
+      &lt;div class="col-md-10"&gt;
+         &lt;form class="navbar-form form-inline"&gt;
+            &lt;input class="form-control" type="text" ng-model="chatCtrl.chatter" required size="20" value="{{chatCtrl.chatter}}" placeholder="Register chatter here"&gt;
+            &lt;button class="btn btn-success fa fa-user-plus {{chatCtrl.registerOn}}" ng-click="chatCtrl.register()" title="Register"&gt;&lt;/button&gt;
+            &lt;button class="btn btn-warning fa fa-user-times {{chatCtrl.unregisterOn}}" ng-click="chatCtrl.unregister()" title="Unregister"&gt;&lt;/button&gt;
+         &lt;/form&gt;
+         &lt;div class="chatmsg" ng-repeat="msg in chatCtrl.messages" style="padding:0px"&gt;
+            &lt;div class="popover {{msg.pos}}"&gt;
+               &lt;div class="arrow"&gt;&lt;/div&gt;
+               &lt;h3 class="popover-title"&gt;{{msg.chatter}}&lt;/h3&gt;
+               &lt;div class="popover-content"&gt;
+                 &lt;p&gt;{{msg.text}}&lt;/p&gt;
+               &lt;/div&gt;
+            &lt;/div&gt;
+         &lt;/div&gt;
+         &lt;form class="form-inline"&gt;
+            &lt;textarea class="form-control" ng-model="chatCtrl.message" value="{{chatCtrl.message}}" required placeholder="Write message here" cols="40"&gt;&lt;/textarea&gt;
+            &lt;button class="btn btn-primary {{chatCtrl.unregisterOn}} fa fa-envelope" ng-click="chatCtrl.post()"&gt;&lt;/button&gt;
+         &lt;/form&gt;
+      &lt;/div&gt;
+      &lt;div class="col-md-2"&gt;
+         &lt;div ng-repeat="chatter in chatCtrl.chatters"&gt;
+            &lt;span&gt;{{chatter}}&lt;/span&gt;
+         &lt;/div&gt;
+      &lt;/div&gt;
+   &lt;/div&gt;
+&lt;/div&gt;
+			</code></pre>
 			</div>
 		</div>
 	</div>

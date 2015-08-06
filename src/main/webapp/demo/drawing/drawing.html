@@ -1,8 +1,11 @@
 <div class="container-fluid">
 	<script src="drawing.js"></script>
 	<div class="well col-md-4">
+		<div style="height:130px;">
+			<img class="logo pull-left" title="Ocelotds" src="../../assets/ocelot_128x128.png" alt="Ocelotds"/>
+		</div>
 		<b id="subscribersNumber">0</b>&nbsp;<b>Subscribers</b><br>
-		<canvas id="imageView" width="400" height="300" style="background-color: wheat"></canvas>
+		<canvas id="imageView" width="320" height="200" style="background-color: wheat"></canvas>
 		<div id="disqus_thread"></div>
 		<script type="text/javascript">
 			var disqus_shortname = 'ocelot';
@@ -35,17 +38,18 @@
 				<p>What's append ?</p>
 				<ul>
 					<li>The client subscribe to 2 topics, <b>eventCanvas</b> and <b>subscriber:eventCanvas</b></li>
-					<li>All events are send to topic <b>eventCanvas</b>, that resend them to all subscribvers.</li>
+					<li>All events are send to topic <b>eventCanvas</b>, Ocelot<font color="chocolate">ds</font> resend them to all subscribvers.</li>
 					<li>When clients subscribe or unsubscribe to the <b>eventCanvas</b> Topic, the server send the number of subscribers to <b>subscriber:eventCanvas</b> topic.</li>
 				</ul>
+				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java1">
 				<pre><code class="java">
-@DataService(resolver = Constants.Resolver.CDI)
+<b class="cc" title="Annotate service for expose it to the front-end">@DataService(resolver = Constants.Resolver.CDI)</b>
 public class DrawingServices {
    // When someone call this method, 
    // every subcribed clients receive the return method
-   @JsTopic("eventCanvas")
+   <b class="cc" title="All result of this method are publish to topic 'eventCanvas'&#013;When someone subscribe to topic 'eventCanvas', the number of subscriber is publish in topic 'subscribers:eventCanvas'">@JsTopic("eventCanvas")</b>
    public CanvasEvent pushCanvasEvent(CanvasEvent evt) {
       return evt;
    }
@@ -60,7 +64,7 @@ public class CanvasEvent {
    private int y;
    private String type;
 
-   public CanvasEvent() {}
+   <b class="cc" title="Don't forget the empty constructor if you specify an other.&#013;Json API use it for deserialization.">public CanvasEvent() {}</b>
 
    public CanvasEvent(int x, int y, String type) {
       this.x = x;
@@ -68,7 +72,29 @@ public class CanvasEvent {
       this.type = type;
    }
 
-   // For reduce code, getters, setters have removed.
+   public int getX() {
+      return x;
+   }
+
+   public void setX(int x) {
+      this.x = x;
+   }
+
+   public int getY() {
+      return y;
+   }
+
+   public void setY(int y) {
+      this.y = y;
+   }
+
+   public String getType() {
+      return type;
+   }
+
+   public void setType(String type) {
+      this.type = type;
+   }
 }
 					</code></pre>
 			</div>
@@ -76,13 +102,13 @@ public class CanvasEvent {
 				<pre><code class="js">
 ocelotController.addOpenListener(function () {
    var subCanvasEvent, canvas, context, pencil, 
-   drawingServices = new DrawingServices();
+   <b class="cc" title="Get DrawingServices java service">drawingServices = new DrawingServices();</b>
    pencil = {
       mousedown: function (ev) {
          context.beginPath();
          context.moveTo(ev.x, ev.y);
-         canvas.addEventListener('mousemove', sendMouseMove, false);
-         canvas.addEventListener('mouseup', sendMouseUp, false);
+         canvas.addEventListener('mousemove', sendMouseEvent, false);
+         canvas.addEventListener('mouseup', sendMouseEvent, false);
       },
       mousemove: function (ev) {
          context.lineTo(ev.x, ev.y);
@@ -90,8 +116,8 @@ ocelotController.addOpenListener(function () {
       },
       mouseup: function (ev) {
          this.mousemove(ev);
-         canvas.removeEventListener('mousemove', sendMouseMove);
-         canvas.removeEventListener('mouseup', sendMouseUp);
+         canvas.removeEventListener('mousemove', sendMouseEvent);
+         canvas.removeEventListener('mouseup', sendMouseEvent);
       }
    };
    canvas = document.getElementById('imageView');
@@ -100,30 +126,31 @@ ocelotController.addOpenListener(function () {
       return;
    }
    context = canvas.getContext('2d');
-   canvas.addEventListener('mousedown', sendMouseDown, false);
-   new Subscriber("subscribers:eventCanvas").message(function (nb) {
+   canvas.addEventListener('mousedown', sendMouseEvent, false);
+   <b class="cc" title="Subcribe to topic 'subscribers:eventCanvas' and receive notification about subscribers number">new Subscriber("subscribers:eventCanvas")</b>.<b class="cc" title="Receive messages from topic 'subscribers:canvasEvent'">message</b>(function (nb) {
       document.getElementById("subscribersNumber").innerHTML = nb;
    });
-   subCanvasEvent = new Subscriber("eventCanvas").message(function (evt) {
+   <b class="cc" title="Subcribe to topic 'eventCanvas' and receive events from all publisher">subCanvasEvent = new Subscriber("eventCanvas")</b>.<b class="cc" title="Receive messages from topic 'canvasEvent'">message</b>(function (evt) {
       pencil[evt.type](evt);
    });
-   function sendMouseDown(ev) {
-      drawingServices.pushCanvasEvent({"x": ev.offsetX, "y": ev.offsetY, "type": ev.type});
-   }
-   function sendMouseMove(ev) {
-      drawingServices.pushCanvasEvent({"x": ev.offsetX, "y": ev.offsetY, "type": ev.type});
-   }
-   function sendMouseUp(ev) {
-      drawingServices.pushCanvasEvent({"x": ev.offsetX, "y": ev.offsetY, "type": ev.type});
+   function sendMouseEvent(ev) {
+      <b class="cc" title="Send event to server.&#013;Call DrawingSeervices.pushCanvasEvent(CanvasEvent canvasEvent) java service&#013;Directly, as you would if you were in java side.">drawingServices.pushCanvasEvent({"x": ev.offsetX, "y": ev.offsetY, "type": ev.type})</b>;
    }
 });
 					</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="html1">
 				<pre><code class="html">
-&lt;div&gt;
-	&lt;canvas id="imageView" width="400" height="300"&gt;&lt;/canvas&gt;
-&lt;/div&gt;
+&lt;html&gt;
+   &lt;head&gt;
+      <b class="cc" title="Add ocelot.js to the page... that's all">&lt;script src="ocelot.js" type="text/javascript"&gt;&lt;/script&gt;</b>
+   &lt;/head&gt;
+   &lt;body&gt;
+      &lt;div&gt;
+         &lt;canvas id="imageView" width="400" height="300"&gt;&lt;/canvas&gt;
+      &lt;/div&gt;
+   &lt;/body&gt;
+&lt;/html&gt;
 					</code></pre>
 			</div>
 		</div>

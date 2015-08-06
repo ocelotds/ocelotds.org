@@ -1,28 +1,35 @@
 angular.module('chatApp', []).controller('ChatController', ['$scope', function ($scope) {
-   var chatCtrl = this;
-   chatCtrl.chatters = [];
-   chatCtrl.messages = [];
-   chatCtrl.chatter = "";
-   chatCtrl.message = "";
-   chatCtrl.subChatRoom;
-   chatCtrl.subChatters;
-   var chatServices = new ChatServices();
+   var chatCtrl = this, chatServices = new ChatServices();
+   chatCtrl.chatters = [], chatCtrl.messages = [], 
+   chatCtrl.chatter = "", chatCtrl.message = "", 
+   chatCtrl.subChatRoom, chatCtrl.subChatters, 
+   chatCtrl.registerOn = "", chatCtrl.unregisterOn = "disabled";
    chatCtrl.unregister = function () {
       chatServices.unregister(chatCtrl.chatter).then(function () {
          $scope.$apply(function () {
+            chatCtrl.registerOn = "";
+            chatCtrl.unregisterOn = "disabled";
             chatCtrl.subChatRoom.unsubscribe();
+            chatCtrl.subChatters.unsubscribe();
+            chatCtrl.chatters = [];
          });
       }).catch(onFault);
    };
    chatCtrl.register = function () {
+      chatCtrl.subChatters = new Subscriber("Chatters").message(function (list) {
+         $scope.$apply(function () {
+            chatCtrl.chatters = list;
+         });
+      });
       chatServices.register(chatCtrl.chatter).then(function () {
          $scope.$apply(function () {
-            chatCtrl.registered = true;
-            chatCtrl.subChatRoom = new Subscriber("ChatRoom").message(function(msg) {
+            chatCtrl.registerOn = "disabled";
+            chatCtrl.unregisterOn = "";
+            chatCtrl.subChatRoom = new Subscriber("ChatRoom").message(function (msg) {
                $scope.$apply(function () {
-                  if(msg.chatter === chatCtrl.chatter) {
-                     msg.user = msg.chatter;
-                     delete msg.chatter;
+                  msg.pos = "left";
+                  if (msg.chatter === chatCtrl.chatter) {
+                     msg.pos = "right";
                   }
                   chatCtrl.messages.push(msg);
                });
@@ -31,7 +38,7 @@ angular.module('chatApp', []).controller('ChatController', ['$scope', function (
       }).catch(onFault);
    };
    chatCtrl.post = function () {
-      if(chatCtrl.message) {
+      if (chatCtrl.message) {
          chatServices.postMessage({"chatter": chatCtrl.chatter, "text": chatCtrl.message}).then(function () {
             $scope.$apply(function () {
                chatCtrl.message = "";
@@ -39,34 +46,13 @@ angular.module('chatApp', []).controller('ChatController', ['$scope', function (
          }).catch(onFault);
       }
    };
-   chatCtrl.refresh = function () {
-      chatServices.getChatters().then(function (list) {
-         $scope.$apply(function () {
-            chatCtrl.chatters = list;
-         });
-      }).catch(onFault);
-   };
    var onFault = function (fault) {
       alert(fault.message + "\n" + fault.classname + "\n" + fault.stacktrace.join('\n'));
    };
    $scope.init = function () {
       ocelotController.addOpenListener(function () {
-         chatCtrl.refresh();
-         chatCtrl.subChatters = new Subscriber("Chatters").message(function(chatterEvent) {
-            $scope.$apply(function () {
-               if(chatterEvent.type === "ADD") {
-                  chatCtrl.chatters.push(chatterEvent.chatter);
-               } else {
-                  var idx = chatCtrl.chatters.indexOf(chatterEvent.chatter);
-                  if(idx!==-1) {
-                     chatCtrl.chatters.splice(idx, 1);
-                  }
-               }
-            });
-         });
          ocelotController.addCloseListener(function () {
-            chatServices.unregister(chatCtrl.chatter).then(function () {
-            });
+            chatServices.unregister(chatCtrl.chatter).then(function () {});
          });
       });
    };

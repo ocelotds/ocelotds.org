@@ -25,11 +25,11 @@ public class ChatServices {
 	 *
 	 * @param chatter
 	 * @return
-	 * @throws org.ocelotds.angular.ChatterAlreadyExistException
-	 * @throws org.ocelotds.angular.ChatterInconsistentException
+	 * @throws ChatterAlreadyExistException
+	 * @throws ChatterInconsistentException
 	 */
-	@JsTopic(value = "Chatters")
-	public ChatterEvent register(String chatter) throws ChatterAlreadyExistException, ChatterInconsistentException {
+	@JsTopic("Chatters")
+	public Collection<String> register(String chatter) throws ChatterAlreadyExistException, ChatterInconsistentException {
 		if (null == chatter || chatter.isEmpty()) {
 			throw new ChatterInconsistentException("empty");
 		}
@@ -37,7 +37,7 @@ public class ChatServices {
 			throw new ChatterAlreadyExistException(chatter);
 		}
 		chatters.add(chatter);
-		return new ChatterEvent("ADD", chatter);
+		return chatters;
 	}
 
 	/**
@@ -46,23 +46,25 @@ public class ChatServices {
 	 * @param chatter
 	 * @return
 	 */
-	@JsTopic(value = "Chatters")
-	public ChatterEvent unregister(String chatter) {
+	@JsTopic("Chatters")
+	public Collection<String> unregister(String chatter) {
 		if (chatters.contains(chatter)) {
 			chatters.remove(chatter);
 		}
-		return new ChatterEvent("DEL", chatter);
+		return chatters;
 	}
-
-	@JsTopic(value = "ChatRoom")
+	
+	/**
+	 * Post message and broadcast to all ChatRoom topic subscribers 
+	 * @param message
+	 * @return
+	 * @throws MessageInconsistentException 
+	 */		  
+	@JsTopic("ChatRoom")
 	public Message postMessage(Message message) throws MessageInconsistentException {
 		if (null == message || message.getChatter() == null || message.getText()==null || message.getChatter().isEmpty() || message.getText().isEmpty()) {
 			throw new MessageInconsistentException();
 		}
 		return message;
-	}
-
-	public Collection<String> getChatters() {
-		return chatters;
 	}
 }

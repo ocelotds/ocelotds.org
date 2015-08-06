@@ -1,44 +1,61 @@
 <div class="container theme-showcase" role="main">
 	<div class="well">
 		<img class="logo pull-left" title="Ocelotds" src="assets/ocelot_128x128.png" alt="Ocelotds"/>
-		<h3>Why Ocelot.ds?</h3>
-		<p>Forget REST, JSP, Servlet... Call Java services from javascript like your services were writen in javascript.</p>
-		<p>Forget browers limitations and the 6 connections simultaneous.</p>
-		<p>Ocelot uses a single websocket connection, and is very efficient.</p>
-		<h3>Ocelot is comprehensive and very easy</h3>
-		<p>Config less, just add ocelot to maven dependecies.</p>
-		<h3>Great features</h3>
-		<h4>Very fast</h4>
-		<p>With Ocelot, share several thousands messages by secondes between the java layer and the javascript layer.</p>
-		<h4>Native push messages</h4>
-		<p>Ocelot use bi-directional connection, so for write a chat-like or topic paradigm, it's very easy.</p>
-		<h4>Cache feature</h4>
-		<p>Code cache feature directement from the back-end, annotate a method with @JsCacheResult and the result will be cached on the front-end.</p>
-		<p>Annotate a method with @JsCacheRemove and remove cache of an other method for all clients.</p>
-		<h4>Agnostic</h4>
-		<p>Ocelot can works with the most famous back-end technologies (EJB, CDI, Spring).</p>
-		<p>Ocelot can works with the most famous front-end frameworks (Angularjs, knockoutjs...).</p>
-		<h4>Extensible</h4>
-		<p>Ocelot is extensible, write your own resolver for access to your favorite technology.</p>
-		<div >
-			<img class="avatar pull-left" title="François Achache" src="assets/avatar.svg" alt="François Achache"/>
-			<span>Hi, This is François, I made Ocelot Framework.</span>
-			<br />
-			You can contact me via: <br />
-			<a href="mailto:francois.achache@gmail.com" title="mailto: francois.achache@gmail.com"><i class="fa fa-envelope-square fa-3x"></i></a>&nbsp;
-			<a href="https://github.com/hhfrancois" title="GithubID: hhfrancois"><i class="fa fa-github-square fa-3x"></i></a>&nbsp;
-			<a href="https://twitter.com/hhfrancois" title="TwitterID: hhfrancois"><i class="fa fa-twitter-square fa-3x"></i></a>
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-		</div>
+		<a href="http://search.maven.org/#search|ga|1|ocelot"><img src="https://img.shields.io/badge/Maven Central-2.1.0-blue.svg" alt='2.1.0'/></a>
+		<h2>Ocelot<font color="chocolate">ds</font> : Ocelot <font color="chocolate">d</font>atas <font color="chocolate">s</font>ervices</h2>
+		<p>Welcome to Ocelotds! Ocelotds is java and javascript framework remoting and web messaging technology that enables developers to easily connect to back-end data and push data in real-time to javascript applications, for more responsive rich Internet application (RIA) experiences.</p>
+		<h3>The best and easiest communication way between java 7 and javascript</h3>
+		<p>Forget REST, forget AJAX, forget http, forget protocol, Ocelotds uses websocket and do everything for you.</p>
+		<b>Ocelotds use one bidirection connection websocket, and is designed for usage in  single page web application.</b>
+		<p>Forget <a href="http://webdebug.net/2013/12/browser-connection-limit">browsers limitations</a> about number of connections between browsers and backend. At best 6 simultaneous connections</p>
+		<h3>Ocelotds can share thousands messages between back-end and front-end by secondes.</h3>
+		<h2>Open source</h2>
+		<p><a class="pull-left" href="https://github.com/hhdevelopement/ocelot" title="GithubID: hhdevelopement:ocelot"><i class="fa fa-github-square fa-3x"></i></a>&nbsp;Ocelot is open source MPLv2.<br>&nbsp;Fork it or contribute to the project.</p>
+		
+
+		<h2>Great features</h2>
+
+		<p>Ocelot framework allow to call differents services directly from simple classe methods call, like you can do in the backend.</p>
+		<p>Don't write WEB Services, focus on business code, ocelot do communication between business layer and front-end.</p>
+
+		<p>The better way, is using managing beans, as EJB, CDI Bean or Spring bean, but you can call a simple pojo.<br />
+			If you use mananged classes, you benefits of all features</p>
+		<h3>Java EE compliant</h3>
+		<p>Ocelot use Java EE technologies, nothing else, so use all natives and standards features of Java EE.</p>
+		<p>Example : Roles based annotation, @RoleAlowed...</p>
+		<h3>Comprehensive and very easy</h3>
+		<p>Configuration less, just add ocelot to maven dependencies.</p>
+		<h3>Very fast</h3>
+		<p>Ocelot share thousands messages by secondes between the java layer and the javascript layer.</p>
+		<h3>Native push messages</h3>
+		<p>Ocelot use bi-directional connection, so for write a chat-like or topic paradigm, is really easy. See demos</p>
+		<h3>Cache features</h3>
+		<p>Code cache features directly from the back-end, annotate a method with @JsCacheResult and the result will be cached on the front-end.
+			Annotate a method with @JsCacheRemove and remove cache of an other method for all clients.</p>
+		<h3>Agnostic</h3>
+		<p>Ocelot can works with the most famous back-end technologies (EJB, CDI, Spring).
+			Ocelot can works with the most famous front-end frameworks (Angularjs, knockoutjs…).</p>
+		<h3>Extensible</h3>
+		<p>Ocelot is extensible, write your own resolver for access to your favorites technologies.</p>
+
+		<p>Actually, Ocelot is tested on Glassfish 4.1, Wildfly 9, Tomcat 7/8</p>
+		<p><strong>Ocelot is develop on reference Java EE server glassfish 4.</strong> <br />
+			But Ocelot can work in servlet container like tomcat without EJB features of course, just add cdi and jsonp implementation.</p>
+		<ul>
+			<li>cdi <a href="http://docs.jboss.org/weld/reference/1.0.0/en-US/html/environments.html">weld</a></li>
+			<li>jsonp : <a href="https://jsonp.java.net/">jsonp</a></li>
+		</ul>
+
+		<p>See <a href="docs/servers/tomcat.html">Documentations</a> tomcat server guide for more details.</p>
+
+		<h3>Artifacts</h3>
+		<p><a href="https://oss.sonatype.org/#nexus-search;gav~org.ocelotds~ocelot~~~">Ocelot framework on Nexus repository</a><br />
+			<a href="http://search.maven.org/#search|ga|1|ocelot">Ocelot framework on Central repository</a>  </p>
+
 		<div class="badges left">
 			<a href="https://scan.coverity.com/projects/5757"><img src="https://scan.coverity.com/projects/5757/badge.svg" alt="Coverity Status"/></a>
 			<a href="https://travis-ci.org/hhdevelopment/ocelot"><img src="https://travis-ci.org/hhdevelopment/ocelot.svg?branch=master" alt="Build Status"/></a>
 			<a href='https://coveralls.io/github/hhdevelopment/ocelot?branch=master'><img src='https://coveralls.io/repos/hhdevelopment/ocelot/badge.svg?branch=master&service=github' alt='Coverage Status' /></a> 
-			<a href="http://search.maven.org/#search|ga|1|ocelot"><img src="https://img.shields.io/badge/Maven Central-2.1.0-blue.svg" alt='2.1.0'/></a>
 			<a href="https://oss.sonatype.org/#nexus-search;gav~org.ocelotds~ocelot~~~"><img src="https://img.shields.io/badge/OSS Sonatype-2.1.1--SNAPSHOT-lightgrey.svg" alt='2.1.1-SNAPSHOT'/></a>
 		</div>
 		<div id="disqus_thread"></div>

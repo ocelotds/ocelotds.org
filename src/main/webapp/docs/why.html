@@ -1,0 +1,122 @@
+<div class="container theme-showcase" role="main">
+
+	<h2>What Ocelot do ?</h2>
+
+	<p>Actually, when you write java back-end and javascript front-end, you probably something like that :</p>
+
+	<p>You write your business layer like it :</p>
+
+	<pre><code class="java">
+public class MyObject {  
+   String prop1; // with getter setter of course
+   boolean prop2;
+}
+	</code></pre>
+
+	<pre><code class="java">
+public class MyService { // EJB, CDI, Spring
+   public Result getResult(String str, MyObject arg2) {
+      ...
+   }
+}
+	</code></pre>
+
+	<p>But at that time, your service is not reachable from the front-end.<br />
+		So You have to write a web component for access it, for example with JAX-RS REST Service.  </p>
+
+	<pre><code class="java">
+@Path("/myservice")
+public class MyRestService { 
+   @POST
+   @Produces("text/json")
+   @Consumes("application/x-www-form-urlencoded")
+   @Path("/{str}")
+   public Result method(@PathParam("str") String str, @FormParam("arg") MyObject arg2) {
+      retrun myService.getResult(str, arg2); // normaly myService is avalable by injection
+   }
+}
+	</code></pre>
+
+	<p>Finally in javascript you have to write code for access to the rest service. <br />
+		Of course you can use helper for that like jquery or other.</p>
+
+	<pre><code class="javascript">
+var req = new XMLHttpRequest();
+req.onreadystatechange = function() {
+   if (req.status == 200) {
+      var result = JSON.parse(req.responseText);
+      // do something
+   } else {
+      // Error handler
+   }
+}
+req.open("POST", "/myservice/foo", true);
+req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+req.send("{\"prop1\":\"foo\",\"prop2\":true}");
+	</code></pre>
+
+	<h2>About the previous code :</h2>
+	<ul>
+		<li>You have to write a REST service, but it not business code, it’s boilerplate code.  </li>
+		<li>For access to the REST, Event with the helper, it’s not really developper friendly.</li>
+	</ul>
+
+	<p>Ascertainment, it will be nicer if we could write in javascript the samething that in Java.  </p>
+
+	<h2>Now with Ocelot</h2>
+	<p>So You write your business layer like previously :  </p>
+
+	<pre><code class="java">
+public class MyObject { 
+   String prop1; // with getter setter of course
+   boolean prop2;
+}
+	</code></pre>
+
+	<p>Just add an annotation indicate the service is exposed on the web layer, and the proper resolver</p>
+
+	<pre><code class="java">
+@DataService(resolver = Constants.Resolver...) // use the correct resolver
+public class MyService { // EJB, CDI, Spring
+   public Result getResult(String str, MyObject arg2) {
+      ...
+   }
+}
+	</code></pre>
+
+	<p>For java layer, it’s finish. Now in javascript : </p>
+
+	<pre><code class="javascript">
+var srv = new MyService(); // You wrote MyService in java, you use MyService in javascript, marvelous
+srv.getResult("foo", {"prop1":"foo","prop2":true}).then(function(res) {
+   // do something with res
+});
+	</code></pre>
+
+	<p>That’s all, you front-end communicate elegantly with the back-end, with less boilerplate codes.
+		Ocelot framework allow to call differents services directly from simple classes methods call, like you can do in the backend.</p>
+
+	<p>And more : </p>
+
+	<p>Ocelot use one bidirection connection websocket.</p>
+
+	<p>Ocelot allow to implement the Message driven bean paragdim but for javascript with topic destination.
+		For push message/object to the client.</p>
+
+	<p>Ocelot allow a simple cache on browser.</p>
+
+	<p>Enjoy…</p>
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+      var disqus_shortname = 'ocelot';
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function () {
+         var dsq = document.createElement('script');
+         dsq.type = 'text/javascript';
+         dsq.async = true;
+         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>

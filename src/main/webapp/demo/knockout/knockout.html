@@ -1,8 +1,10 @@
 <script src="http://knockoutjs.com/downloads/knockout-3.3.0.js"></script>
 <div class="container-fluid">
 	<div class="well col-md-4">
-		<h2>Live example</h2>
-		<img src="http://knockoutjs.com/img/ko-logo.png"/>
+		<div style="height:130px;">
+			<img class="logo pull-left" title="Ocelotds" src="../../assets/ocelot_128x128.png" alt="Ocelotds"/>
+			<img src="http://knockoutjs.com/img/ko-logo.png" width="200" alt="Knockoutjs" style="padding-top: 30px"/>
+		</div>
 		<div id="liveExample">
 			<p>
 				Choose a ticket class:
@@ -27,82 +29,97 @@
 		<!-- Tab panes -->
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane active" id="about">
+				<h2>About demo : Knockoutjs and <span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>...</h2>
+				<p>This is demonstration improved from the web site of <a href="http://knockoutjs.com/">knockoutjs</a>.<br>With Ocelot your front-end application communicate elegantly with your java back-end</p>
+				<p>Compare them from knockout website and see the beautifull of <b><span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>.</b></p>
+				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java1">
 				<pre><code class="java">
 @Singleton
 @DataService(resolver = Constants.Resolver.CDI)
 public class TicketServices {
-	private List&lt;Ticket&gt; tickets;
-	@PostConstruct
-	private void init() {
-		tickets = new ArrayList&lt;&gt;();
-		tickets.add(new Ticket("Economy", 199.95));
-		tickets.add(new Ticket("Business", 449.22));
-		tickets.add(new Ticket("First Class", 1199.99));
-	}
-	public List&lt;Ticket&gt; getTickets() {
-		return tickets;
-	}
+   private List&lt;Ticket&gt; tickets;
+   @PostConstruct
+   private void init() {
+      tickets = new ArrayList&lt;&gt;();
+      tickets.add(new Ticket("Economy", 199.95));
+      tickets.add(new Ticket("Business", 449.22));
+      tickets.add(new Ticket("First Class", 1199.99));
+   }
+   public List&lt;Ticket&gt; getTickets() {
+      return tickets;
+   }
 }
 				</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java2">
 				<pre><code class="java">
 public class Ticket {
-	private String name;
-	private double price;
-	public Ticket(String name, double price) {
-		this.name = name;
-		this.price = price;
-	}
-	public Ticket() {
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public double getPrice() {
-		return price;
-	}
-	public void setPrice(double price) {
-		this.price = price;
-	}
+   private String name;
+   private double price;
+   public Ticket(String name, double price) {
+      this.name = name;
+      this.price = price;
+   }
+   public Ticket() {
+   }
+   public String getName() {
+      return name;
+   }
+   public void setName(String name) {
+      this.name = name;
+   }
+   public double getPrice() {
+      return price;
+   }
+   public void setPrice(double price) {
+      this.price = price;
+   }
 }
 					</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="js1">
 				<pre><code class="js">
 function TicketsViewModel() {
-	var ticketServices = new TicketServices();
-	var model = this;
-	model.tickets = ko.observableArray([]);
-	model.chosenTicket = ko.observable();
-	model.resetTicket = function () {
-		this.chosenTicket(null);
-	};
-	var onFault = function (fault) {
-		alert(fault.message + "\n" + fault.classname + "\n" + fault.stacktrace.join('\n'));
-	};
-	model.loadTickets = function () {
-		ticketServices.getTickets().then(function (tickets) {
-			model.tickets.remove(function(item) { return true;});
-			for (var key in tickets){
-				model.tickets.push(tickets[key]);
-			}
-		}).catch(onFault);
-	};
-	model.loadTickets();
+   var ticketServices = new TicketServices();
+   var model = this;
+   model.tickets = ko.observableArray([]);
+   model.chosenTicket = ko.observable();
+   model.resetTicket = function () {
+      this.chosenTicket(null);
+   };
+   var onFault = function (fault) {
+      alert(fault.message + "\n" + fault.classname + "\n" + fault.stacktrace.join('\n'));
+   };
+   model.loadTickets = function () {
+      ticketServices.getTickets().then(function (tickets) {
+         model.tickets.remove(function(item) { return true;});
+         for (var key in tickets){
+            model.tickets.push(tickets[key]);
+         }
+      }).catch(onFault);
+   };
+   model.loadTickets();
 }
 ocelotController.addOpenListener(function (event) {
-	ko.applyBindings(new TicketsViewModel(), document.getElementById("liveExample"));
+   ko.applyBindings(new TicketsViewModel(), document.getElementById("liveExample"));
 });
 			</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="html1">
 				<pre><code class="html">
+&lt;div id="liveExample"&gt;
+   &lt;p&gt;
+      Choose a ticket class:
+      &lt;select data-bind="options: tickets, optionsCaption: 'Choose...', optionsText: 'name', value: chosenTicket"&gt;&lt;/select&gt;
+      &lt;button data-bind="enable: chosenTicket, click: resetTicket"&gt;Clear&lt;/button&gt;
+   &lt;/p&gt;                   
+   &lt;p data-bind="with: chosenTicket"&gt;
+      You have chosen &lt;b data-bind="text: name"&gt;&lt;/b&gt;
+      ($&lt;span data-bind="text: price"&gt;&lt;/span&gt;)    
+   &lt;/p&gt;
+&lt;/div&gt;
 				</code></pre>
 			</div>
 		</div>
