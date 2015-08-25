@@ -11,7 +11,7 @@ addons:
 language: java
 jdk: oraclejdk7
 after_success:
-  - sshpass -p '$loginvps' scp target/ocelotds*.war $loginvps@$hostvps:/opt/glassfish4/glassfish/domains/domain1/autodeploy/ocelotds.war
+  - sshpass -p '$pwdvps' scp target/ocelotds*.war $loginvps@$hostvps:/opt/glassfish4/glassfish/domains/domain1/autodeploy/ocelotds.war
    
 #deploy:
 #  provider: script
