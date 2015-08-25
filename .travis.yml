@@ -5,13 +5,14 @@ env:
     - secure: "iXpokb+pVULlnco75X0EyY2FT5JKIo6gYfbpWMNN8tt/vq5p81JKxcls1V3vEWL3ZxSXw82WK7QM7D0mJYBsHHeeVPQasHbizCvHjbBTYG+1ieC8sHPe7rAZt7kF2xQep38M5aJg3aJJgxVlF48Zn1AZ+s/sa0rFpsDidYC3wG2GVkL2A49WM7KdcoPqz9sZdoNFS/Rr2DGJweb5vFmKzf4zo9lR619Up1sEZ55A7Ve+p7FnTWxVyx6Xs2H6qHKI5XutjOsPoA8UhThpP0qKbg9TetFurs9DzCWfGlWIggOTr2YgRyExnugyDf9tTvhvUeAyuCrLhPwZNDYz7jkJvO3VmBIlcQS5hEuO0BALVIAfu9aBvl6NcRRMK9F50ct/f68pEY1zJxLj35wscSfFPv2wO8XLf05oSUdB+7FbRRpd5eF9bwHv8D950wRcyq5/KleTCjJlZeJF0Ch8Bkt/eUMQeEVCZ2YaGDLEGoc4+Ma8EXhqXr60rXL23KTDq+HEOQMg+QWNbyMDJghD8dgL7o79qVOE4gHlS2VkaWnrcVD1pKU0L6ZFfgJ7tIZrBGlRqoZ1tqZaFidpEyDeKX5YjSOrLIkZb4qLqFBnGum7GJqTPr4CDrdQ89cITbHoA070oUe72/3Cr17HbDS75fSLARlYKe6fzcHDxqv1q2CdCWA="
 before_install:
   - sudo apt-get install sshpass
+  - openssl aes-256-cbc -K $encrypted_0a6446eb3ae3_key -iv $encrypted_0a6446eb3ae3_key -in config/id_rsa.enc -out ~/.ssh/id_rsa -d
 addons:
   ssh_known_hosts: $hostvps
   
 language: java
 jdk: oraclejdk7
 after_success:
-  - sshpass -p '$pwdvps' scp target/ocelotds*.war $loginvps@$hostvps:/opt/glassfish4/glassfish/domains/domain1/autodeploy/ocelotds.war
+  - scp target/ocelotds*.war $loginvps@$hostvps:/opt/glassfish4/glassfish/domains/domain1/autodeploy/ocelotds.war
    
 #deploy:
 #  provider: script
