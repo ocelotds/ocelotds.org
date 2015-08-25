@@ -7,7 +7,8 @@ env:
 language: java
 jdk: oraclejdk7
 after_success:
-   "ls target/*"
+   - ls target/*
+   - ssh $hostvps
    
 #deploy:
 #  provider: script
