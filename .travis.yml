@@ -5,4 +5,7 @@ env:
 
 language: java
 jdk: oraclejdk7
+deploy:
+  provider: script
+  script: scripts/deploy.sh
 #install: mvn install -DskipTests=true
