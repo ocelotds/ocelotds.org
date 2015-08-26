@@ -11,6 +11,7 @@ addons:
   
 language: java
 jdk: oraclejdk7
+install: mvn compile -DskipTests=true
 after_success:
   - sshpass -p $pwdvps scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no target/ocelotds*.war $loginvps@$hostvps:/opt/glassfish4/glassfish/domains/domain1/autodeploy/ocelotds.war
 
