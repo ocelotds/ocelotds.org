@@ -13,11 +13,24 @@
 	</properties>
 
 	<dependencies>
+		<!-- LOGBACK -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>[1,)</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>[1,)</version>
+		</dependency>
+		<!-- OCELOTDS -->
 		<dependency>
 			<groupId>org.ocelotds</groupId>
 			<artifactId>ocelot-web</artifactId>
 			<version>[2,)</version>
 		</dependency>
+		<!-- WEBAPI -->
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-web-api</artifactId>
