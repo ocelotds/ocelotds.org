@@ -1,13 +1,27 @@
 <div class="container theme-showcase" role="main">
 	<div class="well">
-		<h2>Advanced backend</h2>
-		<h3>Hide method to the front-end</h3>
+		<h2>Expose java services to javascript</h2>
+		<p>It the main feature of ocelotds, so it's really easy:</p>
+		<p>Just annotate the class with annotation <b>@DataService</b> and set the correct resolverId.</p>
+		<pre><code class="java">
+@DataService(resolver = Constants.Resolver....) // this expose all methods in ExposedService to javascript client
+public class ExposedService {
+...
+}
+		</code></pre>
+		
+		<h2>Unexpose method to the front-end</h2>
 		<p>As said previously, adding annotation <b>@DataService(resolver = "RESOLVERID")</b> expose all public methods to the front-end.<br/>
 			But sometimes, you have to hide methods for many reasons.<br/>
 			Hide it, just add an annotation @TransientDataService.</p>
 		<pre><code class="java">
-@TransientDataService
-public void methodNotExposed() {
+@DataService(resolver = Constants.Resolver....) // this expose all methods in ExposedService to javascript client
+public class ExposedService {
+   public Result methodExposed() {
+   }
+   @TransientDataService
+   public Result methodNotExposed() {
+   }
 }
 		</code></pre>
 	</div>

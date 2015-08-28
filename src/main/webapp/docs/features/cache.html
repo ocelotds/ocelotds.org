@@ -36,14 +36,14 @@ public @interface JsCacheResult {
 			</code></pre>
 		<h4>Configure cache key</h4>
 		<p>Obviously method results depend of method arguments. So cache keys depend naturaly of method arguments.</p>
-		<p>By default cache keys depend od all method arguments nut you can configure that by keys attribute of annotation.</p>
+		<p>By default cache keys depend of all method arguments nut you can configure that by keys attribute of annotation.</p>
 	   <p>Rules for parameters about key for cache, separate by coma<br>
 	      The order is important mostly if you want use JsCacheRemove<br>
 	      Use json notation.<br>
-	      {'*'} : use all arguments in calculating cache key<br>
-	      'obj.id' : means that for compute the key the value of id from argument named obj will be used.<br>
-	      Exemple {"i", "u.id", "f.name"}<br>
-	      Finally {} Empty argument means that any argmuent is used for cache key
+			<b>{'*'}</b> : use all arguments in calculating cache key<br>
+	      <b>'obj.id'</b> : means that for compute the key the value of id from argument named obj will be used.<br>
+	      Exemple <b>{"i", "u.id", "f.name"}</b><br>
+	      Finally <b>{}</b> Empty argument means that any argmuent is used for cache key
 		</p>
 			<pre><code class="java">
 @Retention(RetentionPolicy.RUNTIME)
@@ -104,11 +104,11 @@ public class TestService {
 			</code></pre>
 		<h3>Manage cache from Client</h3>
 		<p>In javascript you can use object ocelotController.cacheManager for clear all cache.</p>
-		<pre><code class="javavascript">
+		<pre><code class="javascript">
 ocelotController.cacheManager.clearCache();
 			</code></pre>
 		<p>Moreover, you can attach listener on cacheManager for catch events</p>
-		<pre><code class="javavascript">
+		<pre><code class="javascript">
 // listen add entry
 ocelotController.cacheManager.addEventListener("add", function(evt) {
 	// evt.msg : msgToClient

@@ -4,20 +4,20 @@
 		<h3>Object Fault</h3>
 		<pre><code class="javascript">
 var fault = {
-   "classname": "",
-   "message": "",
-   "stacktrace": ["", ""]
+   "classname": "", // java full classname of the exception
+   "message": "", // message of error
+   "stacktrace": ["", ""] // stacktrace
 }
 			</code></pre>
-		<p>The length of stacktrace is settable in the option see <a href="../backend/advanced.html">details</a></p>
+		<p>The length of stacktrace is settable in the option see <a href="advanced.html">details</a></p>
 		<h3>Object OcelotEvent</h3>
 		<pre><code class="javascript">
 var event = {
-   "type": "RESULT/FAULT/MESSAGE",
-   "dataservice": "",
-   "operation": "",
-   "args": [],
-   "response": Object
+   "type": "RESULT/FAULT/MESSAGE", // MESSAGE IS ONLY FOR PUSH FEATURES
+   "dataservice": "", // The simple classname of service called
+   "operation": "", // The method name called
+   "args": [], // arguments
+   "response": Object // response
 }
 			</code></pre>
 		<h3>Object Locale</h3>

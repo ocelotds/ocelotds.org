@@ -8,7 +8,7 @@
 
 	<pre><code class="java">
 public class MyObject {  
-   String prop1; // with getter setter of course
+   String prop1; // with getter setter of course, cause JSON librairy (java) use them.
    boolean prop2;
 }
 	</code></pre>
@@ -38,7 +38,7 @@ public class MyRestService {
 	</code></pre>
 
 	<p>Finally in javascript you have to write code for access to the rest service. <br />
-		Of course you can use helper for that like jquery or other.</p>
+		Of course you can use helpers for that like jquery or other.</p>
 
 	<pre><code class="javascript">
 var req = new XMLHttpRequest();
@@ -57,19 +57,19 @@ req.send("{\"prop1\":\"foo\",\"prop2\":true}");
 
 	<h2>About the previous code :</h2>
 	<ul>
-		<li>You have to write a REST service, but it not business code, it’s boilerplate code.  </li>
-		<li>For access to the REST, Even with the helper, it’s not really developper friendly and really different of code that you write in java.</li>
+		<li>You have to write a REST service, but it not business code, it's boilerplate code.  </li>
+		<li>For access to the REST, Even with the helper, it's not really developper friendly and really different of code that you write in java.</li>
 		<li><b>And you have to do that for all methods that you want expose to the front-end.</b></li>
 	</ul>
 
 	<p>Finally, it should be nicer if we could write a similar javascript code to Java code.  </p>
 
 	<h2>Now with Ocelotds</h2>
-	<p>So You write your business layer like previously :  </p>
+	<p>So you write your business layer like previously :  </p>
 
 	<pre><code class="java">
 public class MyObject { 
-   String prop1; // with getter setter of course
+   String prop1; // with getter setter of course, cause JSON librairy (java) use them.
    boolean prop2;
 }
 	</code></pre>
@@ -94,17 +94,17 @@ srv.getResult("foo", {"prop1":"foo","prop2":true}).then(function(res) {
 });
 	</code></pre>
 
-	<p>That’s all, you front-end communicate elegantly with the back-end, with less boilerplate codes.
+	<p>That’s all, your front-end communicate elegantly with the back-end, with less boilerplate codes.
 		Ocelot framework allow to call differents services directly from simple classes methods call, like you can do in the back-end.</p>
 
 	<p>And more : </p>
 
 	<p>Ocelot use one bidirection connection websocket.</p>
 
-	<p>Ocelot allow to implement the Message driven bean paragdim but for javascript with topic destination.
-		For push message/object to the client. See <a href="backend/push.html">Notifications Features</a> for details</p>
+	<p>Ocelot allow to implement the Message driven bean/Channel paragdim but for javascript with topic destination.
+		For push message/object to the client. See <a href="features/push.html">Notifications Features</a> for details</p>
 
-	<p>Ocelot allow a simple cache on browser. See <a href="backend/cache.html">Cache Features</a> for details</p>
+	<p>Ocelot allow a simple cache on browser. See <a href="features/cache.html">Cache Features</a> for details</p>
 
 	<p>Enjoy…</p>
 	<div id="disqus_thread"></div>

@@ -7,7 +7,8 @@
 var ocelotPromise = new Service().getMessage();
 				</code></pre>
 		<h3>Use your java service in javascript</h3>
-		<p>OcelotPromise uses the design pattern ‘builder’</p>
+		<p>OcelotPromise uses the design pattern ‘methods chaining’</p>
+		<p>With this design you can separate clearly your code</p>
 		<pre><code class="javascript">
 new Service().getMessage().then(function(obj) {
    doSomethingWithResult(obj);
@@ -17,7 +18,8 @@ new Service().getMessage().then(function(obj) {
    doSomethingWithFault(fault);
 }).catch(function(fault) {
    doSomethingWithFault(fault);
-}).event(function(evt) {
+}).event(function(evt) { // event method is particulary usefull when you want to get the origin of calling because you can get the arguments.
+	console.debug("Receive result of "+evt.dataservice+"."+evt.operation+"(JSON.stringify(evt.args))); 
    if(event.type === "RESULT") {
       doSomethingWithResult(evt.response);
    } else if(event.type === "FAULT") {
@@ -56,7 +58,7 @@ occelotPromise.event(Function(event:OcelotEvent)):OcelotPromise
 				</code></pre>
 		<blockquote>
 			<p>Add event handler. <br />
-				The Object fault is the result returned by the java method in json format.</p>
+				The Object event support result or fault returned by the java method in json format.</p>
 		</blockquote>
 	</div>
 	<div id="disqus_thread"></div>

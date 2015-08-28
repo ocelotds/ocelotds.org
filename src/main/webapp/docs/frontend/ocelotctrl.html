@@ -2,28 +2,28 @@
 	<div class="well">
 		<h2>OcelotController</h2>
 		<p>ocelotController is the controller of Ocelot… <br />
-			An instance is created on loading of page you can access it by “ocelotController”.  <br />
+			An instance is created on loading of page. You can access it by “ocelotController”.  <br />
 			You can do some actions with it.</p>
 		<h3>Method addOpenListener</h3>
 		<pre><code class="javascript">
 ocelotController.addOpenListener(openHandler:Function())
 			</code></pre>
 		<blockquote>
-			<p>Add handler when ws is open, this is retroactive</p>
+			<p>Add handler when the WebSocket is open, this is retroactive</p>
 		</blockquote>
 		<h3>Method addCloseListener</h3>
 		<pre><code class="javascript">
 ocelotController.addCloseListener(closeHandler:Function())
 			</code></pre>
 		<blockquote>
-			<p>Add handler when ws is close</p>
+			<p>Add handler when the WebSocket is close</p>
 		</blockquote>
 		<h3>Method addErrorListener</h3>
 		<pre><code class="javascript">
 ocelotController.addErrorListener(errorHandler:Function())
 			</code></pre>
 		<blockquote>
-			<p>Add handler when ws throws an error</p>
+			<p>Add handler when the WebSocket throws an error</p>
 		</blockquote>
 		<h3>Method close</h3>
 		<pre><code class="javascript">
@@ -51,7 +51,7 @@ ocelotController.status [Readonly]
 ocelotController.cacheMAnager.addEventListener(type:String, listener:Function(evt:Event))
 			</code></pre>
 		<blockquote>
-			<p>Add handler for add or remove entry in cache</p>
+			<p>Add handler for "add" or "remove" entry in cache</p>
 		</blockquote>
 		<h3>Method cacheManager.clearAll</h3>
 		<pre><code class="javascript">
