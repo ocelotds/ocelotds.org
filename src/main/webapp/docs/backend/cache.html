@@ -1,6 +1,6 @@
 <div class="container theme-showcase" role="main">
 	<div class="well">
-		<h2>Use frontend cache features</h2>
+		<h2>Use frontend cache features from backend</h2>
 		<p>Ocelot allow simple cache on front end</p>
 		<h3>Add Result to javascript Cache</h3>
 		<p>You have just annotate method that you like cache to the client.</p>
@@ -10,41 +10,59 @@ package test;
 public class TestService {
   @JsCacheResult(minute=2, keys={"a.id"})
   public Result methodCached(A a, B b, Collection&lt;C&gt; cs) {
-     // the result of this methode will be cached on the client.
+     // the result of this methode will be cached on the client for 2 minute.
      // The key entry is the footprint of test.TestService.methodCached(a.getId())
+     // for each differents values of a.id (a.getId()) we have different cache
      ...
   }
 }				
 			</code></pre>
-		<h4>JsCacheResult</h4>
-		<pre><code class="java">
-/**
- * Define where should be store the result
- * NONE The result will not be store in cache
- * BROWSER The result should be store in browser storage (localStorage)
- * SESSION The result should be store in session storage (sessionStorage)
- */
-int year() default 0;
-int month() default 0;
-int day() default 0;
-int hour() default 0;
-int minute() default 0;
-int second() default 0;
-int millisecond() default 0;
-/**
- * Rules for parameters about key for cache, separate by coma<br>
- * The order is important<br>
- * use json notation.<br>
- * '*' : use all arguments in calculating cache key<br>
- * 'obj.id' : mean that for compute the key the value of id from argument named obj will be used.<br>
- * Exemple {"i", "u.id", "f.name"}
- * finally if you set nothing that means that you want to remove all result of this method without considering arguments
- * @return set of used keys ordered
- */
-String[] keys() default {"*"};
+		<h3>JsCacheResult</h3>
+		<h4>Configure expiration delay</h4>
+	<p>Configure how long the cache will be persist on front-end directly with annotation.</p>
+			<pre><code class="java">
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface JsCacheResult {
+   int year() default 0;
+   int month() default 0;
+   int day() default 0;
+   int hour() default 0;
+   int minute() default 0;
+   int second() default 0;
+   int millisecond() default 0;
+  ...
+}
 			</code></pre>
-		<h3>Remove Result to javascript Cache</h3>
-		<p>Add a result in cache is easy, but sometime you want to remove cache entry before the limit date.</p>
+		<h4>Configure cache key</h4>
+		<p>Obviously method results depend of method arguments. So cache keys depend naturaly of method arguments.</p>
+		<p>By default cache keys depend od all method arguments nut you can configure that by keys attribute of annotation.</p>
+	   <p>Rules for parameters about key for cache, separate by coma<br>
+	      The order is important mostly if you want use JsCacheRemove<br>
+	      Use json notation.<br>
+	      {'*'} : use all arguments in calculating cache key<br>
+	      'obj.id' : means that for compute the key the value of id from argument named obj will be used.<br>
+	      Exemple {"i", "u.id", "f.name"}<br>
+	      Finally {} Empty argument means that any argmuent is used for cache key
+		</p>
+			<pre><code class="java">
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface JsCacheResult {
+   ...
+   /**
+    * @return set of used keys ordered
+    */
+   String[] keys() default {"*"};
+}
+			</code></pre>
+		<h3>Remove Results to javascript Cache</h3>
+		<p>Add a result in cache is easy, but sometime you want to remove cache entries before the limit date.</p>
+		<p>With these features remove easily cache on all clients that hold these cache</p>
+		<p>The remove cache feature use push notification feature.</p>
+		<h4>Remove specific Results to javascript Cache</h4>
+		<p>You want to remove cache entries before the limit date.</p>
+		<p>Use JsCacheRemove and specify which cache this method have to remove.</p>
 		<pre><code class="java">
 @DataService(resolver = ...)
 public class TestService {
@@ -56,8 +74,24 @@ public class TestService {
   }
 }
 			</code></pre>
-		<h3>Remove All Results in specific javascript Cache</h3>
-		<p>Add a result in cache is easy, but sometime you want to remove cache entry before the limit date.</p>
+
+		<h4>Remove All specific Results to javascript cache</h4>
+		<p>For administration reason you can to remove all method cache entries.</p>
+		<p>Just set keys value to empty list for set that all results of the method will be removed.</p>
+		<pre><code class="java">
+@DataService(resolver = ...)
+public class TestService {
+  @JsCacheRemove(cls=TestService.class, methodName="methodCached", keys={})
+  public void doSomethingAndRemoveAllMethodCache(Z z, A a) {
+     // After the success of this method all result cached for thie method 'methodCached' in BROWSER will be clear
+     ...
+  }
+}
+			</code></pre>
+
+		<h4>Remove All Results for all cache</h4>
+		<p>Probably for administration reason too you can to remove all cache entries.</p>
+		<p>Use JsCacheRemoveAll.</p>
 		<pre><code class="java">
 @DataService(resolver = ...)
 public class TestService {
