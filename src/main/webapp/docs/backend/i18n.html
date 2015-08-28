@@ -19,16 +19,16 @@ HELLOGUY=Bonjour {0}
 HELLOGUY=Hello {0}
 			</code></pre>
 		<h3>Inject OcelotServices</h3>
-		<p>Now in your managed Bean (CDI Bean, EJB, Spring Bean) inject OcelotServices</p>
+		<p>Now in your managed Bean (CDI Bean, EJB, Spring Bean) inject OcelotI18nServices</p>
 		<pre><code class="java">
 @Inject 
-OcelotServices ocelotServices;
+OcelotI18nServices ocelotI18nServices;
 			</code></pre>
 		<h3 id="use-it">Use it</h3>
 		<p>When you want to use localization service, just call method <strong>getLocalizedMEssage</strong></p>
 		<pre><code class="java">
 public String getLocaleHello(String who) {
-	return ocelotServices.getLocalizedMessage("test", "HELLOGUY", new Object[]{who});
+	return ocelotI18nServices.getLocalizedMessage("test", "HELLOGUY", new Object[]{who});
 }
 			</code></pre>
 		<pre><code class="java">
