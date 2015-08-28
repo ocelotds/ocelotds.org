@@ -1,8 +1,8 @@
 <div class="container theme-showcase" role="main">
 	<div class="well">
 		<h2>Use with CDI</h2>
-		<p>It’s the easiest way to use Ocelot, if you use a Full JEE server like glassfish, but you can use a servlet container like Tomcat, but there will be probably lot of configuration.</p>
-		<p>You have just annotate CDI BEan that you like expose to the client.</p>
+		<p>It’s the easiest way to use Ocelot, if you use a Full JEE server like glassfish, but you can use a servlet container like Tomcat, but there will be more configuration.</p>
+		<p>You have just annotate CDI Bean that you like expose to the client.</p>
 		<pre><code class="java">
 @DataService(resolver = Constants.Resolver.CDI)
 public class TestCDIService {
@@ -15,8 +15,8 @@ public class TestCDIService {
   }
 }		
 			</code></pre>
-		<p>When you will buil your project, a spi extension will generate stub in javascipt.<br />
-			Like it, just call the EJB from client like it :</p>
+		<p>When you will build your project, a spi extension will generate stub in javascipt.<br />
+			Like it, just call the Bean from client like it :</p>
 		<pre><code class="javavascript">
 var srv = new TestCDIService();
 srv.getMessage(Math.floor(Math.random()*10)).then(function (result) {
