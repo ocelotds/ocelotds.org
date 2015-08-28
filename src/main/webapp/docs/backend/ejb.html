@@ -1,7 +1,7 @@
 <div class="container theme-showcase" role="main">
 	<div class="well">
 		<h2>Use with EJB</h2>
-		<p>It’s the best way to use Ocelot, but you have to deploy your project in Full Java EE server like glassfish.</p>
+		<p>It’s the best way to use Ocelot, but you have to deploy your project in Full Java EE server like Glassfish/Wildfly.</p>
 		<p>You have just annotate EJB that you like expose to the client.</p>
 		<pre><code class="java">
 @Stateless
@@ -15,7 +15,7 @@ public class TestEJBService {
      ...
   }
 }			</code></pre>
-		<p>When you will buil your project, a spi extension will generate stub in javascipt.<br />
+		<p>When you will build your project, a spi extension will generate stub in javascipt.<br />
 			Like it, just call the EJB from client like it :</p>
 		<pre><code class="javascript">
 var srv = new TestEJBService();
