@@ -5,47 +5,47 @@
 		<h2>Ocelot<font color="chocolate">ds</font> : Ocelot <font color="chocolate">d</font>atas <font color="chocolate">s</font>ervices</h2>
 		<p>Welcome to Ocelotds! Ocelotds is java and javascript framework remoting and web messaging technology that enables developers to easily connect to back-end data and push data in real-time to javascript applications, for more responsive rich Internet application (RIA) experiences.</p>
 		<h3>The best and easiest communication way between java 7+ and javascript</h3>
-		<p>Forget REST, forget AJAX, forget http, forget protocol, Ocelotds uses WebSocket and do everything for you.</p>
-		<b>Ocelotds use one bidirectional connection WebSocket, and is designed for usage in  single page web application (SPA).</b>
-		<p>Forget <a href="http://webdebug.net/2013/12/browser-connection-limit">browsers limitations</a> about number of connections between browsers and backend. At best 6 simultaneous connections</p>
-		<h3>Ocelotds can share thousands messages between back-end and front-end by secondes.</h3>
+		<p>Forget REST, forget AJAX, forget http, forget protocol, Ocelotds uses a WebSocket and do everything for you.</p>
+		<b>Ocelotds use one bidirectional connection WebSocket, and is designed to be use in a single page application (SPA).</b>
+		<p>Forget the <a href="http://webdebug.net/2013/12/browser-connection-limit">browsers connection limits</a> with your backend. The 6 simultaneous connections limit is not your problem anymore.</p>
+		<h3>Ocelotds can share thousands messages between back-end and front-end in seconds.</h3>
 		<h2>Open source</h2>
 		<p><a class="pull-left" href="https://github.com/hhdevelopement/ocelot" title="GithubID: hhdevelopement:ocelot"><i class="fa fa-github-square fa-3x"></i></a>&nbsp;Ocelot is open source MPLv2.<br>&nbsp;Fork it or contribute to the project.</p>
 
 		<h2>Great features</h2>
 
-		<p>Ocelot framework allow to call differents services directly from simple classe methods call, like you can do in the back-end.</p>
-		<p>Don't write WEB Services, focus on business code, ocelot do communication between business layer and front-end.</p>
+		<p>Ocelot framework allows javascript calls to different services directly to your java methods call ! As if your were in you back-end.</p>
+		<p>Don't write WEB Services, focus on business code. Ocelot will manage the communication between the business layer and the front-end.</p>
 
-		<p>The better way, is using managing beans, as EJB, CDI Bean or Spring bean, but you can call a simple pojo.<br />
-			If you use managed classes, you benefits of all features</p>
+		<p>The best way, is to use managed beans, as EJB, CDI Bean or Spring bean. But you can call a simple pojo.<br />
+			If you use managed classes, you will benefits from all features</p>
 		<h3>Java EE compliant</h3>
-		<p>Ocelot use Java EE technologies, nothing else, so use all natives and standards features of Java EE.</p>
+		<p>Ocelot uses Java EE technologies, nothing else, so you can use all natives and standards features of Java EE.</p>
 		<p>Example : Roles based annotation, @RoleAlowed, @Interceptor, @Decorator ...</p>
 		<h3>Comprehensive and very easy</h3>
-		<p>Configuration less, just add ocelot to maven dependencies.</p>
+		<p>No configuration needed, just add ocelot to your maven dependencies.</p>
 		<h3>Very fast</h3>
-		<p>Ocelot share thousands messages by secondes between the java layer and the javascript layer.</p>
+		<p>Ocelot can share thousands of messages in seconds between the java layer and the javascript layer.</p>
 		<h3>Native push messages</h3>
-		<p>Ocelot use bi-directional connection, so for write a chat-like, channel or topic paradigm, is really easy. See demos</p>
+		<p>Ocelot uses a bi-directional connection. So to write a chat-like, channel or topic paradigm is really easy. Check the Demos, and see by yourself !</p>
 		<h3>Cache features</h3>
-		<p>Define cache directly from the back-end, annotate a method with @JsCacheResult and the result will be cached on the front-end.
-			Annotate a method with @JsCacheRemove and remove cache of an other method for <b>all</b> clients.</p>
+		<p>Configure your cache directly from the back-end : annotate a method with @JsCacheResult and its the result will be cached on the front-end.
+			To reset the front-end cache, annotate another method with @JsCacheRemove and it will remove the cache for <b>all</b> clients.</p>
 		<h3>Agnostic</h3>
-		<p>Ocelot can works with the most famous back-end technologies (EJB, CDI, Spring).
-			Ocelot can works with the most famous front-end frameworks (Angularjs, knockoutjs…).</p>
+		<p>Ocelot can work with the most famous back-end technologies : EJB, CDI, Spring.
+			But also with the most famous front-end frameworks : Angularjs, knockoutjs,...</p>
 		<h3>Extensible</h3>
-		<p>Ocelot is extensible, write your own resolver for access to your favorites technologies.</p>
+		<p>Ocelot is extensible. You can write your own resolver to access to your favorite technologies.</p>
 
-		<p>Actually, Ocelot is tested on Glassfish 4.1, Wildfly 9, Tomcat 7/8</p>
-		<p><strong>Ocelot is develop on reference Java EE server glassfish 4.</strong> <br />
-			But Ocelot can work in servlet container like tomcat without EJB features of course, just add cdi and jsonp implementation.</p>
+		<p>At the moment, Ocelot is tested with Glassfish 4.1, Wildfly 9, and Tomcat 7/8.</p>
+		<p><strong>Ocelot is developped with Java EE server glassfish 4.</strong> <br />
+			But Ocelot can work in a servlet container, like tomcat, without EJB features of course. Just add the cdi and json processing implementation :</p>
 		<ul>
 			<li><a href="https://jcp.org/en/jsr/detail?id=299">JSR299</a> - <a href="https://jcp.org/en/jsr/detail?id=346">JSR346</a> : Context dependency Injection for Java : <a href="http://docs.jboss.org/weld/reference/1.0.0/en-US/html/environments.html">weld</a></li>
 			<li><a href="https://jcp.org/en/jsr/detail?id=353">JSR353</a> : Java API for JSON Processing - Reference Implementation : <a href="https://jsonp.java.net/">jsonp</a></li>
 		</ul>
 
-		<p>See <a href="docs/servers/tomcat.html">Documentations</a> tomcat server guide for more details.</p>
+		<p>See the documentation about the <a href="docs/servers/tomcat.html">tomcat server</a> for more details.</p>
 
 		<h3>Artifacts</h3>
 		<p><a href="https://oss.sonatype.org/#nexus-search;gav~org.ocelotds~ocelot~~~">Ocelot framework on Nexus repository</a><br />
