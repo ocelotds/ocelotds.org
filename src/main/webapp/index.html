@@ -39,13 +39,27 @@
 
 		<p>At the moment, Ocelot is tested with Glassfish 4.1, Wildfly 9, and Tomcat 7/8.</p>
 		<p><strong>Ocelot is developped with Java EE server glassfish 4.</strong> <br />
-			But Ocelot can work in a servlet container, like tomcat, without EJB features of course. Just add the cdi and json processing implementation :</p>
+			But Ocelot can work in all servlets containers, like tomcat, without EJB features of course. Just add the cdi and json processing implementation :</p>
 		<ul>
 			<li><a href="https://jcp.org/en/jsr/detail?id=299">JSR299</a> - <a href="https://jcp.org/en/jsr/detail?id=346">JSR346</a> : Context dependency Injection for Java : <a href="http://docs.jboss.org/weld/reference/1.0.0/en-US/html/environments.html">weld</a></li>
 			<li><a href="https://jcp.org/en/jsr/detail?id=353">JSR353</a> : Java API for JSON Processing - Reference Implementation : <a href="https://jsonp.java.net/">jsonp</a></li>
 		</ul>
-
 		<p>See the documentation about the <a href="docs/servers/tomcat.html">tomcat server</a> for more details.</p>
+		<h4>Modern & Robust</h4>
+		<ul>
+			<li>Java 8 compatible</li>
+			<li><a href="https://travis-ci.org/hhdevelopment/ocelot">Continuous delivery from Travis-CI</a></li>
+			<li>Tested with modern test framework
+				<ul>
+					<li><a href="http://junit.org">Junit 4</a></li>
+					<li><a href="http://mockito.org">Mockito</a></li>
+					<li><a href="http://joel-costigliola.github.io/assertj/index.html">AssertJ</a></li>
+					<li><a href="http://arquillian.org/">Arquillian</a></li>
+				</ul>
+			</li>
+		</ul>
+		
+
 
 		<h3>Artifacts</h3>
 		<p><a href="https://oss.sonatype.org/#nexus-search;gav~org.ocelotds~ocelot~~~">Ocelot framework on Nexus repository</a><br />
