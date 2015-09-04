@@ -1,5 +1,5 @@
 ocelotController.addOpenListener(function () {
-   new OcelotServices().subscribe("ocelot-status").message(function (msg) {
+   new Subscriber("ocelot-status").message(function (msg) {
       var statusText = document.getElementById("status-text");
       var statusColor = document.getElementById("status-color");
       var statusTextShadow = document.getElementById("status-text-shadow");
