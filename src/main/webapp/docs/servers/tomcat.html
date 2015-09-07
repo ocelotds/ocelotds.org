@@ -12,12 +12,16 @@
 
 		<h4 id="war-module">WAR Module</h4>
 
-		<pre><code class="xml">
-&lt;!-- IN WEB MODULE --&gt;
+		<pre><code class="xml">&lt;!-- IN WEB MODULE --&gt;
 &lt;!-- OCELOT --&gt;
 &lt;dependency&gt;
    &lt;groupId&gt;org.ocelotds&lt;/groupId&gt;
    &lt;artifactId&gt;ocelot-web&lt;/artifactId&gt;
+   &lt;version&gt;${ocelot.version}&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+   &lt;groupId&gt;org.ocelotds&lt;/groupId&gt;
+   &lt;artifactId&gt;ocelot-core&lt;/artifactId&gt;
    &lt;version&gt;${ocelot.version}&lt;/version&gt;
 &lt;/dependency&gt;
 &lt;!-- END OCELOT --&gt;
@@ -39,8 +43,7 @@
    &lt;artifactId&gt;weld-servlet-core&lt;/artifactId&gt;
    &lt;version&gt;2.2.14.Final&lt;/version&gt;
 &lt;/dependency&gt;
-&lt;!-- END WELD --&gt;
-			</code></pre>
+&lt;!-- END WELD --&gt;</code></pre>
 		<h3 id="configuration">Configuration</h3>
 		<p>CDI is not native in Tomcat, so we have to bootstrap it in the Web archive</p>
 		<h4>WAR Module</h4>
