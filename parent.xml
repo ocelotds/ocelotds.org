@@ -30,6 +30,11 @@
 			<artifactId>ocelot-web</artifactId>
 			<version>[2,)</version>
 		</dependency>
+		<dependency>
+			<groupId>org.ocelotds</groupId>
+			<artifactId>ocelot-core</artifactId>
+			<version>[2,)</version>
+		</dependency>
 		<!-- WEBAPI -->
 		<dependency>
 			<groupId>javax</groupId>
