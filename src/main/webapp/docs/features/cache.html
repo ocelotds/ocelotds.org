@@ -40,10 +40,11 @@ public @interface JsCacheResult {
 	   <p>Rules for parameters about key for cache, separate by coma<br>
 	      The order is important mostly if you want use JsCacheRemove<br>
 	      Use json notation.<br>
-			<b>{'*'}</b> : use all arguments in calculating cache key<br>
-	      <b>'obj.id'</b> : means that for compute the key the value of id from argument named obj will be used.<br>
+			<b>{}</b> : use 0 argument in calculating cache key. If the cache entry considerated arguments, so all cache entries will be removed<br>
+			<b>{'*'}</b> : use all arguments in calculating cache key (default value)<br>
+	      <b>{'obj.id', ...}</b> : means that for compute the key the value of id from argument named obj will be used.<br>
 	      Exemple <b>{"i", "u.id", "f.name"}</b><br>
-	      Finally <b>{}</b> Empty argument means that any argmuent is used for cache key
+	      Finally <b>{}</b> Empty argument means that no argmuent is used for cache key
 		</p>
 			<pre><code class="java">
 @Retention(RetentionPolicy.RUNTIME)
