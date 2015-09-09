@@ -26,6 +26,39 @@ public class ExposedService {
 }
 		</code></pre>
 
+		<h2>Choose your own marshaller /unmarshaller</h2>
+		<p>Sometime you have to use the pattern DTO, maybe cause object is not serializable<br>With Ocelotds, it's easy, write implemetation of JsonMarshaller and JsonUnmarshaller and annote the method and arguments target.</p>
+		<pre><code class="java">
+@DataService(resolver = Constants.Resolver....)
+public class ExposedService {
+
+   @JsonMarshaller(NoSerializableMarshaller.class)
+   public NoSerializable getObjectNonSerializable() {
+      return ...;
+   }
+
+   public void setObjectNonSerializable(@JsonUnmarshaller(NoSerializableUnmarshaller.class) NoSerializable ns) {
+      return ...;
+   }
+}
+		</code></pre>
+		<pre><code class="java">
+public NoSerializableMarshaller implements JsonMarshaller&lt;NoSerializableMarshaller&gt; {
+   @Override
+   public String toJson(NoSerializable obj) throws JsonMarshallingException {
+      // transform java object to json
+   }
+}
+		</code></pre>
+		<pre><code class="java">
+public NoSerializableUnmarshaller implements JsonUnmarshaller&lt;NoSerializableMarshaller&gt; {
+   @Override
+   public NoSerializable toJava(String json) throws JsonUnmarshallingException {
+      // transform json to java object
+   }
+}
+		</code></pre>
+
 		<h2>Unexpose method to the front-end</h2>
 		<p>As said previously, adding annotation <b>@DataService(resolver = "RESOLVERID")</b> expose all public methods to the front-end.<br/>
 			But sometimes, you have to hide methods for many reasons.<br/>
