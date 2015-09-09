@@ -514,4 +514,34 @@ ocelotController.addOpenListener(function () {
          });
       });
    });
+   var srv2 = new OcelotServices();
+   QUnit.module("OcelotServices");
+   QUnit.test(".getLocale()", function (assert) {
+      var done = assert.async();
+      srv2.getLocale().event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+         assert.equal(evt.response.language, "fr");
+         assert.equal(evt.response.country, "FR");
+         done();
+      });
+   });
+   QUnit.test(".setLocale()", function (assert) {
+      var done = assert.async(), func;
+      func = function(evt) {
+         ocelotController.cacheManager.removeEventListener("remove", func);
+         srv2.getLocale().event(function (evt) {
+            assert.equal(evt.type, "RESULT");
+            assert.equal(evt.response.language, "en");
+            assert.equal(evt.response.country, "US");
+            srv2.setLocale({"language":"fr","country":"FR"}).event(function (evt) {
+               assert.equal(evt.type, "RESULT");
+               done();
+            });
+         });
+      };
+      ocelotController.cacheManager.addEventListener("remove", func);
+      srv2.setLocale({"language":"en","country":"US"}).event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+      });
+   });
 });
