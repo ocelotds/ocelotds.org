@@ -16,6 +16,8 @@ language: java
 jdk: oraclejdk7
 install: mvn install -DskipTests=true
 after_success:
-  - sshpass -p $pwdvps ssh $loginvps@$hostvps "rm /opt/glassfish4/glassfish/domains/domain1/autodeploy/ocelotds*.war"
-  - sshpass -p $pwdvps scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no target/ocelotds*.war $loginvps@$hostvps:/opt/glassfish4/glassfish/domains/domain1/autodeploy/
+  - ls target/ocelotds*.war
+  - sshpass -p $pwdvps scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no target/ocelotds*.war $loginvps@$hostvps:/opt/glassfish4/glassfish/domains/domain1/autodeploy/ocelotds.war
+
+#  - sshpass -p $pwdvps ssh $loginvps@$hostvps "rm /opt/glassfish4/glassfish/domains/domain1/autodeploy/ocelotds.war"
 
