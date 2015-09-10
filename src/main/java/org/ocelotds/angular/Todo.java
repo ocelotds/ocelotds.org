@@ -45,7 +45,7 @@ public class Todo {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (Objects.isNull(obj)) {
 			return false;
 		}
 		if (getClass() != obj.getClass()) {
