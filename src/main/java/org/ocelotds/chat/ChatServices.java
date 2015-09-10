@@ -8,7 +8,6 @@ import org.ocelotds.annotations.DataService;
 import org.ocelotds.annotations.JsTopic;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Objects;
 import javax.inject.Singleton;
 
 /**
@@ -31,7 +30,7 @@ public class ChatServices {
 	 */
 	@JsTopic("Chatters")
 	public Collection<String> register(String chatter) throws ChatterAlreadyExistException, ChatterInconsistentException {
-		if (Objects.isNull(chatter) || chatter.isEmpty()) {
+		if (null == chatter || chatter.isEmpty()) {
 			throw new ChatterInconsistentException("empty");
 		}
 		if (chatters.contains(chatter)) {
@@ -63,7 +62,7 @@ public class ChatServices {
 	 */		  
 	@JsTopic("ChatRoom")
 	public Message postMessage(Message message) throws MessageInconsistentException {
-		if (Objects.isNull(message) || Objects.isNull(message.getChatter()) || Objects.isNull(message.getText()) || message.getChatter().isEmpty() || message.getText().isEmpty()) {
+		if (null == message || message.getChatter() == null || message.getText()==null || message.getChatter().isEmpty() || message.getText().isEmpty()) {
 			throw new MessageInconsistentException();
 		}
 		return message;
