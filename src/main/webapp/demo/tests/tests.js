@@ -382,8 +382,8 @@ ocelotController.addOpenListener(function () {
       ocelotController.open();
    });
    QUnit.test(".onMessage()", function (assert) {
-      var timer, done = assert.async(), 
-      sub = new Subscriber("mytopic");
+      var timer, done = assert.async(),
+         sub = new Subscriber("mytopic");
       assert.equal(sub.topic, "mytopic", "topic name accessible");
       sub.event(function (evt) {
          assert.equal(evt.type, "RESULT", "Subscription to 'mytopic' : ok.");
@@ -485,7 +485,7 @@ ocelotController.addOpenListener(function () {
    });
    QUnit.test(".testGlobalTopicAccess()", function (assert) {
       var sub, done = assert.async();
-      srv.setGlobalTopicAccess(false).then(function() {
+      srv.setGlobalTopicAccess(false).then(function () {
          new Subscriber("GlobalTopic").event(function (evt) {
             assert.equal(evt.type, "FAULT", "Subscription to 'GlobalTopic' failed : ok.");
             new Subscriber("mytopic").event(function (evt) {
@@ -502,7 +502,7 @@ ocelotController.addOpenListener(function () {
    });
    QUnit.test(".testSpecificTopicAccess()", function (assert) {
       var sub, done = assert.async();
-      srv.setSpecificTopicAccess(false).then(function() {
+      srv.setSpecificTopicAccess(false).then(function () {
          new Subscriber("mytopic").event(function (evt) {
             assert.equal(evt.type, "FAULT", "Subscription to 'GlobalTopic' failed : ok.");
             sub = new Subscriber("GlobalTopic").event(function (evt) {
@@ -514,9 +514,77 @@ ocelotController.addOpenListener(function () {
          });
       });
    });
-   var srv2 = new OcelotServices();
+   QUnit.test(".testGetCDIPrincipalName()", function (assert) {
+      var login, done = assert.async();
+      srv.getCDIPrincipalName().event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+         login = evt.response;
+         assert.notEqual(login, "ANONYMOUS", "login should be different to ANONYMOUS and was "+login);
+         done();
+      });
+   });
+   /**
+    * EJBTestServices
+    */
+   QUnit.module("EJBTestServices");
+   var srv1 = new EJBTestServices();
+   QUnit.test(".testGetEJBPrincipalName()", function (assert) {
+      var done = assert.async();
+      var resultCount = 0;
+      var okCount = 0;
+      var login = null;
+      srv1.getEJBPrincipalName().event(function (evt) {
+         login = evt.response;
+         var getName = function () {
+            srv1.getEJBPrincipalName().event(function (evt) {
+               if (evt.response === login) okCount++;
+               resultCount++;
+               if (resultCount < 200) getName();
+            });
+         };
+         getName();
+      });
+      setTimeout(function () {
+         assert.notEqual(login, "ANONYMOUS", "login should be different to ANONYMOUS and was "+login);
+         assert.equal(okCount, 200, "200 response with login = "+login);
+         done();
+      }, 3000);
+   });
+   QUnit.test(".testIsUserInRoleTrue()", function (assert) {
+      var done = assert.async();
+      srv1.isUserInRole("USERR").event(function (evt) {
+         assert.equal(evt.type, "RESULT", "User should be in role : USERR");
+         assert.equal(evt.response, true);
+         done();
+      });
+   });
+   QUnit.test(".testIsUserInRoleFalse()", function (assert) {
+      var done = assert.async();
+      srv1.isUserInRole("ADMINR").event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+         assert.equal(evt.response, false);
+         done();
+      });
+   });
+   QUnit.test(".callAuthorized()", function (assert) {
+      var done = assert.async();
+      srv1.callAuthorized().event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+         done();
+      });
+   });
+   QUnit.test(".callUnauthorized()", function (assert) {
+      var done = assert.async();
+      srv1.callUnauthorized().event(function (evt) {
+         assert.equal(evt.type, "FAULT");
+         done();
+      });
+   });
+   
    QUnit.module("OcelotServices");
+   var srv2 = new OcelotServices();
    QUnit.test(".getLocale()", function (assert) {
+      ocelotController.cacheManager.clearCache();
       var done = assert.async();
       srv2.getLocale().event(function (evt) {
          assert.equal(evt.type, "RESULT");
@@ -527,20 +595,20 @@ ocelotController.addOpenListener(function () {
    });
    QUnit.test(".setLocale()", function (assert) {
       var done = assert.async(), func;
-      func = function(evt) {
+      func = function (evt) {
          ocelotController.cacheManager.removeEventListener("remove", func);
          srv2.getLocale().event(function (evt) {
             assert.equal(evt.type, "RESULT");
             assert.equal(evt.response.language, "en");
             assert.equal(evt.response.country, "US");
-            srv2.setLocale({"language":"fr","country":"FR"}).event(function (evt) {
+            srv2.setLocale({"language": "fr", "country": "FR"}).event(function (evt) {
                assert.equal(evt.type, "RESULT");
                done();
             });
          });
       };
       ocelotController.cacheManager.addEventListener("remove", func);
-      srv2.setLocale({"language":"en","country":"US"}).event(function (evt) {
+      srv2.setLocale({"language": "en", "country": "US"}).event(function (evt) {
          assert.equal(evt.type, "RESULT");
       });
    });

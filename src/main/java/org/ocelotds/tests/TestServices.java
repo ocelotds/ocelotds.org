@@ -16,6 +16,7 @@ import org.ocelotds.messaging.MessageToClient;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -24,6 +25,7 @@ import java.util.Map;
 import java.util.Random;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import org.ocelotds.context.OcelotContext;
 
 /**
  *
@@ -31,6 +33,9 @@ import javax.inject.Inject;
  */
 @DataService(resolver = Constants.Resolver.CDI)
 public class TestServices {
+
+	@Inject
+	private Principal principal;
 	
 	private final Random random = new Random();
 
@@ -38,9 +43,16 @@ public class TestServices {
 	private GlobalTopicAC globalTopicAC;
 	
 	@Inject
+	private OcelotContext ctx;
+
+	@Inject
 	@JsTopicAccessControl("mytopic")
 	private SpecificTopicAC specificTopicAC;
 	
+	public String getCDIPrincipalName() {
+		return principal.getName();
+	}
+
 	public void setGlobalTopicAccess(boolean b) {
 		globalTopicAC.setAccess(b);
 	}
