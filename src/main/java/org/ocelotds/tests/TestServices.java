@@ -156,40 +156,40 @@ public class TestServices {
 	}
 
 	public String methodWithDate(Date i) {
-		return "methodWithDate_" + i.getTime();
+		return "methodWithDate_" + ((i!=null)?i.getTime():null);
 	}
 
 	public String methodWithResult(Result i) {
-		return "methodWithResult_" + i.getInteger();
+		return "methodWithResult_" + ((i!=null)?i.getInteger():null);
 	}
 
 	public String methodWithArrayInteger(Integer[] i) {
-		return "methodWithArrayInteger_" + i.length;
+		return "methodWithArrayInteger_" + ((i!=null)?i.length:null);
 	}
 
 	public String methodWithCollectionInteger(Collection<Integer> i) {
-		return "methodWithCollectionInteger_" + i.size();
+		return "methodWithCollectionInteger_" + ((i!=null)?i.size():null);
 	}
 
 	public String methodWithArrayResult(Result[] i) {
-		return "methodWithArrayResult_" + i.length;
+		return "methodWithArrayResult_" + ((i!=null)?i.length:null);
 	}
 
 	public String methodWithCollectionResult(Collection<Result> i) {
-		return "methodWithCollectionResult_" + i.size();
+		return "methodWithCollectionResult_" + ((i!=null)?i.size():null);
 	}
 
 	public String methodWithMapResult(Map<String, Result> i) {
-		return "methodWithMapResult_" + i.size();
+		return "methodWithMapResult_" + ((i!=null)?i.size():null);
 	}
 
 	public String methodWithCollectionOfCollectionResult(Collection<Collection<Result>> i) {
-		return "methodWithCollectionOfCollectionResult_" + i.size();
+		return "methodWithCollectionOfCollectionResult_" + ((i!=null)?i.size():null);
 	}
 	
 	@JsCacheResult(minute = 5, keys = {"a", "c.integer"})
 	public String methodWithManyParameters(String a, int b, Result c, Collection<String> d) {
-		return "methodWithManyParameters a="+a+" - b="+b+" - c="+c.getInteger()+" - d:"+d.size();
+		return "methodWithManyParameters a="+a+" - b="+b+" - c="+((c!=null)?c.getInteger():null)+" - d:"+((d!=null)?d.size():null);
 	}
 
 	public void methodThatThrowException() throws MethodException {
