@@ -10,7 +10,7 @@
 	<properties>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<ocelot.version>2.4.1-SNAPSHOT</ocelot.version>
+		<ocelot.version>2.4.2-SNAPSHOT</ocelot.version>
 	</properties>
 
 	<repositories>
