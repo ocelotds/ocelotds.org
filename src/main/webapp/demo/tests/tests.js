@@ -539,16 +539,16 @@ ocelotController.addOpenListener(function () {
             srv1.getEJBPrincipalName().event(function (evt) {
                if (evt.response === login) okCount++;
                resultCount++;
-               if (resultCount < 200) getName();
+               if (resultCount < 50) getName();
             });
          };
          getName();
       });
       setTimeout(function () {
          assert.notEqual(login, "ANONYMOUS", "login should be different to ANONYMOUS and was "+login);
-         assert.equal(okCount, 200, "200 response with login = "+login);
+         assert.equal(okCount, 50, "50 response with login = "+login);
          done();
-      }, 3000);
+      }, 2000);
    });
    QUnit.test(".testIsUserInRoleTrue()", function (assert) {
       var done = assert.async();

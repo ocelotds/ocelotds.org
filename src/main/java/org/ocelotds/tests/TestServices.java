@@ -128,17 +128,6 @@ public class TestServices {
 		return result;
 	}
 
-	/**
-	 * file in glassfish/domains/domain1/config/
-	 *
-	 * @param pathname
-	 * @return
-	 * @throws FileNotFoundException
-	 */
-	public InputStream getInputstreamInDomainConfig(String pathname) throws FileNotFoundException {
-		return new FileInputStream(pathname);
-	}
-
 	public String methodWithNum(int i) {
 		return "methodWithNum_" + i;
 	}
