@@ -38,6 +38,15 @@ srv.getMessage(Math.floor(Math.random()*10)).then(function (result) {
 			<li>EJB Stateful = SESSION Scope</li>
 			<li>EJB Singleton = APPLICATION Scope</li>
 		</ul>
+		<h2>Limitations</h2>
+		<h4>EJB Light</h4>
+		<p>If you use ejbs with interfaces in war packaging, add Localbean annotation</p>
+		<pre><code class="java">
+@Stateless
+<b style="color:red">@Localbean</b>
+@DataService(resolver = Constants.Resolver.EJB)
+public class TestService implements ITestService {
+		</code></pre>
 		<h3>highlight</h3>
 		<p>For Stateless bean, don't stocke anything inside the EJB, cause, no garantie that an other user don't share the bean with an other, EJB is taken in a pool, not generate each time.</p>
 	</div>
