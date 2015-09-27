@@ -524,10 +524,10 @@ ocelotController.addOpenListener(function () {
       });
    });
    /**
-    * EJBTestServices
+    * EJBStateless
     */
-   QUnit.module("EJBTestServices");
-   var srv1 = new EJBTestServices();
+   QUnit.module("EJBStateless");
+   var srv1 = new EJBStateless();
    QUnit.test(".testGetEJBPrincipalName()", function (assert) {
       var done = assert.async();
       var resultCount = 0;

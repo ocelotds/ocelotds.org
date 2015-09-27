@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 package org.ocelotds.tests;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
@@ -18,7 +19,7 @@ import org.ocelotds.annotations.DataService;
 @Stateless
 @DataService(resolver = Constants.Resolver.EJB)
 @DeclareRoles({"USERR", "ADMINR"})
-public class EJBTestServices {
+public class EJBStateless {
 
 	@Resource
 	private SessionContext sc;
