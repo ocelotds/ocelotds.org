@@ -31,4 +31,8 @@
 		<description/>
 		<role-name>USERR</role-name>
 	</security-role>
+	<security-role>
+		<description/>
+		<role-name>ADMINR</role-name>
+	</security-role>
 </web-app>
