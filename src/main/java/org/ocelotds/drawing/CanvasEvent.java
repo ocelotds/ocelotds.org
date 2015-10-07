@@ -17,9 +17,7 @@ public class CanvasEvent {
 		this.y = y;
 		this.type = type;
 	}
-	
-	
-	
+
 	private int x;
 	private int y;
 	private String type;
