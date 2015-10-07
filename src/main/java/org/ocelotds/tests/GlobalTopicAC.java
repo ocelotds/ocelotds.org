@@ -18,7 +18,7 @@ public class GlobalTopicAC implements JsTopicAccessController {
 
 	private final static Logger logger = LoggerFactory.getLogger(GlobalTopicAC.class);
 
-	private boolean access = true; 
+	private boolean access = true;
 
 	public boolean isAccess() {
 		return access;
@@ -31,9 +31,9 @@ public class GlobalTopicAC implements JsTopicAccessController {
 	@Override
 	public void checkAccess(Session session, String topic) throws IllegalAccessException {
 		logger.warn("Check mytopic access to topic {} : access = {}", topic, access);
-		if(!access) {
+		if (!access) {
 			throw new IllegalAccessException("mytopic access is set to false");
 		}
 	}
-	
+
 }
