@@ -27,10 +27,10 @@ public class Result {
 	public void setInteger(int integer) {
 		this.integer = integer;
 	}
-	
+
 	public static Result getMock() {
 		Result result = new Result(5);
 		return result;
 	}
-	
+
 }
