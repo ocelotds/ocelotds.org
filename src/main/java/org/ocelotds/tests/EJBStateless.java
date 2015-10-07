@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 package org.ocelotds.tests;
 
-import javax.annotation.PostConstruct;
+import java.util.Date;
 import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
@@ -21,13 +21,25 @@ import org.ocelotds.annotations.DataService;
 @DeclareRoles({"USERR", "ADMINR"})
 public class EJBStateless {
 
+	@RolesAllowed("USERR")
+	public Date getDate() {
+		Date d = new Date();
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException ex) {
+		}
+		return d;
+	}
+
 	@Resource
 	private SessionContext sc;
-	
+
+	@RolesAllowed("USERR")
 	public String getEJBPrincipalName() {
 		return sc.getCallerPrincipal().getName();
 	}
-	
+
+	@RolesAllowed("USERR")
 	public boolean isUserInRole(String role) {
 		return sc.isCallerInRole(role);
 	}
