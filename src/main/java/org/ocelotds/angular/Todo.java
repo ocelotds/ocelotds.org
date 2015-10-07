@@ -12,14 +12,14 @@ public class Todo {
 	private boolean done = false;
 
 	public Todo() {
-		
+
 	}
+
 	public Todo(String text, boolean done) {
 		this.text = text;
 		this.done = done;
 	}
 
-	
 	public String getText() {
 		return text;
 	}
@@ -54,7 +54,5 @@ public class Todo {
 		final Todo other = (Todo) obj;
 		return Objects.equals(this.text, other.text);
 	}
-	
-	
 
 }

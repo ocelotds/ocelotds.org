@@ -14,9 +14,9 @@ import javax.inject.Singleton;
 @Singleton
 @DataService(resolver = Constants.Resolver.CDI)
 public class TodoServices {
-	
+
 	private List<Todo> todos;
-	
+
 	@PostConstruct
 	public void init() {
 		todos = new ArrayList<>();
@@ -27,13 +27,13 @@ public class TodoServices {
 	public List<Todo> getTodos() {
 		return todos;
 	}
-	
+
 	public Todo addTodo(String text) {
 		Todo todo = new Todo(text, false);
 		todos.add(todo);
 		return todo;
 	}
-	
+
 	public Todo updateTodo(Todo todo) {
 		for (Todo t : todos) {
 			if (t.equals(todo)) {
@@ -42,7 +42,7 @@ public class TodoServices {
 		}
 		return todo;
 	}
-	
+
 	public List<Todo> archive() {
 		List<Todo> saved = new ArrayList<>();
 		saved.addAll(todos);

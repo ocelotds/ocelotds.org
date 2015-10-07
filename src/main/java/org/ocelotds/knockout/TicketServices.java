@@ -16,7 +16,7 @@ import javax.inject.Singleton;
 public class TicketServices {
 
 	private List<Ticket> tickets;
-	
+
 	@PostConstruct
 	private void init() {
 		tickets = new ArrayList<>();
@@ -28,6 +28,5 @@ public class TicketServices {
 	public List<Ticket> getTickets() {
 		return tickets;
 	}
-	
-	
+
 }

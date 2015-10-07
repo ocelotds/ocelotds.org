@@ -42,7 +42,7 @@ public class Templater implements Filter {
 				String line = reader.readLine();
 				if (line != null) {
 					line = line.replaceAll("%ROOT%", servletRequest.getContextPath());
-					if (line.contains("\""+pageRequested+"\"")) {
+					if (line.contains("\"" + pageRequested + "\"")) {
 						line = line.replace("<li", "<li class='active'");
 					}
 					response.getWriter().println(line);

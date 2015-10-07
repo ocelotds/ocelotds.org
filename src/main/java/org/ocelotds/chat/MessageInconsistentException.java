@@ -8,6 +8,7 @@ package org.ocelotds.chat;
  * @author hhfrancois
  */
 public class MessageInconsistentException extends Exception {
+
 	private static final long serialVersionUID = -2965043982714074565L;
 
 	/**
