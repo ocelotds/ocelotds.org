@@ -36,19 +36,19 @@ public class TestServices {
 
 	@Inject
 	private Principal principal;
-	
+
 	private final Random random = new Random();
 
 	@Inject
 	private GlobalTopicAC globalTopicAC;
-	
+
 	@Inject
 	private OcelotContext ctx;
 
 	@Inject
 	@JsTopicAccessControl("mytopic")
 	private SpecificTopicAC specificTopicAC;
-	
+
 	public String getCDIPrincipalName() {
 		return principal.getName();
 	}
@@ -145,40 +145,40 @@ public class TestServices {
 	}
 
 	public String methodWithDate(Date i) {
-		return "methodWithDate_" + ((i!=null)?i.getTime():null);
+		return "methodWithDate_" + ((i != null) ? i.getTime() : null);
 	}
 
 	public String methodWithResult(Result i) {
-		return "methodWithResult_" + ((i!=null)?i.getInteger():null);
+		return "methodWithResult_" + ((i != null) ? i.getInteger() : null);
 	}
 
 	public String methodWithArrayInteger(Integer[] i) {
-		return "methodWithArrayInteger_" + ((i!=null)?i.length:null);
+		return "methodWithArrayInteger_" + ((i != null) ? i.length : null);
 	}
 
 	public String methodWithCollectionInteger(Collection<Integer> i) {
-		return "methodWithCollectionInteger_" + ((i!=null)?i.size():null);
+		return "methodWithCollectionInteger_" + ((i != null) ? i.size() : null);
 	}
 
 	public String methodWithArrayResult(Result[] i) {
-		return "methodWithArrayResult_" + ((i!=null)?i.length:null);
+		return "methodWithArrayResult_" + ((i != null) ? i.length : null);
 	}
 
 	public String methodWithCollectionResult(Collection<Result> i) {
-		return "methodWithCollectionResult_" + ((i!=null)?i.size():null);
+		return "methodWithCollectionResult_" + ((i != null) ? i.size() : null);
 	}
 
 	public String methodWithMapResult(Map<String, Result> i) {
-		return "methodWithMapResult_" + ((i!=null)?i.size():null);
+		return "methodWithMapResult_" + ((i != null) ? i.size() : null);
 	}
 
 	public String methodWithCollectionOfCollectionResult(Collection<Collection<Result>> i) {
-		return "methodWithCollectionOfCollectionResult_" + ((i!=null)?i.size():null);
+		return "methodWithCollectionOfCollectionResult_" + ((i != null) ? i.size() : null);
 	}
-	
+
 	@JsCacheResult(minute = 5, keys = {"a", "c.integer"})
 	public String methodWithManyParameters(String a, int b, Result c, Collection<String> d) {
-		return "methodWithManyParameters a="+a+" - b="+b+" - c="+((c!=null)?c.getInteger():null)+" - d:"+((d!=null)?d.size():null);
+		return "methodWithManyParameters a=" + a + " - b=" + b + " - c=" + ((c != null) ? c.getInteger() : null) + " - d:" + ((d != null) ? d.size() : null);
 	}
 
 	public void methodThatThrowException() throws MethodException {
@@ -201,7 +201,7 @@ public class TestServices {
 		for (int i = 1; i <= nb; i++) {
 			MessageToClient messageToClient = new MessageToClient();
 			messageToClient.setId(topic);
-			messageToClient.setResponse("Message From server "+i);
+			messageToClient.setResponse("Message From server " + i);
 			wsEvent.fire(messageToClient);
 		}
 	}

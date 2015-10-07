@@ -10,6 +10,7 @@ package org.ocelotds.knockout;
  * @author hhfrancois
  */
 public class Ticket {
+
 	private String name;
 	private double price;
 
@@ -20,7 +21,7 @@ public class Ticket {
 
 	public Ticket() {
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -36,6 +37,5 @@ public class Ticket {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
-	
+
 }

@@ -13,6 +13,7 @@ import org.ocelotds.annotations.JsTopic;
  */
 @DataService(resolver = Constants.Resolver.CDI)
 public class DrawingServices {
+
 	@JsTopic("eventCanvas")
 	public CanvasEvent pushCanvasEvent(CanvasEvent evt) {
 		return evt;
