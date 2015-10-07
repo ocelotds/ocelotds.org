@@ -6,8 +6,9 @@ package org.ocelotds.chat;
 import org.ocelotds.Constants;
 import org.ocelotds.annotations.DataService;
 import org.ocelotds.annotations.JsTopic;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import javax.inject.Singleton;
 
 /**
@@ -18,24 +19,16 @@ import javax.inject.Singleton;
 @DataService(resolver = Constants.Resolver.CDI)
 public class ChatServices {
 
-	private static final Collection<String> chatters = new ArrayList<>();
+	private static final Set<String> chatters = new HashSet<>();
 
 	/**
 	 * Register chatter
 	 *
 	 * @param chatter
 	 * @return
-	 * @throws ChatterAlreadyExistException
-	 * @throws ChatterInconsistentException
 	 */
 	@JsTopic("Chatters")
-	public Collection<String> register(String chatter) throws ChatterAlreadyExistException, ChatterInconsistentException {
-		if (null == chatter || chatter.isEmpty()) {
-			throw new ChatterInconsistentException("empty");
-		}
-		if (chatters.contains(chatter)) {
-			throw new ChatterAlreadyExistException(chatter);
-		}
+	public Collection<String> register(String chatter) {
 		chatters.add(chatter);
 		return chatters;
 	}
@@ -53,16 +46,17 @@ public class ChatServices {
 		}
 		return chatters;
 	}
-	
+
 	/**
-	 * Post message and broadcast to all ChatRoom topic subscribers 
+	 * Post message and broadcast to all ChatRoom topic subscribers
+	 *
 	 * @param message
 	 * @return
-	 * @throws MessageInconsistentException 
-	 */		  
+	 * @throws MessageInconsistentException
+	 */
 	@JsTopic("ChatRoom")
 	public Message postMessage(Message message) throws MessageInconsistentException {
-		if (null == message || message.getChatter() == null || message.getText()==null || message.getChatter().isEmpty() || message.getText().isEmpty()) {
+		if (null == message || message.getChatter() == null || message.getText() == null || message.getChatter().isEmpty() || message.getText().isEmpty()) {
 			throw new MessageInconsistentException();
 		}
 		return message;
