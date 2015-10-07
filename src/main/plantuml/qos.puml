@@ -1,0 +1,45 @@
+@startuml
+title QOS
+hide footbox
+box "frontend"
+	participant ui1
+	participant ui2
+	participant ocelotds
+end box
+box "backend"
+	participant server
+end box
+autonumber "<font color=green><b>"
+alt not incache
+autonumber "<font color=green><b>"
+ui1 -> ocelotds: getA
+activate ocelotds
+activate ui1
+ocelotds -> server: getA
+activate server
+ui2 -> ocelotds: getA
+deactivate ocelotds
+activate ui2
+server --> ocelotds: result
+deactivate server
+activate ocelotds
+ocelotds --> ui1:result
+deactivate ui1
+ocelotds --> ui2:result
+deactivate ocelotds
+deactivate ui2
+else incache
+ui1 -> ocelotds: getA
+activate ui1
+activate ocelotds
+ocelotds --> ui1:result
+deactivate ui1
+deactivate ocelotds
+ui2 -> ocelotds: getA
+activate ocelotds
+activate ui2
+ocelotds --> ui2:result
+deactivate ocelotds
+deactivate ui2
+end
+@enduml
