@@ -1,0 +1,33 @@
+@startuml
+title Cache
+hide footbox
+box "frontend"
+	participant ui
+	participant ocelotds
+end box
+box "backend"
+	participant server
+end box
+autonumber "<font color=green><b>"
+alt not incache
+ui -> ocelotds: getA
+activate ui
+activate ocelotds
+ocelotds -> server: getA
+deactivate ocelotds
+activate server
+server --> ocelotds: result
+deactivate server
+activate ocelotds
+ocelotds --> ui:result
+deactivate ui
+deactivate ocelotds
+else incache
+ui -> ocelotds: getA
+activate ocelotds
+activate ui
+ocelotds --> ui:result
+deactivate ui
+deactivate ocelotds
+end
+@enduml
