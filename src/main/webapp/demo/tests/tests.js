@@ -528,6 +528,21 @@ ocelotController.addOpenListener(function () {
     */
    QUnit.module("EJBStateless");
    var srv1 = new EJBStateless();
+   QUnit.test(".testGetDate()", function (assert) {
+      var r1, r2, done = assert.async();
+      srv1.getDate().event(function (evt) {
+         r1 = evt.response;
+         assert.equal(evt.type, "RESULT", "r1 = "+new Date(r1).toString());
+      });
+      srv1.getDate().event(function (evt) {
+         r2 = evt.response;
+         assert.equal(evt.type, "RESULT", "r2 = "+new Date(r2).toString());
+      });
+      setTimeout(function () {
+         assert.equal(r1, r2);
+         done();
+      }, 4000);
+   });
    QUnit.test(".testGetEJBPrincipalName()", function (assert) {
       var done = assert.async();
       var resultCount = 0;
