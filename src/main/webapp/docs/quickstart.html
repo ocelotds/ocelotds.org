@@ -82,8 +82,7 @@ public class TestService {
 		</code></pre>
 		<h3>Use it</h3>
 		<p>Use services directly in your code</p>
-		<pre><code class="javascript">
-var srv = new TestService();
+		<pre><code class="javascript">var srv = new TestService();
 srv.getMessage(Math.floor(Math.random()*10)).event(function (evt) {
    if(evt.type === "RESULT") {
       doSomethingWithResult(evt.result);
@@ -106,33 +105,31 @@ srv.getMessage(Math.floor(Math.random()*10)).event(function (evt) {
 		<p>In javascript, create an instance of Subscriber</p>
 		<pre><code class="javascript">
 var sub = new Subscriber("mytopic").then(function (res) {
-  subscriptionOk();
+   subscriptionOk();
 }).catch(function (f) {
-  subscriptionNok();
+   subscriptionNok();
 }).message(function (msg) {
    doSomethingWithMsg(msg); 
 });
 
 sub.unsubscribe().then(function (res) {
-	unsubscriptionOk();
+   unsubscriptionOk();
 }).catch(function (f) {
    unsubscriptionNok();
 });
 		</code></pre>
 		<h4 id="publish-message">publish message</h4>
 		<p>In java, publish message to all subcribers clients</p>
-		<pre><code class="java">
-@Inject
-	@MessageEvent
-	Event&lt;MessageToClient&gt; wsEvent;
+		<pre><code class="java">@Inject
+@MessageEvent
+Event&lt;MessageToClient&gt; wsEvent;
 
-	public void publish() {
-		MessageToClient messageToClient = new MessageToClient();
-		messageToClient.setId("mytopic");
-		messageToClient.setResult("Message From server");
-		wsEvent.fire(messageToClient);
-	}
-		</code></pre>
+public void publish() {
+   MessageToClient messageToClient = new MessageToClient();
+   messageToClient.setId("mytopic");
+   messageToClient.setResult("Message From server");
+   wsEvent.fire(messageToClient);
+}</code></pre>
 	</div>
 	<div id="disqus_thread"></div>
 	<script type="text/javascript">
