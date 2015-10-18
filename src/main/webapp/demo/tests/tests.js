@@ -627,4 +627,117 @@ ocelotController.addOpenListener(function () {
          assert.equal(evt.type, "RESULT");
       });
    });
+   QUnit.module("SpringPrototypeBean");
+   var srv3 = new SpringPrototypeBean();
+   QUnit.test(".getCount()", function (assert) {
+      var result = 0, nb = 10, num = 0, done = assert.async(), 
+      timer = setTimeout(checkResult, 2000),
+      checkResult = function() {
+         assert.equal(result, 0, "Result prototype is stateless, don't store result getCount = "+result);
+         done();
+      },
+      getCount = function() {
+         srv3.getCount().event(function (evt) {
+            assert.equal(evt.type, "RESULT");
+            result += evt.response;
+            if(num<nb) {
+               num++;
+               getCount();
+            } else {
+               clearTimeout(timer);
+               checkResult();
+            }
+         });
+      };
+      getCount();
+   });
+   QUnit.test(".getCountFromSingletonAutoWired()", function (assert) {
+      var result = 0, nb = 10, num = 0, done = assert.async(), 
+      timer = setTimeout(checkResult, 2000),
+      expected = ((nb+1) * nb)/2,
+      checkResult = function() {
+         assert.ok(result === expected, "Result singleton is never reset "+result+" == "+expected);
+         done();
+      },
+      getCount = function() {
+         srv3.getCountFromSingleton().event(function (evt) {
+            assert.equal(evt.type, "RESULT");
+            result += evt.response;
+            if(num<nb) {
+               num++;
+               getCount();
+            } else {
+               clearTimeout(timer);
+               checkResult();
+            }
+         });
+      };
+      srv3.initSingleton().event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+         getCount();
+      });
+   });
+//   QUnit.test(".getPrincipal()", function (assert) {
+//      var done = assert.async();
+//      srv3.getPrincipal().event(function (evt) {
+//         assert.equal(evt.type, "RESULT");
+//         done();
+//      });
+//   });
+   QUnit.module("SpringSessionBean");
+   var srv4 = new SpringSessionBean();
+   QUnit.test(".getCount()", function (assert) {
+      var result = 0, nb = 10, num = 0, done = assert.async(), 
+      timer = setTimeout(checkResult, 2000),
+      expected = ((nb+1) * nb)/2,
+      checkResult = function() {
+         assert.ok(result > expected, "Result session is bounded to client : result : "+result+" - expected : "+expected);
+         done();
+      },
+      getCount = function() {
+         srv4.getCount().event(function (evt) {
+            assert.equal(evt.type, "RESULT");
+            result += evt.response;
+            if(num<nb) {
+               num++;
+               getCount();
+            } else {
+               clearTimeout(timer);
+               checkResult();
+            }
+         });
+      };
+      srv4.getCount().event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+         getCount();
+      });
+   });
+   QUnit.module("SpringSingletonBean");
+   var srv5 = new SpringSingletonBean();
+   QUnit.test(".getCount()", function (assert) {
+      var result = 0, nb = 10, num = 0, done = assert.async(), 
+      timer = setTimeout(checkResult, 2000),
+      expected = ((nb+1) * nb)/2,
+      checkResult = function() {
+         assert.ok(result > expected, "Result singleton is never reset "+result+" > "+expected);
+         done();
+      },
+      getCount = function() {
+         srv5.getCount().event(function (evt) {
+            assert.equal(evt.type, "RESULT");
+            result += evt.response;
+            if(num<nb) {
+               num++;
+               getCount();
+            } else {
+               clearTimeout(timer);
+               checkResult();
+            }
+         });
+      };
+      srv5.getCount().event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+         getCount();
+      });
+   });
 });

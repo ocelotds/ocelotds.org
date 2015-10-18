@@ -1,30 +1,26 @@
 <div class="container theme-showcase" role="main">
 	<div class="well">
 		<h2>Use with CDI</h2>
-		<p>It’s the easiest way to use Ocelot, if you use a Full JEE server like glassfish, but you can use a servlet container like Tomcat, but there will be more configuration.</p>
+		<p>It's the easiest way to use Ocelot, if you use a Full JEE server like glassfish, but you can use a servlet container like Tomcat, but there will be more configuration.</p>
 		<p>You have just annotate CDI Bean that you like expose to the client.</p>
-		<pre><code class="java">
-@DataService(resolver = Constants.Resolver.CDI)
+		<pre><code class="java">@DataService(resolver = Constants.Resolver.CDI)
 public class TestCDIService {
-  public Result exposedMethodToGetResult(Arg1 arg1, Arg2 arg2, Collection&lt;Arg3&gt; args3) {
-     ...
-  }
-  @TransientDataService
-  public void unexposedMethod() {
-     ...
-  }
-}		
-			</code></pre>
+   public Result exposedMethodToGetResult(Arg1 arg1, Arg2 arg2, Collection&lt;Arg3&gt; args3) {
+      ...
+   }
+   @TransientDataService
+   public void unexposedMethod() {
+      ...
+   }
+}</code></pre>
 		<p>When you will build your project, a spi extension will generate stub in javascipt.<br />
 			Like it, just call the Bean from client like it :</p>
-		<pre><code class="javavascript">
-var srv = new TestCDIService();
+		<pre><code class="javascript">var srv = new TestCDIService();
 srv.getMessage(Math.floor(Math.random()*10)).then(function (result) {
    doSomethingWithMsg(result); // payload
 }).catch(function (fault) {
    alert(fault.message + "\n" + fault.classname + "\n" + fault.stacktrace.join('\n'));
-});
-			</code></pre>
+});</code></pre>
 		<h2>Scope managements</h2>
 		<p><strong>For CDI, all scopes are managed by types of CDI</strong></p>
 		<p>There are 4 main types of Scope with CDI :</p>

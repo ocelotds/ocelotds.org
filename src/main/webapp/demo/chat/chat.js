@@ -24,18 +24,14 @@ angular.module('chatApp', []).controller('ChatController', ['$scope', function (
                chatCtrl.chatters = list;
             });
          });
-         FB.getLoginStatus(function (response) {
+         FB.login(function(response) {
             if (response.status === 'connected') {
                alreadylogged = true;
                chatCtrl.me();
             } else if (response.status === 'not_authorized') {
                alert('Please log into this app.');
             } else {
-               FB.login(function(response) {
-                  if (response.status === 'connected') {
-                     chatCtrl.me();
-                  }
-               });
+               alert('Please log into Facebook.');
             }
          });
       };
