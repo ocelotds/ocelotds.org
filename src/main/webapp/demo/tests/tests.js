@@ -407,9 +407,15 @@ ocelotController.addOpenListener(function () {
       }, 500);
    });
    QUnit.test(".onMessages()", function (assert) {
-      var sub, result = 0, expected = nbMsgToBroadcast, timer, done, params, i, query;
-      query = location.search;
-      params = query.split("&");
+      var sub, result = 0, expected = nbMsgToBroadcast, timer, done, i, query = location.search, params = query.split("&"), timer;
+      var checkResult = function() {
+         if(timer) clearTimeout(timer);
+         assert.equal(result, expected, "Receive " + result + "/" + expected + " messages");
+         sub.unsubscribe().event(function (evt) {
+            assert.equal(evt.type, "RESULT", "Unsubscription to 'mytopic' : ok.");
+            done();
+         });
+      };
       for (i = 0; i < params.length; i++) {
          var param = params[i].replace("?", "");
          var keyval = param.split("=");
@@ -419,6 +425,7 @@ ocelotController.addOpenListener(function () {
             }
          }
       }
+      timer = setTimeout(checkResult, 50 * expected);
       done = assert.async();
       sub = new Subscriber("mytopic").event(function (evt) {
          assert.equal(evt.type, "RESULT", "Subscription to 'mytopic' : ok.");
@@ -429,21 +436,9 @@ ocelotController.addOpenListener(function () {
          result++;
          assert.ok(true, "" + msg + " : (" + result + ")");
          if (result === expected) {
-            assert.equal(result, expected, "Receive " + result + "/" + expected + " messages");
-            sub.unsubscribe().event(function (evt) {
-               window.clearTimeout(timer);
-               assert.equal(evt.type, "RESULT", "Unsubscription to 'mytopic' : ok.");
-               done();
-            });
+            checkResult();
          }
       });
-      timer = setTimeout(function () {
-         assert.equal(0, expected, "Receive 0/" + expected + " messages");
-         sub.unsubscribe().event(function (evt) {
-            assert.equal(evt.type, "RESULT", "Unsubscription to 'mytopic' : ok.");
-            done();
-         });
-      }, 50 * expected);
    });
    QUnit.test(".testGlobalTopic()", function (assert) {
       var sub, timer, topic = "GlobalTopic", expected = "my message", done = assert.async();
@@ -528,42 +523,44 @@ ocelotController.addOpenListener(function () {
     */
    QUnit.module("EJBStateless");
    var srv1 = new EJBStateless();
-   QUnit.test(".testGetDate()", function (assert) {
-      var r1, r2, done = assert.async();
+   QUnit.test(".testGetDate() with QOS", function (assert) {
+      var r1, r2, done = assert.async(), timer = setTimeout(checkResult, 4000);
+      var checkResult = function() {
+         if(timer) clearTimeout(timer);
+         assert.equal(r1, r2);
+         done();
+      };
       srv1.getDate().event(function (evt) {
          r1 = evt.response;
          assert.equal(evt.type, "RESULT", "r1 = "+new Date(r1).toString());
+         if(r2) checkResult();
       });
       srv1.getDate().event(function (evt) {
          r2 = evt.response;
          assert.equal(evt.type, "RESULT", "r2 = "+new Date(r2).toString());
+         if(r1) checkResult();
       });
-      setTimeout(function () {
-         assert.equal(r1, r2);
-         done();
-      }, 4000);
    });
    QUnit.test(".testGetEJBPrincipalName()", function (assert) {
-      var done = assert.async();
-      var resultCount = 0;
-      var okCount = 0;
-      var login = null;
+      var login, done = assert.async(), resultCount = 0, okCount = 0, timer = setTimeout(checkResult, 4000);
+      var checkResult = function() {
+         if(timer) clearTimeout(timer);
+         assert.equal(okCount, 50, "50 response with login = "+login);
+         done();
+      };
       srv1.getEJBPrincipalName().event(function (evt) {
          login = evt.response;
+         assert.notEqual(login, "ANONYMOUS", "login should be different to ANONYMOUS and was "+login);
          var getName = function () {
             srv1.getEJBPrincipalName().event(function (evt) {
                if (evt.response === login) okCount++;
                resultCount++;
                if (resultCount < 50) getName();
+               else checkResult();
             });
          };
          getName();
       });
-      setTimeout(function () {
-         assert.notEqual(login, "ANONYMOUS", "login should be different to ANONYMOUS and was "+login);
-         assert.equal(okCount, 50, "50 response with login = "+login);
-         done();
-      }, 2000);
    });
    QUnit.test(".testIsUserInRoleTrue()", function (assert) {
       var done = assert.async();
@@ -633,6 +630,7 @@ ocelotController.addOpenListener(function () {
       var result = 0, nb = 10, num = 0, done = assert.async(), 
       timer = setTimeout(checkResult, 2000),
       checkResult = function() {
+         if(timer) clearTimeout(timer);
          assert.equal(result, 0, "Result prototype is stateless, don't store result getCount = "+result);
          done();
       },
@@ -643,10 +641,7 @@ ocelotController.addOpenListener(function () {
             if(num<nb) {
                num++;
                getCount();
-            } else {
-               clearTimeout(timer);
-               checkResult();
-            }
+            } else checkResult();
          });
       };
       getCount();
@@ -656,6 +651,7 @@ ocelotController.addOpenListener(function () {
       timer = setTimeout(checkResult, 2000),
       expected = ((nb+1) * nb)/2,
       checkResult = function() {
+         if(timer) clearTimeout(timer);
          assert.ok(result === expected, "Result singleton is never reset "+result+" == "+expected);
          done();
       },
@@ -666,10 +662,7 @@ ocelotController.addOpenListener(function () {
             if(num<nb) {
                num++;
                getCount();
-            } else {
-               clearTimeout(timer);
-               checkResult();
-            }
+            } else checkResult();
          });
       };
       srv3.initSingleton().event(function (evt) {
@@ -691,6 +684,7 @@ ocelotController.addOpenListener(function () {
       timer = setTimeout(checkResult, 2000),
       expected = ((nb+1) * nb)/2,
       checkResult = function() {
+         if(timer) clearTimeout(timer);
          assert.ok(result > expected, "Result session is bounded to client : result : "+result+" - expected : "+expected);
          done();
       },
@@ -701,10 +695,7 @@ ocelotController.addOpenListener(function () {
             if(num<nb) {
                num++;
                getCount();
-            } else {
-               clearTimeout(timer);
-               checkResult();
-            }
+            } else checkResult();
          });
       };
       srv4.getCount().event(function (evt) {
@@ -719,6 +710,7 @@ ocelotController.addOpenListener(function () {
       timer = setTimeout(checkResult, 2000),
       expected = ((nb+1) * nb)/2,
       checkResult = function() {
+         if(timer) clearTimeout(timer);
          assert.ok(result > expected, "Result singleton is never reset "+result+" > "+expected);
          done();
       },
@@ -729,10 +721,7 @@ ocelotController.addOpenListener(function () {
             if(num<nb) {
                num++;
                getCount();
-            } else {
-               clearTimeout(timer);
-               checkResult();
-            }
+            } else checkResult();
          });
       };
       srv5.getCount().event(function (evt) {
