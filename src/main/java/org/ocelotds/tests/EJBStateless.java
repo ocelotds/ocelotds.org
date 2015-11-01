@@ -5,7 +5,6 @@ package org.ocelotds.tests;
 
 import java.util.Date;
 import javax.annotation.Resource;
-import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
@@ -18,7 +17,6 @@ import org.ocelotds.annotations.DataService;
  */
 @Stateless
 @DataService(resolver = Constants.Resolver.EJB)
-@DeclareRoles({"USERR", "ADMINR"})
 public class EJBStateless {
 
 	@RolesAllowed("USERR")
