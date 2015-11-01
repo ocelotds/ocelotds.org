@@ -15,7 +15,9 @@
 		<!-- Bootstrap core CSS -->
 		<link href="%ROOT%/css/bootstrap.min.css" rel="stylesheet">
 		<!-- Bootstrap theme -->
-		<link href="%ROOT%/css/bootstrap-theme.min.css" rel="stylesheet">
+		<link href="data:text/css;charset=utf-8," data-href="%ROOT%/css/bootstrap-theme.min.css" rel="stylesheet" id="bs-theme-stylesheet">
+		<!-- Documentation extras -->
+		<link href="%ROOT%/css/docs.min.css" rel="stylesheet">
 
 		<!-- Custom styles for this template -->
 		<link href="%ROOT%/css/theme.css" rel="stylesheet">
@@ -41,10 +43,10 @@
 		<![endif]-->
 	</head>
 
-	<body role="document">
+	<body>
 
 		<!-- Fixed navbar -->
-		<nav class="navbar navbar-inverse navbar-fixed-top">
+		<nav class="navbar navbar-inverse navbar-fixed-top" id="top" role="banner">
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -58,7 +60,8 @@
 						<a href="https://github.com/hhdevelopment/ocelot">
 							<img alt="Fork me i'm famous!" src="%ROOT%/assets/forkme.png" style="position: absolute; top: 0; right: 0; border: 0;z-index: 900;">
 						</a>
-					</div>				</div>
+					</div>
+				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<li><a href="%ROOT%/">Home</a></li>
@@ -74,6 +77,7 @@
 							</ul>
 						</li>
 						<li><a href="%ROOT%/docs/quickstart.html">Quick start</a></li>
+						<li><a href="%ROOT%/docs/documentations.html">Documentations</a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Documentations <span class="caret"></span></a>
 							<ul class="dropdown-menu">
