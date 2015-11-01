@@ -1,16 +1,14 @@
-<div class="container theme-showcase" role="main">
-	<div class="well">
-		<h2>Use with Spring framework from ocelotds-2.4.2</h2>
-		<p>Event Ocelotds uses mainly weld CDI, you can use spring framework for backend.<br/>
-		Ocelotds was test with latest version of spring : 4.2.1.RELEASE, but works probably with older version with same major version</p>
-		<h3>For use spring, add ocelot-extra-spring dependency to your pom.xml.</h3>
-		<pre><code class="xml">&lt;dependency&gt;
+<h2 id="spring">Use with Spring framework from ocelotds-2.4.3</h2>
+<p>Event Ocelotds uses mainly weld CDI, you can use spring framework for backend.<br/>
+	Ocelotds was test with latest version of spring : 4.2.1.RELEASE, but works probably with older version with same major version</p>
+<h3>For use spring, add ocelot-extra-spring dependency to your pom.xml.</h3>
+<pre><code class="xml">&lt;dependency&gt;
    &lt;groupId&gt;org.ocelotds&lt;/groupId&gt;
    &lt;artifactId&gt;ocelot-extra-spring&lt;/artifactId&gt;
    &lt;version&gt;${ocelot.version}&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
-		<p>You have to add too the minimal spring dependencies</p>
-		<pre><code class="xml">&lt;dependency&gt;
+<p>You have to add too the minimal spring dependencies</p>
+<pre><code class="xml">&lt;dependency&gt;
    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
    &lt;artifactId&gt;spring-core&lt;/artifactId&gt;
    &lt;version&gt;${spring.version}&lt;/version&gt;
@@ -20,10 +18,10 @@
    &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
    &lt;version&gt;${spring.version}&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
-		<h3>Annotate beans</h3>
-		<p>For expose beans to client, annotate springbeans with DataService annotation.</p>
-		<p>Specify spring resolver.</p>
-		<pre><code class="java">@DataService(resolver = Constants.Resolver.SPRING)
+<h3>Annotate beans</h3>
+<p>For expose beans to client, annotate springbeans with DataService annotation.</p>
+<p>Specify spring resolver.</p>
+<pre><code class="java">@DataService(resolver = Constants.Resolver.SPRING)
 public class SpringBeanService {
    public Result exposedMethodToGetResult(Arg1 arg1, Arg2 arg2, Collection&lt;Arg3&gt; args3) {
       ...
@@ -33,19 +31,19 @@ public class SpringBeanService {
       ...
    }
 }</code></pre>
-			<p>When you will build your project, a apt extension will generate stub in javascipt.<br />
-			Like it, just call the Bean from client like it :</p>
-		<pre><code class="javascript">var srv = new SpringBeanService();
+<p>When you will build your project, a apt extension will generate stub in javascipt.<br />
+	Like it, just call the Bean from client like it :</p>
+<pre><code class="javascript">var srv = new SpringBeanService();
 srv.getMessage(Math.floor(Math.random()*10)).then(function (result) {
    doSomethingWithMsg(result); // payload
 }).catch(function (fault) {
    alert(fault.message + "\n" + fault.classname + "\n" + fault.stacktrace.join('\n'));
 });
 			</code></pre>
-		<h3>Configuration</h3>
-		<p>Ocelotds support class configuration Spring.</p>
-		<p>Just configure as usualy your beans in annotated class with <b>@org.springframework.context.annotation.Configuration</b></p>
-		<pre><code class="java">@Configuration
+<h3>Configuration</h3>
+<p>Ocelotds support class configuration Spring.</p>
+<p>Just configure as usualy your beans in annotated class with <b>@org.springframework.context.annotation.Configuration</b></p>
+<pre><code class="java">@Configuration
 public class ApplicationContextConfig {
    @Bean
    @Scope(...)
@@ -53,35 +51,20 @@ public class ApplicationContextConfig {
       return new SpringBeanService();
    }
 ...   </code></pre>
-		<h2>Scope managements</h2>
-		<p>Ocelot supports 3 differents scopes</p>
-		<h4>For Springbean, all scopes are managed by types of Springbean</h4>
-		<p>There are 3 Spring beans support :</p>
-		<ul>
-			<li>prototype</li>
-			<li>client</li>
-			<li>singleton</li>
-		</ul>
-		<p>The front-end correspondance is :</p>
-		<ul>
-			<li>prototype = REQUEST Scope</li>
-			<li>client = SESSION Scope</li>
-			<li>singleton = APPLICATION Scope</li>
-		</ul>
-		<h3>Hightlights</h3>
-		<p>The default scope for springbeans is singleton</p>
-	</div>
-	<div id="disqus_thread"></div>
-	<script type="text/javascript">
-		var disqus_shortname = 'ocelot';
-		/* * * DON'T EDIT BELOW THIS LINE * * */
-		(function () {
-			var dsq = document.createElement('script');
-			dsq.type = 'text/javascript';
-			dsq.async = true;
-			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-		})();
-	</script>
-	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
+<h2>Scope managements</h2>
+<p>Ocelot supports 3 differents scopes</p>
+<h4>For Springbean, all scopes are managed by types of Springbean</h4>
+<p>There are 3 Spring beans support :</p>
+<ul>
+	<li>prototype</li>
+	<li>client</li>
+	<li>singleton</li>
+</ul>
+<p>The front-end correspondance is :</p>
+<ul>
+	<li>prototype = REQUEST Scope</li>
+	<li>client = SESSION Scope</li>
+	<li>singleton = APPLICATION Scope</li>
+</ul>
+<h3>Hightlights</h3>
+<p>The default scope for springbeans is singleton</p>

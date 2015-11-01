@@ -1,12 +1,9 @@
-<div class="container theme-showcase" role="main">
-	<div class="well">
-		<h2>Use frontend cache features from backend</h2>
-		<p>Ocelot allow simple cache on front end</p>
-		<img src="../../src/main/plantuml/cache.svg" width="400" alt="cache"/>
-		<h3>Add Result to javascript Cache</h3>
-		<p>You have just annotate method that you like cache to the client.</p>
-		<pre><code class="java">
-package test;
+<h2 id="cache">Use frontend cache features from backend</h2>
+<p>Ocelot allow simple cache on front end</p>
+<img src="../../src/main/plantuml/cache.svg" width="400" alt="cache"/>
+<h3>Add Result to javascript Cache</h3>
+<p>You have just annotate method that you like cache to the client.</p>
+<pre><code class="java">package test;
 @DataService(resolver = ...)
 public class TestService {
   @JsCacheResult(minute=2, keys={"a.id"})
@@ -16,13 +13,11 @@ public class TestService {
      // for each differents values of a.id (a.getId()) we have different cache
      ...
   }
-}				
-			</code></pre>
-		<h3>JsCacheResult</h3>
-		<h4>Configure expiration delay</h4>
-	<p>Configure how long the cache will be persist on front-end directly with annotation.</p>
-			<pre><code class="java">
-@Retention(RetentionPolicy.RUNTIME)
+}</code></pre>
+<h3>JsCacheResult</h3>
+<h4>Configure expiration delay</h4>
+<p>Configure how long the cache will be persist on front-end directly with annotation.</p>
+<pre><code class="java">@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface JsCacheResult {
    int year() default 0;
@@ -33,22 +28,20 @@ public @interface JsCacheResult {
    int second() default 0;
    int millisecond() default 0;
   ...
-}
-			</code></pre>
-		<h4>Configure cache key</h4>
-		<p>Obviously method results depend of method arguments. So cache keys depend naturaly of method arguments.</p>
-		<p>By default cache keys depend of all method arguments nut you can configure that by keys attribute of annotation.</p>
-	   <p>Rules for parameters about key for cache, separate by coma<br>
-	      The order is important mostly if you want use JsCacheRemove<br>
-	      Use json notation.<br>
-			<b>{}</b> : use 0 argument in calculating cache key. If the cache entry considerated arguments, so all cache entries will be removed<br>
-			<b>{'*'}</b> : use all arguments in calculating cache key (default value)<br>
-	      <b>{'obj.id', ...}</b> : means that for compute the key the value of id from argument named obj will be used.<br>
-	      Exemple <b>{"i", "u.id", "f.name"}</b><br>
-	      Finally <b>{}</b> Empty argument means that no argmuent is used for cache key
-		</p>
-			<pre><code class="java">
-@Retention(RetentionPolicy.RUNTIME)
+}</code></pre>
+<h4>Configure cache key</h4>
+<p>Obviously method results depend of method arguments. So cache keys depend naturaly of method arguments.</p>
+<p>By default cache keys depend of all method arguments nut you can configure that by keys attribute of annotation.</p>
+<p>Rules for parameters about key for cache, separate by coma<br>
+	The order is important mostly if you want use JsCacheRemove<br>
+	Use json notation.<br>
+	<b>{}</b> : use 0 argument in calculating cache key. If the cache entry considerated arguments, so all cache entries will be removed<br>
+	<b>{'*'}</b> : use all arguments in calculating cache key (default value)<br>
+	<b>{'obj.id', ...}</b> : means that for compute the key the value of id from argument named obj will be used.<br>
+	Exemple <b>{"i", "u.id", "f.name"}</b><br>
+	Finally <b>{}</b> Empty argument means that no argmuent is used for cache key
+</p>
+<pre><code class="java">@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface JsCacheResult {
    ...
@@ -56,17 +49,15 @@ public @interface JsCacheResult {
     * @return set of used keys ordered
     */
    String[] keys() default {"*"};
-}
-			</code></pre>
-		<h3>Remove Results to javascript Cache</h3>
-		<p>Add a result in cache is easy, but sometime you want to remove cache entries before the limit date.</p>
-		<p>With these features remove easily cache on all clients that hold these cache</p>
-		<p>The remove cache feature use push notification feature.</p>
-		<h4>Remove specific Results to javascript Cache</h4>
-		<p>You want to remove cache entries before the limit date.</p>
-		<p>Use JsCacheRemove and specify which cache this method have to remove.</p>
-		<pre><code class="java">
-@DataService(resolver = ...)
+}</code></pre>
+<h3>Remove Results to javascript Cache</h3>
+<p>Add a result in cache is easy, but sometime you want to remove cache entries before the limit date.</p>
+<p>With these features remove easily cache on all clients that hold these cache</p>
+<p>The remove cache feature use push notification feature.</p>
+<h4>Remove specific Results to javascript Cache</h4>
+<p>You want to remove cache entries before the limit date.</p>
+<p>Use JsCacheRemove and specify which cache this method have to remove.</p>
+<pre><code class="java">@DataService(resolver = ...)
 public class TestService {
   @JsCacheRemove(cls=TestService.class, methodName="methodCached", keys={"a.id"})
   public void doSomethingAndRemoveCache(Z z, A a) {
@@ -74,66 +65,39 @@ public class TestService {
      // test.TestService.methodCached(a.getId()) will be remove on all clients connected.
      ...
   }
-}
-			</code></pre>
-
-		<h4>Remove All specific Results to javascript cache</h4>
-		<p>For administration reason you can to remove all method cache entries.</p>
-		<p>Just set keys value to empty list for set that all results of the method will be removed.</p>
-		<pre><code class="java">
-@DataService(resolver = ...)
+}</code></pre>
+<h4>Remove All specific Results to javascript cache</h4>
+<p>For administration reason you can to remove all method cache entries.</p>
+<p>Just set keys value to empty list for set that all results of the method will be removed.</p>
+<pre><code class="java">@DataService(resolver = ...)
 public class TestService {
   @JsCacheRemove(cls=TestService.class, methodName="methodCached", keys={})
   public void doSomethingAndRemoveAllMethodCache(Z z, A a) {
      // After the success of this method all result cached for thie method 'methodCached' in BROWSER will be clear
      ...
   }
-}
-			</code></pre>
-
-		<h4>Remove All Results for all cache</h4>
-		<p>Probably for administration reason too you can to remove all cache entries.</p>
-		<p>Use JsCacheRemoveAll.</p>
-		<pre><code class="java">
-@DataService(resolver = ...)
+}</code></pre>
+<h4>Remove All Results for all cache</h4>
+<p>Probably for administration reason too you can to remove all cache entries.</p>
+<p>Use JsCacheRemoveAll.</p>
+<pre><code class="java">@DataService(resolver = ...)
 public class TestService {
   @JsCacheRemoveAll()
   public void doSomethingAndRemoveCache(Z z, A a) {
      // After the success of this method all cache in BROWSER will be clear
      ...
   }
-}
-			</code></pre>
-		<h3>Manage cache from Client</h3>
-		<p>In javascript you can use object ocelotController.cacheManager for clear all cache.</p>
-		<pre><code class="javascript">
-ocelotController.cacheManager.clearCache();
-			</code></pre>
-		<p>Moreover, you can attach listener on cacheManager for catch events</p>
-		<pre><code class="javascript">
-// listen add entry
+}</code></pre>
+<h3>Manage cache from Client</h3>
+<p>In javascript you can use object ocelotController.cacheManager for clear all cache.</p>
+<pre><code class="javascript">ocelotController.cacheManager.clearCache();</code></pre>
+<p>Moreover, you can attach listener on cacheManager for catch events</p>
+<pre><code class="javascript">// listen add entry
 ocelotController.cacheManager.addEventListener("add", function(evt) {
-	// evt.msg : msgToClient
+   // evt.msg : msgToClient
 });
 
 // listen remove entry
 ocelotController.cacheManager.addEventListener("remove", function(evt) {
-	// evt.msg : msgToClient
-});
-			</code></pre>
-	</div>
-	<div id="disqus_thread"></div>
-	<script type="text/javascript">
-		var disqus_shortname = 'ocelot';
-		/* * * DON'T EDIT BELOW THIS LINE * * */
-		(function () {
-			var dsq = document.createElement('script');
-			dsq.type = 'text/javascript';
-			dsq.async = true;
-			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-		})();
-	</script>
-	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
+   // evt.msg : msgToClient
+});</code></pre>

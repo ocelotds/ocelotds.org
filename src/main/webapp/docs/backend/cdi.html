@@ -1,9 +1,7 @@
-<div class="container theme-showcase" role="main">
-	<div class="well">
-		<h2>Use with CDI</h2>
-		<p>It's the easiest way to use Ocelot, if you use a Full JEE server like glassfish, but you can use a servlet container like Tomcat, but there will be more configuration.</p>
-		<p>You have just annotate CDI Bean that you like expose to the client.</p>
-		<pre><code class="java">@DataService(resolver = Constants.Resolver.CDI)
+<h2 id="cdi">Use with CDI</h2>
+<p>It's the easiest way to use Ocelot, if you use a Full JEE server like glassfish, but you can use a servlet container like Tomcat, but there will be more configuration.</p>
+<p>You have just annotate CDI Bean that you like expose to the client.</p>
+<pre><code class="java">@DataService(resolver = Constants.Resolver.CDI)
 public class TestCDIService {
    public Result exposedMethodToGetResult(Arg1 arg1, Arg2 arg2, Collection&lt;Arg3&gt; args3) {
       ...
@@ -13,48 +11,32 @@ public class TestCDIService {
       ...
    }
 }</code></pre>
-		<p>When you will build your project, a spi extension will generate stub in javascipt.<br />
-			Like it, just call the Bean from client like it :</p>
-		<pre><code class="javascript">var srv = new TestCDIService();
+<p>When you will build your project, a spi extension will generate stub in javascipt.<br />
+	Like it, just call the Bean from client like it :</p>
+<pre><code class="javascript">var srv = new TestCDIService();
 srv.getMessage(Math.floor(Math.random()*10)).then(function (result) {
    doSomethingWithMsg(result); // payload
 }).catch(function (fault) {
    alert(fault.message + "\n" + fault.classname + "\n" + fault.stacktrace.join('\n'));
 });</code></pre>
-		<h2>Scope managements</h2>
-		<p><strong>For CDI, all scopes are managed by types of CDI</strong></p>
-		<p>There are 4 main types of Scope with CDI :</p>
-		<ul>
-			<li>ApplicationScoped</li>
-			<li>SessionScoped</li>
-			<li>RequestScoped</li>
-			<li>ConversationScoped</li>
-		</ul>
-		<p><strong>This 4 scopes have no impact in ocelot, use annotation following.</strong></p>
-		<p>And 2 pseudos scopes</p>
-		<ul>
-			<li>Singleton</li>
-			<li>Dependent</li>
-		</ul>
-		<p>The front-end correspondance is :</p>
-		<ul>
-			<li>CDI Bean Singleton = APPLICATION Scope</li>
-			<li>CDI Bean Dependent = SESSION Scope</li>
-			<li>CDI Bean = REQUEST Scope</li>
-		</ul>
-	</div>
-	<div id="disqus_thread"></div>
-	<script type="text/javascript">
-		var disqus_shortname = 'ocelot';
-		/* * * DON'T EDIT BELOW THIS LINE * * */
-		(function () {
-			var dsq = document.createElement('script');
-			dsq.type = 'text/javascript';
-			dsq.async = true;
-			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-		})();
-	</script>
-	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
+<h2>Scope managements</h2>
+<p><strong>For CDI, all scopes are managed by types of CDI</strong></p>
+<p>There are 4 main types of Scope with CDI :</p>
+<ul>
+	<li>ApplicationScoped</li>
+	<li>SessionScoped</li>
+	<li>RequestScoped</li>
+	<li>ConversationScoped</li>
+</ul>
+<p><strong>This 4 scopes have no impact in ocelot, use annotation following.</strong></p>
+<p>And 2 pseudos scopes</p>
+<ul>
+	<li>Singleton</li>
+	<li>Dependent</li>
+</ul>
+<p>The front-end correspondance is :</p>
+<ul>
+	<li>CDI Bean Singleton = APPLICATION Scope</li>
+	<li>CDI Bean Dependent = SESSION Scope</li>
+	<li>CDI Bean = REQUEST Scope</li>
+</ul>

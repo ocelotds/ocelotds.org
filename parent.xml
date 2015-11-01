@@ -4,13 +4,13 @@
 
 	<groupId>org.ocelotds</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.1.0-SNAPSHOT</version>
+	<version>1.2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<ocelot.version>2.4.3-SNAPSHOT</ocelot.version>
+		<ocelot.version>2.4.4-SNAPSHOT</ocelot.version>
 	</properties>
 
 	<repositories>

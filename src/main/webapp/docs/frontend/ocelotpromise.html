@@ -1,16 +1,11 @@
-<div class="container theme-showcase" role="main">
-	<div class="well">
-		<h2>OcelotPromise</h2>
-		<p>OcelotPromise is very similar of the promise object from javascript ES6 
-			&gt; OcelotPromise is serve by method calling</p>
-		<pre><code class="javascript">
-var ocelotPromise = new Service().getMessage();
-				</code></pre>
-		<h3>Use your java service in javascript</h3>
-		<p>OcelotPromise uses the design pattern 'methods chaining'</p>
-		<p>With this design you can separate clearly your code</p>
-		<pre><code class="javascript">
-new Service().getMessage().then(function(obj) {
+<h2 id="ocelotpromise">OcelotPromise</h2>
+<p>OcelotPromise is very similar of the promise object from javascript ES6 
+	&gt; OcelotPromise is serve by method calling</p>
+<pre><code class="javascript">var ocelotPromise = new Service().getMessage();</code></pre>
+<h3>Use your java service in javascript</h3>
+<p>OcelotPromise uses the design pattern 'methods chaining'</p>
+<p>With this design you can separate clearly your code</p>
+<pre><code class="javascript">new Service().getMessage().then(function(obj) {
    doSomethingWithResult(obj);
 }).then(function(obj) {
    doSomethingWithResult(obj);
@@ -25,53 +20,29 @@ new Service().getMessage().then(function(obj) {
    } else if(event.type === "FAULT") {
       doSomethingWithFault(evt.response);
    }
-});
-				</code></pre>
-		<h3>then</h3>
-		<pre><code class="javascript">
-occelotPromise.then(resultHandler:Function(result:Object)):OcelotPromise
-				</code></pre>
-		<blockquote>
-			<p>Add result handler.  <br />
-				The Object result is the result returned by the java method in json format.</p>
-		</blockquote>
-		<h3>then</h3>
-		<pre><code class="javascript">
-occelotPromise.then(resultHandler:Function(result:Object), Function(fault:Fault)):OcelotPromise
-				</code></pre>
-		<blockquote>
-			<p>Add result handler and fault handler. <br />
-				The Object result is the result returned by the java method in json format.<br />
-				The Object fault is a fault .</p>
-		</blockquote>
-		<h3>catch</h3>
-		<pre><code class="javascript">
-occelotPromise.catch(Function(fault:Fault)):OcelotPromise
-				</code></pre>
-		<blockquote>
-			<p>Add fault handler. <br />
-				The Object fault is the result returned by the java method in json format.</p>
-		</blockquote>
-		<h3>event</h3>
-		<pre><code class="javascript">
-occelotPromise.event(Function(event:OcelotEvent)):OcelotPromise
-				</code></pre>
-		<blockquote>
-			<p>Add event handler. <br />
-				The Object event support result or fault returned by the java method in json format.</p>
-		</blockquote>
-	</div>
-	<div id="disqus_thread"></div>
-	<script type="text/javascript">
-		var disqus_shortname = 'ocelot';
-		/* * * DON'T EDIT BELOW THIS LINE * * */
-		(function () {
-			var dsq = document.createElement('script');
-			dsq.type = 'text/javascript';
-			dsq.async = true;
-			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-		})();
-	</script>
-	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
+});</code></pre>
+<h3>then</h3>
+<pre><code class="javascript">occelotPromise.then(resultHandler:Function(result:Object)):OcelotPromise</code></pre>
+<blockquote>
+	<p>Add result handler.  <br />
+		The Object result is the result returned by the java method in json format.</p>
+</blockquote>
+<h3>then</h3>
+<pre><code class="javascript">occelotPromise.then(resultHandler:Function(result:Object), Function(fault:Fault)):OcelotPromise</code></pre>
+<blockquote>
+	<p>Add result handler and fault handler. <br />
+		The Object result is the result returned by the java method in json format.<br />
+		The Object fault is a fault .</p>
+</blockquote>
+<h3>catch</h3>
+<pre><code class="javascript">occelotPromise.catch(Function(fault:Fault)):OcelotPromise</code></pre>
+<blockquote>
+	<p>Add fault handler. <br />
+		The Object fault is the result returned by the java method in json format.</p>
+</blockquote>
+<h3>event</h3>
+<pre><code class="javascript">occelotPromise.event(Function(event:OcelotEvent)):OcelotPromise</code></pre>
+<blockquote>
+	<p>Add event handler. <br />
+		The Object event support result or fault returned by the java method in json format.</p>
+</blockquote>

@@ -1,20 +1,15 @@
-<div class="container theme-showcase" role="main">
-	<div class="well">
-		<h2>Expose java services to javascript</h2>
-		<p>It's the main feature of ocelotds, so it's really easy:</p>
-		<p>Just annotate the class with annotation <b>@DataService</b> and set the correct resolverId.</p>
-		<pre><code class="java">
-@DataService(resolver = Constants.Resolver....) // this expose all methods in ExposedService to javascript client
+<h2 id="exposesrv">Expose java services to javascript</h2>
+<p>It's the main feature of ocelotds, so it's really easy:</p>
+<p>Just annotate the class with annotation <b>@DataService</b> and set the correct resolverId.</p>
+<pre><code class="java">@DataService(resolver = Constants.Resolver....) // this expose all methods in ExposedService to javascript client
 public class ExposedService {
 ...
-}
-		</code></pre>
-		
-		<h2>Expose java services to javascript with different name</h2>
-		<p>In javascript, package concept doesn't exist, so maybe you have many Java Classes with differents packages, but same name.</p>
-		<p>For fix that, set <b>name</b> attribute on <b>@DataService</b> annotation.</p>
-		<pre><code class="java">
-package pkg1;
+}</code></pre>
+
+<h2>Expose java services to javascript with different name</h2>
+<p>In javascript, package concept doesn't exist, so maybe you have many Java Classes with differents packages, but same name.</p>
+<p>For fix that, set <b>name</b> attribute on <b>@DataService</b> annotation.</p>
+<pre><code class="java">package pkg1;
 @DataService(resolver = Constants.Resolver....) // this expose all methods in ExposedService to javascript client
 public class ExposedService {
 ...
@@ -23,13 +18,11 @@ package pkg2;
 @DataService(resolver = Constants.Resolver...., name="ExposedService1") // this expose all methods in ExposedService to javascript client but with objet ExposedService1
 public class ExposedService {
 ...
-}
-		</code></pre>
+}</code></pre>
 
-		<h2>Choose your own marshaller /unmarshaller</h2>
-		<p>Sometime you have to use the pattern DTO, maybe cause object is not serializable<br>With Ocelotds, it's easy, write implemetation of JsonMarshaller and JsonUnmarshaller and annote the method and arguments target.</p>
-		<pre><code class="java">
-@DataService(resolver = Constants.Resolver....)
+<h2>Choose your own marshaller /unmarshaller</h2>
+<p>Sometime you have to use the pattern DTO, maybe cause object is not serializable<br>With Ocelotds, it's easy, write implemetation of JsonMarshaller and JsonUnmarshaller and annote the method and arguments target.</p>
+<pre><code class="java">@DataService(resolver = Constants.Resolver....)
 public class ExposedService {
 
    @JsonMarshaller(NoSerializableMarshaller.class)
@@ -40,51 +33,29 @@ public class ExposedService {
    public void setObjectNonSerializable(@JsonUnmarshaller(NoSerializableUnmarshaller.class) NoSerializable ns) {
       return ...;
    }
-}
-		</code></pre>
-		<pre><code class="java">
-public NoSerializableMarshaller implements JsonMarshaller&lt;NoSerializableMarshaller&gt; {
+}</code></pre>
+<pre><code class="java">public NoSerializableMarshaller implements JsonMarshaller&lt;NoSerializableMarshaller&gt; {
    @Override
    public String toJson(NoSerializable obj) throws JsonMarshallingException {
       // transform java object to json
    }
-}
-		</code></pre>
-		<pre><code class="java">
-public NoSerializableUnmarshaller implements JsonUnmarshaller&lt;NoSerializableMarshaller&gt; {
+}</code></pre>
+<pre><code class="java">public NoSerializableUnmarshaller implements JsonUnmarshaller&lt;NoSerializableMarshaller&gt; {
    @Override
    public NoSerializable toJava(String json) throws JsonUnmarshallingException {
       // transform json to java object
    }
-}
-		</code></pre>
+}</code></pre>
 
-		<h2>Unexpose method to the front-end</h2>
-		<p>As said previously, adding annotation <b>@DataService(resolver = "RESOLVERID")</b> expose all public methods to the front-end.<br/>
-			But sometimes, you have to hide methods for many reasons.<br/>
-			Hide it, just add an annotation @TransientDataService.</p>
-		<pre><code class="java">
-@DataService(resolver = Constants.Resolver....) // this expose all methods in ExposedService to javascript client
+<h2>Unexpose method to the front-end</h2>
+<p>As said previously, adding annotation <b>@DataService(resolver = "RESOLVERID")</b> expose all public methods to the front-end.<br/>
+	But sometimes, you have to hide methods for many reasons.<br/>
+	Hide it, just add an annotation @TransientDataService.</p>
+<pre><code class="java">@DataService(resolver = Constants.Resolver....) // this expose all methods in ExposedService to javascript client
 public class ExposedService {
    public Result methodExposed() {
    }
    @TransientDataService
    public Result methodNotExposed() {
    }
-}
-		</code></pre>
-	</div>
-	<div id="disqus_thread"></div>
-	<script type="text/javascript">
-		var disqus_shortname = 'ocelot';
-		/* * * DON'T EDIT BELOW THIS LINE * * */
-		(function () {
-			var dsq = document.createElement('script');
-			dsq.type = 'text/javascript';
-			dsq.async = true;
-			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-		})();
-	</script>
-	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
+}</code></pre>

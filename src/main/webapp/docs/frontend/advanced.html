@@ -1,12 +1,9 @@
-<div class="container theme-showcase" role="main">
-	<div class="well">
-		<h2>Advanced feature on front-end</h2>
-		<h3>Launch services at document loading</h3>
-		<p>Understand that ocelot framework is completly asynchronous.<br />
-			So if you try to call server before the connection is etablished, there will be probably a problem.<br />
-			For fix this problem (not really one) the ocelotController have a method for add handlers for when the connection is ready.</p>
-		<pre><code class="javascript">
-ocelotController.addOpenListener(function() {
+<h2 id="advanced">Advanced feature on front-end</h2>
+<h3>Launch services at document loading</h3>
+<p>Understand that ocelot framework is completly asynchronous.<br />
+	So if you try to call server before the connection is etablished, there will be probably a problem.<br />
+	For fix this problem (not really one) the ocelotController have a method for add handlers for when the connection is ready.</p>
+<pre><code class="javascript">ocelotController.addOpenListener(function() {
    QUnit.test("Test MyService", function (assert) {
       var done = assert.async();
       var srv = new MyService();
@@ -15,43 +12,23 @@ ocelotController.addOpenListener(function() {
          done();
       });
    };
-}
-			</code></pre>
-		<h2>Optional configuration</h2>
-		<h3>minify/magnify javascript</h3>
-		<p>By default javascript ocelot serves ocelot.js minified<br />
-			This is usefull for preserve the band width.<br />
-			Ifyou want to read it, magnify it adding minify=false to ocelot.js url</p>
-		<pre><code class="html">
-&lt;body&gt;
-   &lt;script src="ocelot.js?minify=false" type="text/javascript"&gt;&lt;/script&gt;
-			</code></pre>
-		<h3>configure stacktrace size sent to client</h3>
-		<p>In your web project, you can specify the size of stacktrace sent on client side.<br />
-			The default value is <strong>50</strong><br />
-			If you set <strong>0</strong> the stacktrace will be flush in backend logger.<br />
-			In deed, you can internationalize the error message easily. Show i18n section <a href="../features/i18n.html">i18n</a>.<br />
-			But for debugging, it's usefull to get the full stacktrace throwed from back-end.<br />
-			Limit the size in production environnement for preserve the band width.<br />
-			Add section in the standard web descriptor <strong>web.xml</strong></p>
-		<pre><code class="xml">
-&lt;context-param&gt;
-   &lt;param-name>ocelot.stacktrace.length&lt;/param-name&gt;
-   &lt;param-value>50&lt;/param-value&gt;
-&lt;/context-param&gt;
-			</code></pre>
-	</div>
-	<div id="disqus_thread"></div>
-	<script type="text/javascript">
-		var disqus_shortname = 'ocelot';
-		/* * * DON'T EDIT BELOW THIS LINE * * */
-		(function () {
-			var dsq = document.createElement('script');
-			dsq.type = 'text/javascript';
-			dsq.async = true;
-			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-		})();
-	</script>
-	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
+}</code></pre>
+<h2>Optional configuration</h2>
+<h3>minify/magnify javascript</h3>
+<p>By default javascript ocelot serves ocelot.js minified<br />
+	This is usefull for preserve the band width.<br />
+	Ifyou want to read it, magnify it adding minify=false to ocelot.js url</p>
+<pre><code class="html">&lt;body&gt;
+   &lt;script src="ocelot.js?minify=false" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
+<h3>configure stacktrace size sent to client</h3>
+<p>In your web project, you can specify the size of stacktrace sent on client side.<br />
+	The default value is <strong>50</strong><br />
+	If you set <strong>0</strong> the stacktrace will be flush in backend logger.<br />
+	In deed, you can internationalize the error message easily. Show i18n section <a href="#i18n">i18n</a>.<br />
+	But for debugging, it's usefull to get the full stacktrace throwed from back-end.<br />
+	Limit the size in production environnement for preserve the band width.<br />
+	Add section in the standard web descriptor <strong>web.xml</strong></p>
+<pre><code class="xml">&lt;context-param&gt;
+   &lt;param-name&gt;ocelot.stacktrace.length&lt;/param-name&gt;
+   &lt;param-value&gt;50&lt;/param-value&gt;
+&lt;/context-param&gt;</code></pre>

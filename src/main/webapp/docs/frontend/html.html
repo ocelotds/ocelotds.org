@@ -1,14 +1,13 @@
-<div class="container theme-showcase" role="main">
-	<div class="well">
-		<h3>Add Framework to html</h3>
-		<p>Add core and generated services in html page (those scripts are provided by ocelot servlets)</p>
-		<pre><code class="html">
+<h2 id="html">Configure frontend</h2>
+<h3>Add Framework to html</h3>
+<p>Add core and generated services in html page (those scripts are provided by ocelot servlets)</p>
+<pre><code class="html">
 &lt;body&gt;
 	&lt;script src="ocelot.js" type="text/javascript"&gt;&lt;/script&gt;
 			</code></pre>
-		<h3>Use it</h3>
-		<p>Use services directly in your code</p>
-		<pre><code class="javascript">
+<h3>Use it</h3>
+<p>Use services directly in your code</p>
+<pre><code class="javascript">
 var srv = new TestEJBService();
 srv.getMessage(Math.floor(Math.random()*10)).event(function (evt) {
    if(evt.type === "RESULT") {
@@ -24,13 +23,12 @@ srv.getMessage(Math.floor(Math.random()*10)).event(function (evt) {
    doSomethingWithFault(fault);
 }).catch(function (fault) {
    doSomethingWithFault(fault);
-});
-			</code></pre>
-		<h3>Notifications</h3>
-		<p>Message Driven bean features, can be used to implement a chat for example or notify something to the client.</p>
-		<h4>create TopicConsumer</h4>
-		<p>In javascript, create an instance of TopicConsumer</p>
-		<pre><code class="javascript">
+});</code></pre>
+<h3>Notifications</h3>
+<p>Message Driven bean features, can be used to implement a chat for example or notify something to the client.</p>
+<h4>create TopicConsumer</h4>
+<p>In javascript, create an instance of TopicConsumer</p>
+<pre><code class="javascript">
 var sub = new Subscriber("mytopic").then(function (res) {
   subscriptionOk();
 }).catch(function (f) {
@@ -43,22 +41,6 @@ sub.unsubscribe("mytopic").then(function (res) {
 	unsubscriptionOk();
 }).catch(function (f) {
    unsubscriptionNok();
-});
-			</code></pre>
-		<h4>Publish messages</h4>
-		<p>See details in <a href="../features/push.html">Notifications</a> section</p>
-	</div>
-	<div id="disqus_thread"></div>
-	<script type="text/javascript">
-		var disqus_shortname = 'ocelot';
-		/* * * DON'T EDIT BELOW THIS LINE * * */
-		(function () {
-			var dsq = document.createElement('script');
-			dsq.type = 'text/javascript';
-			dsq.async = true;
-			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-		})();
-	</script>
-	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
+});</code></pre>
+<h4>Publish messages</h4>
+<p>See details in <a href="#push">Notifications</a> section</p>

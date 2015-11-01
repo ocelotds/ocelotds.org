@@ -1,77 +1,44 @@
-<div class="container theme-showcase" role="main">
-	<div class="well">
-		<h2>OcelotController</h2>
-		<p>ocelotController is the controller of Ocelot… <br />
-			An instance is created on loading of page. You can access it by “ocelotController”.  <br />
-			You can do some actions with it.</p>
-		<h3>Method addOpenListener</h3>
-		<pre><code class="javascript">
-ocelotController.addOpenListener(openHandler:Function())
-			</code></pre>
-		<blockquote>
-			<p>Add handler when the WebSocket is open, this is retroactive</p>
-		</blockquote>
-		<h3>Method addCloseListener</h3>
-		<pre><code class="javascript">
-ocelotController.addCloseListener(closeHandler:Function())
-			</code></pre>
-		<blockquote>
-			<p>Add handler when the WebSocket is close</p>
-		</blockquote>
-		<h3>Method addErrorListener</h3>
-		<pre><code class="javascript">
-ocelotController.addErrorListener(errorHandler:Function())
-			</code></pre>
-		<blockquote>
-			<p>Add handler when the WebSocket throws an error</p>
-		</blockquote>
-		<h3>Method close</h3>
-		<pre><code class="javascript">
-ocelotController.close()
-			</code></pre>
-		<blockquote>
-			<p>Close the Websocket</p>
-		</blockquote>
-		<h3>Method open</h3>
-		<pre><code class="javascript">
-ocelotController.open()
-			</code></pre>
-		<blockquote>
-			<p>After close, reup the connection, redo existants subscriptions</p>
-		</blockquote>
-		<h3>Attribute status</h3>
-		<pre><code class="javascript">
-ocelotController.status [Readonly]
-			</code></pre>
-		<blockquote>
-			<p>Return the state of websocket : 'CONNECTING',  'OPEN',  'CLOSING',  'CLOSED'</p>
-		</blockquote>
-		<h3>Method cacheManager.addEventListener</h3>
-		<pre><code class="javascript">
-ocelotController.cacheMAnager.addEventListener(type:String, listener:Function(evt:Event))
-			</code></pre>
-		<blockquote>
-			<p>Add handler for "add" or "remove" entry in cache</p>
-		</blockquote>
-		<h3>Method cacheManager.clearAll</h3>
-		<pre><code class="javascript">
-ocelotController.cacheMAnager.clearAll()
-			</code></pre>
-		<blockquote>
-			<p>Remove all entries in cache</p>
-		</blockquote>
-	</div>
-	<div id="disqus_thread"></div>
-	<script type="text/javascript">
-		var disqus_shortname = 'ocelot';
-		/* * * DON'T EDIT BELOW THIS LINE * * */
-		(function () {
-			var dsq = document.createElement('script');
-			dsq.type = 'text/javascript';
-			dsq.async = true;
-			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-		})();
-	</script>
-	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
+<h2 id="ocelotctrl">OcelotController</h2>
+<p>ocelotController is the controller of Ocelot… <br />
+	An instance is created on loading of page. You can access it by “ocelotController”.  <br />
+	You can do some actions with it.</p>
+<h3>Method addOpenListener</h3>
+<pre><code class="javascript">ocelotController.addOpenListener(openHandler:Function())</code></pre>
+<blockquote>
+	<p>Add handler when the WebSocket is open, this is retroactive</p>
+</blockquote>
+<h3>Method addCloseListener</h3>
+<pre><code class="javascript">ocelotController.addCloseListener(closeHandler:Function())</code></pre>
+<blockquote>
+	<p>Add handler when the WebSocket is close</p>
+</blockquote>
+<h3>Method addErrorListener</h3>
+<pre><code class="javascript">ocelotController.addErrorListener(errorHandler:Function())</code></pre>
+<blockquote>
+	<p>Add handler when the WebSocket throws an error</p>
+</blockquote>
+<h3>Method close</h3>
+<pre><code class="javascript">ocelotController.close()</code></pre>
+<blockquote>
+	<p>Close the Websocket</p>
+</blockquote>
+<h3>Method open</h3>
+<pre><code class="javascript">ocelotController.open()</code></pre>
+<blockquote>
+	<p>After close, reup the connection, redo existants subscriptions</p>
+</blockquote>
+<h3>Attribute status</h3>
+<pre><code class="javascript">ocelotController.status [Readonly]</code></pre>
+<blockquote>
+	<p>Return the state of websocket : 'CONNECTING',  'OPEN',  'CLOSING',  'CLOSED'</p>
+</blockquote>
+<h3>Method cacheManager.addEventListener</h3>
+<pre><code class="javascript">ocelotController.cacheMAnager.addEventListener(type:String, listener:Function(evt:Event))</code></pre>
+<blockquote>
+	<p>Add handler for "add" or "remove" entry in cache</p>
+</blockquote>
+<h3>Method cacheManager.clearAll</h3>
+<pre><code class="javascript">ocelotController.cacheMAnager.clearAll()</code></pre>
+<blockquote>
+	<p>Remove all entries in cache</p>
+</blockquote>

@@ -1,9 +1,7 @@
-<div class="container theme-showcase" role="main">
-	<div class="well">
-		<h2>Use with EJB</h2>
-		<p>It's the best way to use Ocelot, but you have to deploy your project in Full Java EE server like Glassfish/Wildfly.</p>
-		<p>You have just annotate EJB that you like expose to the client.</p>
-		<pre><code class="java">@Stateless
+<h2 id="ejb">Use with EJB</h2>
+<p>It's the best way to use Ocelot, but you have to deploy your project in Full Java EE server like Glassfish/Wildfly.</p>
+<p>You have just annotate EJB that you like expose to the client.</p>
+<pre><code class="java">@Stateless
 @DataService(resolver = Constants.Resolver.EJB)
 public class TestEJBService {
    public Result exposedMethodToGetResult(Arg1 arg1, Arg2 arg2, Collection&lt;Arg3&gt; args3) {
@@ -14,49 +12,34 @@ public class TestEJBService {
       ...
    }
 }</code></pre>
-		<p>When you will build your project, a spi extension will generate stub in javascipt.<br />
-			Like it, just call the EJB from client like it :</p>
-		<pre><code class="javascript">var srv = new TestEJBService();
+<p>When you will build your project, a spi extension will generate stub in javascipt.<br />
+	Like it, just call the EJB from client like it :</p>
+<pre><code class="javascript">var srv = new TestEJBService();
 srv.getMessage(Math.floor(Math.random()*10)).then(function (result) {
    doSomethingWithMsg(result); // payload
 }).catch(function (fault) {
    alert(fault.message + "\n" + fault.classname + "\n" + fault.stacktrace.join('\n'));
 });</code></pre>
-		<h2>Scope managements</h2>
-		<h4>For EJB, all scopes are managed by types of EJB</h4>
-		<p>There are 3 EJB main types :</p>
-		<ul>
-			<li>Stateless</li>
-			<li>Stateful</li>
-			<li>Singleton</li>
-		</ul>
-		<p>The front-end correspondance is :</p>
-		<ul>
-			<li>EJB Stateless = REQUEST Scope</li>
-			<li>EJB Stateful = SESSION Scope</li>
-			<li>EJB Singleton = APPLICATION Scope</li>
-		</ul>
-		<h2>Limitations</h2>
-		<h4>EJB Light</h4>
-		<p>If you use ejbs with interfaces in war packaging, add Localbean annotation</p>
-		<pre><code class="java">@Stateless
+<h2>Scope managements</h2>
+<h4>For EJB, all scopes are managed by types of EJB</h4>
+<p>There are 3 EJB main types :</p>
+<ul>
+	<li>Stateless</li>
+	<li>Stateful</li>
+	<li>Singleton</li>
+</ul>
+<p>The front-end correspondance is :</p>
+<ul>
+	<li>EJB Stateless = REQUEST Scope</li>
+	<li>EJB Stateful = SESSION Scope</li>
+	<li>EJB Singleton = APPLICATION Scope</li>
+</ul>
+<h2>Limitations</h2>
+<h4>EJB Light</h4>
+<p>If you use ejbs with interfaces in war packaging, add Localbean annotation</p>
+<pre><code class="java">@Stateless
 <b style="color:red">@Localbean</b>
 @DataService(resolver = Constants.Resolver.EJB)
 public class TestService implements ITestService {</code></pre>
-		<h3>highlight</h3>
-		<p>For Stateless bean, don't stocke anything inside the EJB, cause, no garantie that an other user don't share the bean with an other, EJB is taken in a pool, not generate each time.</p>
-	</div>
-	<div id="disqus_thread"></div>
-	<script type="text/javascript">
-		var disqus_shortname = 'ocelot';
-		/* * * DON'T EDIT BELOW THIS LINE * * */
-		(function () {
-			var dsq = document.createElement('script');
-			dsq.type = 'text/javascript';
-			dsq.async = true;
-			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-		})();
-	</script>
-	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
+<h3>highlight</h3>
+<p>For Stateless bean, don't stocke anything inside the EJB, cause, no garantie that an other user don't share the bean with an other, EJB is taken in a pool, not generate each time.</p>

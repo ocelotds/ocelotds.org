@@ -1,0 +1,26 @@
+<h2 id="add-resolver">Create a new resolver</h2>
+<p>In case or defaults resolvers doen't support your service. You can create your own resolver.</p>
+<p>Create librairy include implementations of DataServiceResolver</p>
+<h3>Dependency :</h3>
+<pre><code class="xml">&lt;dependency&gt;
+   &lt;groupId&gt;org.ocelotds&lt;/groupId&gt;
+   &lt;artifactId&gt;ocelot-spi&lt;/artifactId&gt;
+   &lt;version&gt;${ocelot.version}&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<h3>Class DataServiceResolver :</h3>
+<pre><code class="java">@DataServiceResolverId("MyRID")
+public class MyResolver implements DataServiceResolver {
+   @Override
+   public Object resolveDataService(String dataService) throws DataServiceException {
+   // how to get dataService implementation
+   }
+   @Override
+   public Scope getScope(Class clazz) {
+      // Scope.MANAGED : The Scope is managed by the application.
+      // Scope.SESSION : The bean will be associate with the client session.
+      return Scope.MANAGED;
+   }</code></pre>
+<h3>Use it :</h3>
+<p>And on the services</p>
+<pre><code class="java">@DataService(resolver = "MyRID")
+public class MyService {</code></pre>

@@ -1,31 +1,24 @@
-<div class="container theme-showcase" role="main">
-	<div class="well">
-		<h2>Ocelotds minimizes server calls</h2>
-		<p>When a specicific call is in progress, if the same, exactly the same, service is call before the result of previous call.<br>
-			Ocelotds detect that and will not request again the server.<br>
-			So ocelotds minimizes the loading of server.
-		</p>
-		<p>With this feature, don't worry about disable/enable buttons. If the user clicks on many times, the server will be call one time.</p>
-		<p>Of course this feature combines with feature cache.</p>
-		<img src="../../src/main/plantuml/qos.svg" width="400" alt="qos"/>
-		<h3>what's determined calls are similar</h3>
-		<p>Ocelotds consideres that 2 services is identic if the class, the method and arguments are identic. Handlers will not considerate.</p>
-		<pre><code class="javascript">
-var  srv = new Service();
+<h2 id="qos">Ocelotds minimizes server calls</h2>
+<p>When a specicific call is in progress, if the same, exactly the same, service is call before the result of previous call.<br>
+	Ocelotds detect that and will not request again the server.<br>
+	So ocelotds minimizes the loading of server.
+</p>
+<p>With this feature, don't worry about disable/enable buttons. If the user clicks on many times, the server will be call one time.</p>
+<p>Of course this feature combines with feature cache.</p>
+<img src="../../src/main/plantuml/qos.svg" width="400" alt="qos"/>
+<h3>what's determined calls are similar</h3>
+<p>Ocelotds consideres that 2 services is identic if the class, the method and arguments are identic. Handlers will not considerate.</p>
+<pre><code class="javascript">var  srv = new Service();
 srv.getValue(5, "foo", {"id":5,"name":"foo"}).then(handler1) 
  == 
-srv.getValue(5, "foo", {"id":5,"name":"foo"}).then(handler2)
-		</code></pre>
-		<pre><code class="javascript">
-var  srv = new Service();
+srv.getValue(5, "foo", {"id":5,"name":"foo"}).then(handler2)</code></pre>
+<pre><code class="javascript">var  srv = new Service();
 srv.getValue(5, "foo", {"id":5,"name":"foo"}).then(handler1)
  != 
-srv.getValue(6, "foo", {"id":5,"name":"foo"}).then(handler2)
-		</code></pre>
-		<h4>Note, the calls signature is based on cache key</h4>
-		<p>If the result have to put in cache, the mecanisms for determine that 2 calls are identic is based on the class, the method name and keys declared on java service.</p>
-		<pre><code class="java">
-package test;
+srv.getValue(6, "foo", {"id":5,"name":"foo"}).then(handler2)</code></pre>
+<h4>Note, the calls signature is based on cache key</h4>
+<p>If the result have to put in cache, the mecanisms for determine that 2 calls are identic is based on the class, the method name and keys declared on java service.</p>
+<pre><code class="java">package test;
 @DataService(resolver = ...)
 public class TestService {
   @JsCacheResult(minute=2, keys={"a.id"})
@@ -35,28 +28,9 @@ public class TestService {
      // for each differents values of a.id (a.getId()) we have different cache
      ...
   }
-}				
-		</code></pre>
-		<p>In this case : </p>
-		<pre><code class="javascript">
-var  srv = new TestService();
+}</code></pre>
+<p>In this case : </p>
+<pre><code class="javascript">var  srv = new TestService();
 srv.methodCached({"id":5,"name":"x"}, {"a":"y","b":"z"}, []).then(handler1)
  == 
-srv.methodCached({"id":5,"name":"y"}, null, []).then(handler2)
-		</code></pre>
-	</div>
-	<div id="disqus_thread"></div>
-	<script type="text/javascript">
-      var disqus_shortname = 'ocelot';
-      /* * * DON'T EDIT BELOW THIS LINE * * */
-      (function () {
-         var dsq = document.createElement('script');
-         dsq.type = 'text/javascript';
-         dsq.async = true;
-         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
-	</script>
-	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
-
+srv.methodCached({"id":5,"name":"y"}, null, []).then(handler2)</code></pre>

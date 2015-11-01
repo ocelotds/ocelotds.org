@@ -1,27 +1,25 @@
-<div class="container theme-showcase" role="main">
-	<div class="well">
-		<h2><a href="https://developer.ibm.com/wasdev/websphere-liberty/">IBM Websphere 8.5.5</a></h2>
-		<h3>Overview</h3>
-		<p>WAS Liberty has now 'grown-up' to provide the full Java EE7 platform. Combining that API set with operational capabilities that have been rapidly expanded over the past three years, Liberty is now a great deployment choice for many Java applications.</p>
-		<p>Like Glassfish and Wildfly, WAS liberty is full jee 7 implementation. Also, just add ocelot dependencies, and use it.</p>
-		<h3>Dependencies</h3>
-		<h4>EAR Package</h4>
-		<h5>JAR Module</h5>
-		<pre><code class="xml">&lt;!-- IN EJB MODULE --&gt;
+<h2 id="liberty"><a href="https://developer.ibm.com/wasdev/websphere-liberty/">IBM Websphere 8.5.5</a></h2>
+<h3>Overview</h3>
+<p>WAS Liberty has now 'grown-up' to provide the full Java EE7 platform. Combining that API set with operational capabilities that have been rapidly expanded over the past three years, Liberty is now a great deployment choice for many Java applications.</p>
+<p>Like Glassfish and Wildfly, WAS liberty is full jee 7 implementation. Also, just add ocelot dependencies, and use it.</p>
+<h3>Dependencies</h3>
+<h4>EAR Package</h4>
+<h5>JAR Module</h5>
+<pre><code class="xml">&lt;!-- IN EJB MODULE --&gt;
 &lt;dependency&gt;
 	&lt;groupId&gt;org.ocelotds&lt;/groupId&gt;
 	&lt;artifactId&gt;ocelot-core&lt;/artifactId&gt;
 	&lt;version&gt;${ocelot.version}&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
-		<h5>WAR Module</h5>
-		<pre><code class="xml">&lt;!-- IN WEB MODULE --&gt;
+<h5>WAR Module</h5>
+<pre><code class="xml">&lt;!-- IN WEB MODULE --&gt;
 &lt;dependency&gt;
 	&lt;groupId&gt;org.ocelotds&lt;/groupId&gt;
 	&lt;artifactId&gt;ocelot-web&lt;/artifactId&gt;
 	&lt;version&gt;${ocelot.version}&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
-		<h4>WAR Package</h4>
-		<pre><code class="xml">&lt;!-- IN WEB MODULE --&gt;
+<h4>WAR Package</h4>
+<pre><code class="xml">&lt;!-- IN WEB MODULE --&gt;
 &lt;dependency&gt;
 	&lt;groupId&gt;org.ocelotds&lt;/groupId&gt;
 	&lt;artifactId&gt;ocelot-web&lt;/artifactId&gt;
@@ -32,20 +30,5 @@
 	&lt;artifactId&gt;ocelot-core&lt;/artifactId&gt;
 	&lt;version&gt;${ocelot.version}&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
-		<h3>Configuration</h3>
-		<p>Nothing... :-)</p>
-	</div>
-	<div id="disqus_thread"></div>
-	<script type="text/javascript">
-		var disqus_shortname = 'ocelot';
-		/* * * DON'T EDIT BELOW THIS LINE * * */
-		(function () {
-			var dsq = document.createElement('script');
-			dsq.type = 'text/javascript';
-			dsq.async = true;
-			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-		})();
-	</script>
-	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
+<h3>Configuration</h3>
+<p>Nothing... :-)</p>
