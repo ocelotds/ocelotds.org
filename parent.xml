@@ -104,7 +104,7 @@
 				<version>1.1</version>
 				<executions>
 					<execution>
-						<phase>install</phase>
+						<phase>validate</phase>
 						<goals>
 							<goal>generate</goal>
 						</goals>
