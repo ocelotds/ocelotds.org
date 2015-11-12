@@ -16,7 +16,6 @@ public class ApplicationContextConfig {
 
 	@Bean
 	public SpringSingletonBean springSingletonBean() {
-		System.out.println("GET SpringSingletonBean");
 		return new SpringSingletonBean();
 	}
 
