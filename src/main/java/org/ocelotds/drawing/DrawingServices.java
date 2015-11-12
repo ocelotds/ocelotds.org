@@ -3,6 +3,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 package org.ocelotds.drawing;
 
+import javax.inject.Inject;
+import javax.websocket.Session;
 import org.ocelotds.Constants;
 import org.ocelotds.annotations.DataService;
 import org.ocelotds.annotations.JsTopic;
@@ -14,8 +16,12 @@ import org.ocelotds.annotations.JsTopic;
 @DataService(resolver = Constants.Resolver.CDI)
 public class DrawingServices {
 
+	@Inject
+	Session session;
+	
 	@JsTopic("eventCanvas")
 	public CanvasEvent pushCanvasEvent(CanvasEvent evt) {
+		evt.setId(session.getId());
 		return evt;
 	}
 }

@@ -18,6 +18,7 @@ public class CanvasEvent {
 		this.type = type;
 	}
 
+	private String id;
 	private int x;
 	private int y;
 	private String type;
@@ -44,5 +45,13 @@ public class CanvasEvent {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }
