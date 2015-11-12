@@ -1,0 +1,40 @@
+<h2 id="advancedbe">Advanced features</h2>
+<h3>Use specific serialization</h3>
+<p>Sometime you want to use an objet to front-end, but it is not serializable to json.</p>
+<h4>Considerate this case</h4>
+<pre><code class="java">public java.util.Locale getLocale() {
+...
+}
+public void setLocale(java.util.Locale locale) {
+...
+}</code></pre>
+<p>Locale object is not serialisable in json, but you don't want to create a Data Transfert Object (DTO) only for that.<br>
+	If you do a DTO, you should map it before send it to front-end (getLocale method)<br>
+	And also when you receive if from front-end to useit in back-end (setLocale method).<br>
+	Ocelot proposes to you an elegant mecanism to remove this unusefull code.
+	Write and use Marshaller and Unmarshaller : 
+</p>
+<h4>Annotate Argument Type</h4>
+<pre><code class="java">public void setLocale(@JsonUnmarshaller(LocaleUnmarshaller.class) Locale locale) {
+...
+}</code></pre>
+<h4>Annotate Return Type</h4>
+<pre><code class="java">@JsonMarshaller(LocaleMarshaller.class)
+public Locale getLocale() {
+...
+}</code></pre>
+<h4>Marshaller</h4>
+<pre><code class="java">public class LocaleMarshaller implements JsonMarshaller&lt;Locale&gt; {
+   @Override
+   public String toJson(Locale obj) throws JsonMarshallingException {
+       ...
+   }</code>
+</pre>
+<h4>UnMarshaller</h4>
+<pre><code class="java">public class LocaleUnmarshaller implements JsonUnmarshaller&lt;Locale&gt; {
+   @Override
+   public Locale toJava(String json) throws JsonUnmarshallingException {
+       ...
+   }</code>
+</pre>
+
