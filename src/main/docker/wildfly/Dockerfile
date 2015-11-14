@@ -5,7 +5,7 @@ MAINTAINER Francois Achache <francois.achache@gmail.com>
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 ENV PATH $PATH:$JAVA_HOME/bin
 ENV MAVEN_VERSION 3.3.3
-ENV POM_XML pom.xml
+ENV POM_XML wildfly.xml
 
 ############### BEGIN COMMON PART ###############
 # Get maven
@@ -24,33 +24,26 @@ RUN curl --silent --location --retry 3 https://github.com/hhdevelopment/ocelotds
 RUN rm -rf /tmp/ocelot-master && rm -rf /tmp/ocelotds.org-master && rm -f /usr/bin/mvn && rm -rf /usr/share/maven && rm -rf ~/.m2
 ############### END COMMON PART ###############
 
-# Set the GLASSFISH env variable
-ENV GLASSFIH_VERSION 4.1.1
-ENV GLASSFISH_HOME /usr/local/glassfish4
-ENV PATH $PATH:$GLASSFISH_HOME/bin
+# Set the WILDFLY env variable
+ENV WILDFLY_VERSION 9.0.2.Final
+ENV WILDFLY_HOME /usr/local/wildfly-$WILDFLY_VERSION
+ENV PATH $PATH:$WILDFLY_HOME/bin
 
-# Install glassfish
-RUN apt-get update && apt-get install -y curl unzip zip inotify-tools && rm -rf /var/lib/apt/lists/* \
-  && curl -L -o /tmp/glassfish-$GLASSFIH_VERSION.zip http://download.java.net/glassfish/$GLASSFIH_VERSION/release/glassfish-$GLASSFIH_VERSION.zip \
-  && unzip /tmp/glassfish-$GLASSFIH_VERSION.zip -d /usr/local \
-  && rm -f /tmp/glassfish-$GLASSFIH_VERSION.zip
+
+# Install wildfly
+RUN curl -O https://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.tar.gz \
+    && tar xf wildfly-$WILDFLY_VERSION.tar.gz -C /usr/local \
+    && rm wildfly-$WILDFLY_VERSION.tar.gz
 
 # Define demo user
-RUN $GLASSFISH_HOME/bin/asadmin start-domain domain1 \
-  && echo "AS_ADMIN_USERPASSWORD=demo" > pwd.txt \
-  && $GLASSFISH_HOME/bin/asadmin create-file-user --passwordfile=pwd.txt --groups USERGP demo \
-  && $GLASSFISH_HOME/bin/asadmin stop-domain domain1 \
-  && rm pwd.txt
-
-# Deploy ocelotds
-RUN mv /tmp/ocelot*.war $GLASSFISH_HOME/glassfish/domains/domain1/autodeploy 
+RUN $WILDFLY_HOME/bin/add-user -a demo demo
+  && echo "demo=USERGP" >> $WILDFLY_HOME/domain/configuration/application-roles.properties
 
 # Expose the ports we're interested in
-EXPOSE 8080 4848 8181
+EXPOSE 8080
 
-# Expose workspace
-WORKDIR $GLASSFISH_HOME
+WORKDIR $WILDFLY_HOME
 
-# verbose mode for foreground mode
-CMD asadmin start-domain --verbose domain1
-
+# Set the default command to run on boot
+# This will boot WildFly in the standalone mode and bind to all interface
+CMD ["standalone.sh", "-b", "0.0.0.0"]
