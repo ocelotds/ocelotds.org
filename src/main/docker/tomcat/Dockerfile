@@ -27,12 +27,13 @@ RUN rm -rf /tmp/ocelot-master && rm -rf /tmp/ocelotds.org-master && rm -f /usr/b
 
 # Set the TOMCAT env variables
 ENV TOMCAT_VERSION 8
-ENV TOMCAT_RELEASE 8.0.24
+ENV TOMCAT_RELEASE 8.0.28
+ENV TOMCAT_URL http://www.eu.apache.org/dist/tomcat
 ENV TOMCAT_HOME /usr/local/apache-tomcat-$TOMCAT_RELEASE
 ENV PATH $PATH:$TOMCAT_HOME/bin
 
 # Install tomcat
-RUN curl -O http://www.webhostingreviewjam.com/mirror/apache/tomcat/tomcat-$TOMCAT_VERSION/v$TOMCAT_RELEASE/bin/apache-tomcat-$TOMCAT_RELEASE.tar.gz \
+RUN curl -O $TOMCAT_URL/tomcat-$TOMCAT_VERSION/v$TOMCAT_RELEASE/bin/apache-tomcat-$TOMCAT_RELEASE.tar.gz \
     && tar xf apache-tomcat-$TOMCAT_RELEASE.tar.gz -C /usr/local \
     && rm apache-tomcat-$TOMCAT_RELEASE.tar.gz
 
