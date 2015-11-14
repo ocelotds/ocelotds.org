@@ -38,7 +38,7 @@ RUN curl -O https://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY
 
 # Define demo user
 RUN $WILDFLY_HOME/bin/add-user.sh -a demo demo \
-  && echo "demo=USERGP" >> $WILDFLY_HOME/domain/configuration/application-roles.properties
+  && echo "demo=USERR" >> $WILDFLY_HOME/domain/configuration/application-roles.properties
 
 # Deploy ocelotds
 RUN mv /tmp/ocelot*.war $WILDFLY_HOME/standalone/deployments
