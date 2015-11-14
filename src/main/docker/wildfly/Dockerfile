@@ -36,7 +36,7 @@ RUN curl -O https://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY
     && rm wildfly-$WILDFLY_VERSION.tar.gz
 
 # Define demo user
-RUN $WILDFLY_HOME/bin/add-user -a demo demo
+RUN $WILDFLY_HOME/bin/add-user.sh -a demo demo
   && echo "demo=USERGP" >> $WILDFLY_HOME/domain/configuration/application-roles.properties
 
 # Expose the ports we're interested in
