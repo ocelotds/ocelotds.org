@@ -4,14 +4,15 @@ ocelotController.addOpenListener(function () {
    // The drawing pencil.
    pencil = {
       mousedown: function (ev) {
-         var ctx = this.drawingArea(ev.id).getContext('2d');
+         var color, ctx = this.drawingArea(ev.id).getContext('2d');
          ctx.beginPath();
          ctx.moveTo(ev.x, ev.y);
+         color = "#" + ev.id.substring(0, 6).replace(/[^0-9^A-F]/g, "8");
+         console.log("color computed : "+color);
+         ctx.strokeStyle = color;
       },
       mousemove: function (ev) {
-         var color, ctx = this.drawingArea(ev.id).getContext('2d');
-         color = "#" + ev.id.substring(0, 6);
-         ctx.strokeStyle = color;
+         var ctx = this.drawingArea(ev.id).getContext('2d');
          ctx.lineTo(ev.x, ev.y);
          ctx.stroke();
       },
