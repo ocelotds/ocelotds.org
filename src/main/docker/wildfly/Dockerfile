@@ -2,6 +2,7 @@ FROM java:openjdk-8-jdk
 
 MAINTAINER Francois Achache <francois.achache@gmail.com>
 
+ENV OCELOT_VERSION 2.4.6-SNAPSHOT
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 ENV PATH $PATH:$JAVA_HOME/bin
 ENV MAVEN_VERSION 3.3.3
@@ -39,11 +40,14 @@ RUN curl -O https://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY
 RUN $WILDFLY_HOME/bin/add-user.sh -a demo demo \
   && echo "demo=USERGP" >> $WILDFLY_HOME/domain/configuration/application-roles.properties
 
+# Deploy ocelotds
+RUN mv /tmp/ocelot*.war $WILDFLY_HOME/standalone/deployments
+
 # Expose the ports we're interested in
-EXPOSE 8080
+EXPOSE 8080 9090
 
 WORKDIR $WILDFLY_HOME
 
 # Set the default command to run on boot
 # This will boot WildFly in the standalone mode and bind to all interface
-CMD ["standalone.sh", "-b", "0.0.0.0"]
+CMD ["standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
