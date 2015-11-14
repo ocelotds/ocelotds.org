@@ -25,6 +25,12 @@ RUN apt-get update && apt-get install -y curl unzip zip inotify-tools && rm -rf 
   && unzip /tmp/glassfish-$GLASSFIH_VERSION.zip -d /usr/local \
   && rm -f /tmp/glassfish-$GLASSFIH_VERSION.zip
 
+RUN $GLASSFISH_HOME/bin/asadmin start-domain domain1 \
+  && echo "AS_ADMIN_USERPASSWORD=demo" > pwd.txt \
+  && $GLASSFISH_HOME/bin/asadmin create-file-user --passwordfile=pwd.txt --groups USERGP demo \
+  && $GLASSFISH_HOME/bin/asadmin stop-domain domain1 \
+  && rm pwd.txt
+
 RUN mv /tmp/ocelot*.war $GLASSFISH_HOME/glassfish/domains/domain1/autodeploy 
 
 EXPOSE 8080 4848 8181
