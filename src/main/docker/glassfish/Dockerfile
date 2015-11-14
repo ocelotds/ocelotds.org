@@ -2,6 +2,7 @@ FROM java:openjdk-8-jdk
 
 MAINTAINER Francois Achache <francois.achache@gmail.com>
 
+ENV OCELOT_VERSION 2.4.6-SNAPSHOT
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 ENV PATH $PATH:$JAVA_HOME/bin
 ENV MAVEN_VERSION 3.3.3
