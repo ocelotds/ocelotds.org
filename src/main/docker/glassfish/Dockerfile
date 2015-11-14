@@ -6,7 +6,7 @@ ENV OCELOT_VERSION 2.4.6-SNAPSHOT
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 ENV PATH $PATH:$JAVA_HOME/bin
 ENV MAVEN_VERSION 3.3.3
-ENV POM_XML pom.xml
+ENV PROFILE glassfish
 
 ############### BEGIN COMMON PART ###############
 # Get maven
@@ -19,7 +19,7 @@ RUN curl --silent --location --retry 3 https://github.com/hhdevelopment/ocelot/a
 
 # Build ocelotds
 RUN curl --silent --location --retry 3 https://github.com/hhdevelopment/ocelotds.org/archive/master.tar.gz | tar xz -C /tmp \
-  && cd /tmp/ocelotds.org-master && mvn package -f $POM_XML && mv /tmp/ocelotds.org-master/target/ocelotds*.war /tmp/
+  && cd /tmp/ocelotds.org-master && mvn package -P $PROFILE && mv /tmp/ocelotds.org-master/target/ocelotds*.war /tmp/
 
 # Clean
 RUN rm -rf /tmp/ocelot-master && rm -rf /tmp/ocelotds.org-master && rm -f /usr/bin/mvn && rm -rf /usr/share/maven && rm -rf ~/.m2
