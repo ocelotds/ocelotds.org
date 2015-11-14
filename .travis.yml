@@ -15,8 +15,8 @@ addons:
 language: java
 jdk: oraclejdk7
 install: mvn install -DskipTests=true
-#after_success:
-#  - curl -H "Content-Type: application/json" --data '{"build": true}' -X POST https://registry.hub.docker.com/u/hhfrancois/ocelotds.org/trigger/a3344f80-4bed-406c-9e6c-bac48428c0cf/
+after_success:
+  - "curl -H 'Content-Type: application/json' --data '{\'build\': true}' -X POST https://registry.hub.docker.com/u/hhfrancois/ocelotds.org/trigger/a3344f80-4bed-406c-9e6c-bac48428c0cf/"
 #  - ls target/ocelotds*.war
 #  - sshpass -p $pwdvps scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no target/ocelotds*.war $loginvps@$hostvps:/opt/glassfish4/glassfish/domains/domain1/autodeploy/ocelotds.war
 
