@@ -59,7 +59,7 @@
 				<version>2.3</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<webXml>config/wildfly/web.xml</webXml>
+					<webXml>src/main/config/wildfly/web.xml</webXml>
 				</configuration>
 			</plugin>
 		</plugins>

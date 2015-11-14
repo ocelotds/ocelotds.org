@@ -57,8 +57,8 @@
 				<version>2.3</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<webXml>config/tomcat/web.xml</webXml>
-					<containerConfigXML>config/tomcat/context.xml</containerConfigXML>
+					<webXml>src/main/config/tomcat/web.xml</webXml>
+					<containerConfigXML>src/main/config/tomcat/context.xml</containerConfigXML>
 				</configuration>
 			</plugin>
 		</plugins>
