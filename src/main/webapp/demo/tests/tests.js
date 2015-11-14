@@ -371,7 +371,7 @@ ocelotController.addOpenListener(function () {
       timer = setTimeout(function () {
          assert.ok(false, "WebSocket doesn't open");
          done();
-      }, 500);
+      }, 4000);
       ocelotController.addOpenListener(function () {
          window.clearTimeout(timer);
          srv.getVoid().event(function (evt) {
