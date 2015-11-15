@@ -14,7 +14,7 @@
 }).catch(function(fault) {
    doSomethingWithFault(fault);
 }).event(function(evt) { // event method is particulary usefull when you want to get the origin of calling because you can get the arguments.
-	console.debug("Receive result of "+evt.dataservice+"."+evt.operation+"(JSON.stringify(evt.args))); 
+   console.debug("Receive result of "+evt.dataservice+"."+evt.operation+"("+JSON.stringify(evt.args)+")"); 
    if(event.type === "RESULT") {
       doSomethingWithResult(evt.response);
    } else if(event.type === "FAULT") {
