@@ -63,6 +63,7 @@ public class DocServlet extends HttpServlet {
 					while (reader.ready()) {
 						String line = reader.readLine();
 						if (line != null) {
+							line = line.replaceAll("%ROOT%", servletRequest.getContextPath());
 							out.println(line);
 						}
 					}
