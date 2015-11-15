@@ -47,6 +47,7 @@ RUN mv /tmp/ocelot*.war $WILDFLY_HOME/standalone/deployments
 EXPOSE 8080 9090
 
 WORKDIR $WILDFLY_HOME
+VOLUME $WILDFLY_HOME/standalone/deployments
 
 # Set the default command to run on boot
 # This will boot WildFly in the standalone mode and bind to all interface
