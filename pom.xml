@@ -27,6 +27,16 @@
 			</dependencies>
 		</profile>
 		<profile>
+			<id>weblogic</id>
+			<dependencies>
+				<dependency>
+					<groupId>${project.groupId}</groupId>
+					<artifactId>ocelot-weblogic</artifactId>
+					<version>${ocelot.version}</version>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
 			<id>wildfly</id>
 			<dependencies>
 				<dependency>
