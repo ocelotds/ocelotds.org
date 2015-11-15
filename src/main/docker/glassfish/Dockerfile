@@ -49,8 +49,10 @@ RUN mv /tmp/ocelot*.war $GLASSFISH_HOME/glassfish/domains/domain1/autodeploy
 # Expose the ports we're interested in
 EXPOSE 8080 4848 8181
 
-# Expose workspace
 WORKDIR $GLASSFISH_HOME
+
+# Expose workspace
+VOLUME $GLASSFISH_HOME/glassfish/domains/domain1/autodeploy
 
 # verbose mode for foreground mode
 CMD asadmin start-domain --verbose domain1
