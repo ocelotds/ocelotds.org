@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author hhfrancois
  */
-@WebFilter(filterName = "Templater", urlPatterns = {"*.html", "/"})
+@WebFilter(filterName = "Templater", urlPatterns = {"*.html"})
 public class Templater implements Filter {
 
 	/**
