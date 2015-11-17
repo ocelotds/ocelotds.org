@@ -107,6 +107,9 @@
 							<compilerArguments>
 								<endorseddirs>${endorsed.dir}</endorseddirs>
 							</compilerArguments>
+							<excludes>
+								<exclude>org/ocelotds/tests/EJBStateless.java</exclude>
+							</excludes>
 						</configuration>
 					</plugin>
 					<plugin>
