@@ -2,13 +2,13 @@ FROM java:openjdk-8-jdk
 
 MAINTAINER Francois Achache <francois.achache@gmail.com>
 
-ENV OCELOT_VERSION 2.4.6-SNAPSHOT
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
-ENV PATH $PATH:$JAVA_HOME/bin
-ENV MAVEN_VERSION 3.3.3
 ENV PROFILE tomcat
 
 ############### BEGIN COMMON PART ###############
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+ENV PATH $PATH:$JAVA_HOME/bin
+ENV MAVEN_VERSION 3.3.3
+
 # Get maven
 RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
   && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
@@ -17,9 +17,10 @@ RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binar
 RUN curl --silent --location --retry 3 https://github.com/hhdevelopment/ocelot/archive/master.tar.gz | tar xz -C /tmp \
   && cd /tmp/ocelot-master && mvn install -Dgpg.skip=true -DskipTests=true
 
+ENV BRANCH docker
 # Build ocelotds
-RUN curl --silent --location --retry 3 https://github.com/hhdevelopment/ocelotds.org/archive/master.tar.gz | tar xz -C /tmp \
-  && cd /tmp/ocelotds.org-master && mvn package -P $PROFILE && mv /tmp/ocelotds.org-master/target/ocelotds*.war /tmp/
+RUN curl --silent --location --retry 3 https://github.com/hhdevelopment/ocelotds.org/archive/$BRANCH.tar.gz | tar xz -C /tmp \
+  && cd /tmp/ocelotds.org-$BRANCH && mvn package -P $PROFILE && mv /tmp/ocelotds.org-$BRANCH/target/ocelotds*.war /tmp/
 
 # Clean
 RUN rm -rf /tmp/ocelot-master && rm -rf /tmp/ocelotds.org-master && rm -f /usr/bin/mvn && rm -rf /usr/share/maven && rm -rf ~/.m2
@@ -48,6 +49,7 @@ EXPOSE 8080
 # Expose workspace
 WORKDIR $TOMCAT_HOME
 
-# start tomcat
-CMD 
+VOLUME $TOMCAT_HOME/webapps
 
+# start tomcat
+CMD ["catalina.sh", "run"]
