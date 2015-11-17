@@ -39,6 +39,10 @@ RUN curl -O $TOMCAT_URL/tomcat-$TOMCAT_VERSION/v$TOMCAT_RELEASE/bin/apache-tomca
     && rm apache-tomcat-$TOMCAT_RELEASE.tar.gz
 
 # Define demo user
+RUN echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" > $TOMCAT_HOME/conf/tomcat-users.xml \
+ && echo "<tomcat-users xmlns=\"http://tomcat.apache.org/xml\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" version=\"1.0\" xsi:schemaLocation=\"http://tomcat.apache.org/xml tomcat-users.xsd\">" >> $TOMCAT_HOME/conf/tomcat-users.xml \
+ && echo "    <user password=\"demo\" roles=\"USERR\" username=\"demo\"/>" >> $TOMCAT_HOME/conf/tomcat-users.xml \
+ && echo "</tomcat-users>" >> $TOMCAT_HOME/conf/tomcat-users.xml
 
 # Deploy ocelotds
 RUN mv /tmp/ocelot*.war $TOMCAT_HOME/webapps
