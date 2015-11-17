@@ -48,7 +48,7 @@ public class SignupServlet extends HttpServlet {
 				}
 			}
 			out.println("<div class=\"container\">");
-			out.println("	<form class=\"form-signin\" action=\"/j_security_check\" method=\"POST\">");
+			out.println("	<form class=\"form-signin\" action=\"j_security_check\" method=\"POST\">");
 			out.println("		<h2 class=\"form-signin-heading\">Please sign up</h2>");
 			if (pageRequested.equals("/signfail")) {
 				out.println("		<h4>Try again</h4>");
