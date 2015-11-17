@@ -596,27 +596,24 @@ ocelotController.addOpenListener(function () {
    }
    QUnit.module("OcelotServices");
    var srv2 = new OcelotServices();
-   QUnit.test(".getLocale()", function (assert) {
-      ocelotController.cacheManager.clearCache();
-      var done = assert.async();
-      srv2.getLocale().event(function (evt) {
-         assert.equal(evt.type, "RESULT");
-         assert.equal(evt.response.language, "fr");
-         assert.equal(evt.response.country, "FR");
-         done();
-      });
-   });
    QUnit.test(".setLocale()", function (assert) {
       var done = assert.async(), func;
       func = function (evt) {
          ocelotController.cacheManager.removeEventListener("remove", func);
          srv2.getLocale().event(function (evt) {
-            assert.equal(evt.type, "RESULT");
-            assert.equal(evt.response.language, "en");
-            assert.equal(evt.response.country, "US");
+            assert.equal(evt.type, "RESULT", "Locale from server "+evt.response);
             srv2.setLocale({"language": "fr", "country": "FR"}).event(function (evt) {
                assert.equal(evt.type, "RESULT");
-               done();
+               if(evt.type === "RESULT") {
+                  srv2.getLocale().event(function (evt) {
+                     assert.equal(evt.type, "RESULT");
+                     if(evt.type === "RESULT") {
+                        assert.equal(evt.response.language, "fr", "Language was "+evt.response.language);
+                        assert.equal(evt.response.country, "FR", "Country was "+evt.response.country);
+                     }
+                     done();
+                  });
+               } else done();
             });
          });
       };
