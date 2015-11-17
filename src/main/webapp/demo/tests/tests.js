@@ -522,77 +522,78 @@ ocelotController.addOpenListener(function () {
     * EJBStateless
     */
    QUnit.module("EJBStateless");
-   var srv1 = new EJBStateless();
-   QUnit.test(".testGetDate() with QOS", function (assert) {
-      var r1, r2, done = assert.async(), timer = setTimeout(checkResult, 4000);
-      var checkResult = function() {
-         if(timer) clearTimeout(timer);
-         assert.equal(r1, r2);
-         done();
-      };
-      srv1.getDate().event(function (evt) {
-         r1 = evt.response;
-         assert.equal(evt.type, "RESULT", "r1 = "+new Date(r1).toString());
-         if(r2) checkResult();
-      });
-      srv1.getDate().event(function (evt) {
-         r2 = evt.response;
-         assert.equal(evt.type, "RESULT", "r2 = "+new Date(r2).toString());
-         if(r1) checkResult();
-      });
-   });
-   QUnit.test(".testGetEJBPrincipalName()", function (assert) {
-      var login, done = assert.async(), resultCount = 0, okCount = 0, timer = setTimeout(checkResult, 4000);
-      var checkResult = function() {
-         if(timer) clearTimeout(timer);
-         assert.equal(okCount, 50, "50 response with login = "+login);
-         done();
-      };
-      srv1.getEJBPrincipalName().event(function (evt) {
-         login = evt.response;
-         assert.notEqual(login, "ANONYMOUS", "login should be different to ANONYMOUS and was "+login);
-         var getName = function () {
-            srv1.getEJBPrincipalName().event(function (evt) {
-               if (evt.response === login) okCount++;
-               resultCount++;
-               if (resultCount < 50) getName();
-               else checkResult();
-            });
+   if(window.EJBStateless != undefined) {
+      var srv1 = new EJBStateless();
+      QUnit.test(".testGetDate() with QOS", function (assert) {
+         var r1, r2, done = assert.async(), timer = setTimeout(checkResult, 4000);
+         var checkResult = function() {
+            if(timer) clearTimeout(timer);
+            assert.equal(r1, r2);
+            done();
          };
-         getName();
+         srv1.getDate().event(function (evt) {
+            r1 = evt.response;
+            assert.equal(evt.type, "RESULT", "r1 = "+new Date(r1).toString());
+            if(r2) checkResult();
+         });
+         srv1.getDate().event(function (evt) {
+            r2 = evt.response;
+            assert.equal(evt.type, "RESULT", "r2 = "+new Date(r2).toString());
+            if(r1) checkResult();
+         });
       });
-   });
-   QUnit.test(".testIsUserInRoleTrue()", function (assert) {
-      var done = assert.async();
-      srv1.isUserInRole("USERR").event(function (evt) {
-         assert.equal(evt.type, "RESULT", "User should be in role : USERR");
-         assert.equal(evt.response, true);
-         done();
+      QUnit.test(".testGetEJBPrincipalName()", function (assert) {
+         var login, done = assert.async(), resultCount = 0, okCount = 0, timer = setTimeout(checkResult, 4000);
+         var checkResult = function() {
+            if(timer) clearTimeout(timer);
+            assert.equal(okCount, 50, "50 response with login = "+login);
+            done();
+         };
+         srv1.getEJBPrincipalName().event(function (evt) {
+            login = evt.response;
+            assert.notEqual(login, "ANONYMOUS", "login should be different to ANONYMOUS and was "+login);
+            var getName = function () {
+               srv1.getEJBPrincipalName().event(function (evt) {
+                  if (evt.response === login) okCount++;
+                  resultCount++;
+                  if (resultCount < 50) getName();
+                  else checkResult();
+               });
+            };
+            getName();
+         });
       });
-   });
-   QUnit.test(".testIsUserInRoleFalse()", function (assert) {
-      var done = assert.async();
-      srv1.isUserInRole("ADMINR").event(function (evt) {
-         assert.equal(evt.type, "RESULT");
-         assert.equal(evt.response, false);
-         done();
+      QUnit.test(".testIsUserInRoleTrue()", function (assert) {
+         var done = assert.async();
+         srv1.isUserInRole("USERR").event(function (evt) {
+            assert.equal(evt.type, "RESULT", "User should be in role : USERR");
+            assert.equal(evt.response, true);
+            done();
+         });
       });
-   });
-   QUnit.test(".callAuthorized()", function (assert) {
-      var done = assert.async();
-      srv1.callAuthorized().event(function (evt) {
-         assert.equal(evt.type, "RESULT");
-         done();
+      QUnit.test(".testIsUserInRoleFalse()", function (assert) {
+         var done = assert.async();
+         srv1.isUserInRole("ADMINR").event(function (evt) {
+            assert.equal(evt.type, "RESULT");
+            assert.equal(evt.response, false);
+            done();
+         });
       });
-   });
-   QUnit.test(".callUnauthorized()", function (assert) {
-      var done = assert.async();
-      srv1.callUnauthorized().event(function (evt) {
-         assert.equal(evt.type, "FAULT");
-         done();
+      QUnit.test(".callAuthorized()", function (assert) {
+         var done = assert.async();
+         srv1.callAuthorized().event(function (evt) {
+            assert.equal(evt.type, "RESULT");
+            done();
+         });
       });
-   });
-   
+      QUnit.test(".callUnauthorized()", function (assert) {
+         var done = assert.async();
+         srv1.callUnauthorized().event(function (evt) {
+            assert.equal(evt.type, "FAULT");
+            done();
+         });
+      });
+   }
    QUnit.module("OcelotServices");
    var srv2 = new OcelotServices();
    QUnit.test(".getLocale()", function (assert) {
