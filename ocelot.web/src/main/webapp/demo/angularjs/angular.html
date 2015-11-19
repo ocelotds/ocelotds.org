@@ -3,7 +3,7 @@
 <script src="angular.js"></script>
 <div class="container-fluid">
 	<div class="well col-md-5" ng-app="todoApp">
-		<div style="height:130px;">
+		<div class="demotitle">
 			<img class="logo pull-left" title="Ocelotds" src="../../assets/ocelot_128x128.png" alt="Ocelotds"/>
 			<img src="https://angularjs.org/img/AngularJS-large.png" width="200" alt="Angularjs" style="padding-top: 30px"/>
 		</div>
@@ -49,10 +49,10 @@
 				<h2>About demo : <span style="color:darkred">A</span>ngular<span style="color:darkred">js</span> and <span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>...</h2>
 				<p>This is demonstration improved from the web site of <a href="https://angularjs.org/">angularjs</a>.<br>With Ocelot your front end application communicate elegantly with your java back-end</p>
 				<p>Compare them from angular website and see the beautifull of <b><span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>.</b></p>
-				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java1">
-				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<pre><code class="java">
 @Singleton
 <b class="cc" title="Annotate service for expose it to the front-end">@DataService(resolver = Constants.Resolver.CDI)</b>
@@ -94,7 +94,7 @@ public class TodoServices {
 					</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java2">
-				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<pre><code class="java">
 public class Todo {
 	private String text;
@@ -116,7 +116,7 @@ public class Todo {
 					</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="js1">
-				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<pre><code class="js">
 angular.module('todoApp', []).controller('TodoListController', 
 ['$scope', function ($scope) {
@@ -169,7 +169,7 @@ angular.module('todoApp', []).controller('TodoListController',
 					</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="html1">
-				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<pre><code class="html">
 &lt;html&gt;
    &lt;head&gt;

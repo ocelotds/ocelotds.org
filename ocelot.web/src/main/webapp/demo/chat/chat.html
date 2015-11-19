@@ -24,7 +24,7 @@
 </script>
 <div class="container-fluid">
 	<div class="well col-md-4" ng-app="chatApp">
-		<div style="height:130px;">
+		<div class="demotitle">
 			<img class="logo pull-left" title="Ocelotds" src="../../assets/ocelot_128x128.png" alt="Ocelotds"/>
 			<img src="https://angularjs.org/img/AngularJS-large.png" width="200" alt="Angularjs" style="padding-top: 30px"/>
 		</div>
@@ -67,13 +67,13 @@
 		<!-- Tab panes -->
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane active" id="about">
-				<h2>About demo : <span style="color:darkred">A</span>ngular<span style="color:darkred">js</span> and <span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>...</h2>
+				<h2>About demo : Simple chat with <span style="color:darkred">A</span>ngular<span style="color:darkred">js</span> and <span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>...</h2>
 				<p>This is an other demonstration base on <a href="https://angularjs.org/">angularjs</a>.<br>With Ocelot your front end application communicate elegantly with your java back-end</p>
 				<p>This show how to implement a simple chat.</p>
-				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java1">
-				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<pre><code class="java">
 @Singleton
 <b class="cc" title="Annotate service for expose it to the front-end">@DataService(resolver = Constants.Resolver.CDI)</b>
@@ -112,7 +112,7 @@ public class ChatServices {
 }</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java2">
-				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<pre><code class="java">public class Message {
    public String chatter;
    public String text;
@@ -131,7 +131,7 @@ public class ChatServices {
 }</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="js1">
-				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<pre><code class="js">
 angular.module('chatApp', []).controller('ChatController', ['$scope', function ($scope) {
    var chatCtrl = this, <b class="cc" title="Get ChatServices java service">chatServices = new ChatServices();</b>
@@ -194,7 +194,7 @@ angular.module('chatApp', []).controller('ChatController', ['$scope', function (
 }]);</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="html1">
-				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<pre><code class="html">
 &lt;div class="well" ng-app="chatApp"&gt;
    &lt;div ng-controller="ChatController as chatCtrl" ng-init="init()"&gt;

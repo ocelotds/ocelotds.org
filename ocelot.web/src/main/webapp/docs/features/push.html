@@ -47,8 +47,46 @@ public String publishToTopic(String message, @JsTopicName topic) {
 }).catch(function(fault) {
    // send fail
 });</code></pre>
-<h3>Advanced features</h3>
-<h4>Listen subscribers number</h4>
+<h3>Publish message from backend java</h3>
+<p>In java, publish message to all subcriber clients</p>
+<pre><code class="java">@Inject
+@JsTopicEvent("TOPIC")
+Event&lt;Object&gt; wsEvent;
+
+public void publish() {
+   // You can send all serializable objects, if you want to send special object use JsonMarshaller.
+   wsEvent.fire("Message From server"); 
+}</code></pre>
+<h4>Advanced features</h4>
+<b>Use Marshaller for topic payload</b>
+<p>Ocelotds convert Java object to json object.<br>
+	object have to be a serializable object, if not or if you want to use your own serialization, use JsonMarshaller.
+<pre><code class="java">@Inject
+@JsTopicEvent("TOPIC")
+@JsonMarshaller(SpecificMarshaller.class)
+Event&lt;Object&gt; wsEvent;
+
+public void publish() {
+   wsEvent.fire(unserializableObject);
+}</code></pre>
+<pre><code class="java">public class SpecificMarshaller implements JsonMarshaller&lt;Object&gt;{
+   @Override
+   public String toJson(Object obj) throws JsonMarshallingException {
+      return ".....";
+   }</code></pre>
+<b>Use MessageToClient for send payload with specify topic</b>
+<p>In java, publish message with the Ocelot Object : MessageToClient</p>
+<p>With MessageToClient you can specify id, it's the name of topic</p>
+<p>Finally set payload.</p>
+<pre><code class="java">@Inject
+@MessageEvent
+Event&lt;MessageToClient&gt; wsEvent;
+public void publish(String topic, String msg) {
+   MessageToClient messageToClient = new MessageToClient(topic);
+   messageToClient.setResult(msg); // You can send only serializable objects
+   wsEvent.fire(messageToClient);
+}</code></pre>
+<h3>Listen subscribers number</h3>
 <p>When you use previous features, you can listen a special topic for know how many subscribers are connected</p>
 <p>Simply subscribe to topic name preceded by <b>subscribers:</b></p>
 <pre><code class="javavascript">var sub = new Subscriber("subscribers:mytopic").then(function() {
@@ -58,14 +96,3 @@ public String publishToTopic(String message, @JsTopicName topic) {
 }).message(function(payload) {
    doSomethingWithMsg(payload); // payload in json : object format
 });</code></pre>
-<h3>Publish message from backend java</h3>
-<p>In java, publish message to all subcriber clients</p>
-<pre><code class="java">@Inject
-@MessageEvent
-Event&lt;MessageToClient&gt; wsEvent;
-
-public void publish() {
-	MessageToClient messageToClient = new MessageToClient("mytopic");
-	messageToClient.setResult("Message From server"); // You can send all serializable objects
-	wsEvent.fire(messageToClient);
-}</code></pre>

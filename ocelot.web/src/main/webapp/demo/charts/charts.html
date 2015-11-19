@@ -1,9 +1,9 @@
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <div class="container-fluid">
 	<div class="well col-md-4">
-		<div style="height:130px;background-color:gray">
+		<div class="demotitle">
 			<img class="logo pull-left" title="Ocelotds" src="../../assets/ocelot_128x128.png" alt="Ocelotds"/>
-			<img src="http://www.highcharts.com/media/templates/highsoft_bootstrap/images/logo.svg" width="400" alt="HighChart"/>
+			<img src="http://www.highcharts.com/media/templates/highsoft_bootstrap/images/logo.svg" width="300" alt="HighChart"/>
 		</div>
 		<div id="graph-area" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 	</div>
@@ -12,7 +12,7 @@
 		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#about"	aria-controls="about"	role="tab" data-toggle="tab">About</a></li>
 			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">ChartServices.java</a></li>
-			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">Data.java</a></li>
+			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">DataMarshaller.java</a></li>
 			<li role="presentation">					<a href="#js1"		aria-controls="js1"		role="tab" data-toggle="tab">Javascript</a></li>
 			<li role="presentation">					<a href="#html1"	aria-controls="html1"	role="tab" data-toggle="tab">Html</a></li>
 		</ul>
@@ -22,56 +22,42 @@
 				<h2>About demo : HighChart and <span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>...</h2>
 				<p>This is a demonstration base on <a href="http://www.highcharts.com/demo/dynamic-update">highcharts</a>.<br>With Ocelot your front end application communicate elegantly with your java back-end</p>
 				<p>This show how to implement a simple dynamic chart.</p>
-				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java1">
-				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<pre><code class="java">@Singleton
 @Startup
 public class ChartServices {
    <b class="cc" title="Inject the events dispacher">@Inject</b>
-   @MessageEvent
-   Event&lt;MessageToClient&gt; wsEvent;
+   <b class="cc" title="Specify the topic">@JsTopicEvent("values")</b>
+   <b class="cc" title="Specify the marshaller if you want">@JsonMarshaller(DataMarshaller.class)</b>
+   Event&lt;Object&gt; wsEvent;
 
    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/1", persistent = false)
    public void getValues() {
       Random randomGenerator = new Random();
-      MessageToClient messageToClient = <b class="cc" title="Create MessageToClient">new MessageToClient()</b>;
-      messageToClient.setId("values");
-      <b class="cc" title="Set response to messageToClient">messageToClient.setResponse(new Data(new Date(), randomGenerator.nextFloat()))</b>;
-      <b class="cc" title="Send the messageToClient">wsEvent.fire(messageToClient)</b>;
+      <b class="cc" title="Dispatch payload to all clients">topicEvent.fire</b>(new Object[]{new Date(), randomGenerator.nextFloat()});
    }
 }</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java2">
-				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
-				<pre><code class="java">public class Data {
-	Date time;
-	Float value;
-   public Data() {}
-   public Data(Date time, Float value) {
-      this.time = time;
-      this.value = value;
-   }
-   public Date getTime() {
-      return time;
-   }
-   public void setTime(Date time) {
-      this.time = time;
-   }
-   public Float getValue() {
-      return value;
-   }
-   public void setValue(Float value) {
-      this.value = value;
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<pre><code class="java">public class DataMarshaller implements JsonMarshaller&lt;Object&gt;{
+   @Override
+   public String toJson(Object obj) throws JsonMarshallingException {
+      Object[] datas = (Object[]) obj;
+      Date d = (Date) datas[0];
+      float f = (float) datas[1];
+      return String.format("[%s,%s]", d.getTime(), f);
    }
 }</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="js1">
-				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<pre><code class="js">'use strict';
 var chart;
-ocelotController.addOpenListener(function () {
+<b class="cc" title="Observe when the websocket connection is open">ocelotController.addOpenListener</b>(function () {
    Highcharts.setOptions({
       global: {
          useUTC: false
@@ -85,7 +71,7 @@ ocelotController.addOpenListener(function () {
          marginRight: 10,
          events: {
             load: function () {
-               new Subscriber("values").message(function (vals) {
+               <b class="cc" title="Subscribe to topic named 'values'">new Subscriber("values")</b>.message(<b class="cc" title="Handler when message is post in topic">function</b> (vals) {
                   chart.series[0].addPoint([vals.time, vals.value], true, true);
                });
             }
@@ -142,7 +128,7 @@ ocelotController.addOpenListener(function () {
 </code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="html1">
-				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<pre><code class="html">&lt;script src="http://code.highcharts.com/highcharts.js"&gt;&lt;/script&gt;
 ...
 &lt;div id="graph-area" style="min-width: 310px; height: 400px; margin: 0 auto"&gt;&lt;/div&gt;</code></pre>

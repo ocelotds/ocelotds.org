@@ -15,7 +15,7 @@ ocelotController.addOpenListener(function () {
          events: {
             load: function () {
                new Subscriber("values").message(function (vals) {
-                  chart.series[0].addPoint([vals.time, vals.value], true, true);
+                  chart.series[0].addPoint([vals[0], vals[1]], true, true);
                });
             }
          }
