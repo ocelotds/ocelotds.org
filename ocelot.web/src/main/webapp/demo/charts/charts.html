@@ -1,0 +1,154 @@
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<div class="container-fluid">
+	<div class="well col-md-4">
+		<div style="height:130px;background-color:gray">
+			<img class="logo pull-left" title="Ocelotds" src="../../assets/ocelot_128x128.png" alt="Ocelotds"/>
+			<img src="http://www.highcharts.com/media/templates/highsoft_bootstrap/images/logo.svg" width="400" alt="HighChart"/>
+		</div>
+		<div id="graph-area" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+	</div>
+	<div class="well col-md-8">
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#about"	aria-controls="about"	role="tab" data-toggle="tab">About</a></li>
+			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">ChartServices.java</a></li>
+			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">Data.java</a></li>
+			<li role="presentation">					<a href="#js1"		aria-controls="js1"		role="tab" data-toggle="tab">Javascript</a></li>
+			<li role="presentation">					<a href="#html1"	aria-controls="html1"	role="tab" data-toggle="tab">Html</a></li>
+		</ul>
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="about">
+				<h2>About demo : HighChart and <span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>...</h2>
+				<p>This is a demonstration base on <a href="http://www.highcharts.com/demo/dynamic-update">highcharts</a>.<br>With Ocelot your front end application communicate elegantly with your java back-end</p>
+				<p>This show how to implement a simple dynamic chart.</p>
+				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="java1">
+				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<pre><code class="java">@Singleton
+@Startup
+public class ChartServices {
+   <b class="cc" title="Inject the events dispacher">@Inject</b>
+   @MessageEvent
+   Event&lt;MessageToClient&gt; wsEvent;
+
+   @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/1", persistent = false)
+   public void getValues() {
+      Random randomGenerator = new Random();
+      MessageToClient messageToClient = <b class="cc" title="Create MessageToClient">new MessageToClient()</b>;
+      messageToClient.setId("values");
+      <b class="cc" title="Set response to messageToClient">messageToClient.setResponse(new Data(new Date(), randomGenerator.nextFloat()))</b>;
+      <b class="cc" title="Send the messageToClient">wsEvent.fire(messageToClient)</b>;
+   }
+}</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="java2">
+				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<pre><code class="java">public class Data {
+	Date time;
+	Float value;
+   public Data() {}
+   public Data(Date time, Float value) {
+      this.time = time;
+      this.value = value;
+   }
+   public Date getTime() {
+      return time;
+   }
+   public void setTime(Date time) {
+      this.time = time;
+   }
+   public Float getValue() {
+      return value;
+   }
+   public void setValue(Float value) {
+      this.value = value;
+   }
+}</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="js1">
+				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<pre><code class="js">'use strict';
+var chart;
+ocelotController.addOpenListener(function () {
+   Highcharts.setOptions({
+      global: {
+         useUTC: false
+      }
+   });
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'graph-area',
+         type: 'spline',
+         animation: Highcharts.svg, // don't animate in old IE
+         marginRight: 10,
+         events: {
+            load: function () {
+               new Subscriber("values").message(function (vals) {
+                  chart.series[0].addPoint([vals.time, vals.value], true, true);
+               });
+            }
+         }
+      },
+      title: {
+         text: 'Live random data'
+      },
+      xAxis: {
+         type: 'datetime',
+         tickPixelInterval: 150
+      },
+      yAxis: {
+         title: {
+            text: 'Value'
+         },
+         plotLines: [{
+               value: 0,
+               width: 1,
+               color: '#808080'
+            }]
+      },
+      tooltip: {
+         formatter: function () {
+            return '&lt;b&gt;' + this.series.name + '&lt;/b&gt;&lt;br/&gt;' +
+               Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '&lt;br/&gt;' +
+               Highcharts.numberFormat(this.y, 2);
+         }
+      },
+      legend: {
+         enabled: false
+      },
+      exporting: {
+         enabled: false
+      },
+      series: [{
+            name: 'Random data',
+            data: (function () {
+               // generate an array of random data
+               var data = [],
+                  time = (new Date()).getTime(),
+                  i;
+               for (i = -19; i <= 0; i += 1) {
+                  data.push({
+                     x: time + i * 1000,
+                     y: Math.random()
+                  });
+               }
+               return data;
+            }())
+         }]
+   });
+});
+</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="html1">
+				<p>Hover the mouse <span class="cc" style="color:white" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<pre><code class="html">&lt;script src="http://code.highcharts.com/highcharts.js"&gt;&lt;/script&gt;
+...
+&lt;div id="graph-area" style="min-width: 310px; height: 400px; margin: 0 auto"&gt;&lt;/div&gt;</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="charts.js"></script>
+

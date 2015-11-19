@@ -10,8 +10,8 @@
 	<properties>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<ocelot.version>2.4.6</ocelot.version>
 		<spring.version>4.2.1.RELEASE</spring.version>
+		<ocelot.version>2.4.6</ocelot.version>
 		<logback.version>1.1.3</logback.version>
 	</properties>
 
