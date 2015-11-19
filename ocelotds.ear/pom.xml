@@ -49,6 +49,13 @@
 				<configuration>
 					<version>6</version>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<modules>
+						<webModule>
+							<groupId>org.ocelotds</groupId>
+							<artifactId>ocelotds.web</artifactId>
+							<contextRoot>/</contextRoot>
+						</webModule>
+					</modules>
 				</configuration>
 			</plugin>
 		</plugins>
