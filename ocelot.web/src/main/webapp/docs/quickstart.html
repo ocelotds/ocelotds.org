@@ -52,26 +52,6 @@
 @DataService(resolver = Constants.Resolver...)
 public class TestService {
 		</code></pre>
-<h3>If you need services be cached on client annotate method</h3>
-<pre><code class="java">
-@DataService(resolver = Constants.Resolver...)
-public class TestService {
-   String getMessage(int i) {...}
-   @JsCacheResult(minute=2)
-   String getMessageCached() {...} // this service will be cached during 2 minute on the client
-}
-		</code></pre>
-<h3>For remove cache from front-end just call method annotated with JsCacheRemove and method information</h3>
-<pre><code class="java">
-@DataService(resolver = Constants.Resolver...)
-public class TestService {
-   String getMessage(int i) {...}
-   @JsCacheResult(minute=2)
-   String getMessageCached() {...} // this service will be cached during 2 minute on the client
-   @JsCacheRemove(cls = TestService.class, methodName = "getMessageCached")
-   String addMessage(String newEntry) {...} // this service will remove the cache on all client
-}
-		</code></pre>
 <p>Compilation generate javascript stub by introspection of annotated classes</p>
 <h3>Add Framework to html</h3>
 <p>Add core and generated services in html page (this script is provided by ocelot servlets)</p>
@@ -90,42 +70,6 @@ srv.getMessage(Math.floor(Math.random()*10)).event(function (evt) {
    }
 }).then(function (result) {
    doSomethingWithResult(result);
-}).then(function (result) {
-   doSomethingWithResult(result);
 }, function (fault) {
    doSomethingWithFault(fault);
-}).catch(function (fault) {
-   doSomethingWithFault(fault);
-});
-		</code></pre>
-<h3 id="notifications">Notifications</h3>
-<p>Message Driven bean features or Channel features, can be used to implement a chat for example or notify something to the client.</p>
-<h4>create Subscriber</h4>
-<p>In javascript, create an instance of Subscriber</p>
-<pre><code class="javascript">
-var sub = new Subscriber("mytopic").then(function (res) {
-   subscriptionOk();
-}).catch(function (f) {
-   subscriptionNok();
-}).message(function (msg) {
-   doSomethingWithMsg(msg); 
-});
-
-sub.unsubscribe().then(function (res) {
-   unsubscriptionOk();
-}).catch(function (f) {
-   unsubscriptionNok();
-});
-		</code></pre>
-<h4 id="publish-message">publish message</h4>
-<p>In java, publish message to all subcribers clients</p>
-<pre><code class="java">@Inject
-@MessageEvent
-Event&lt;MessageToClient&gt; wsEvent;
-
-public void publish() {
-   MessageToClient messageToClient = new MessageToClient();
-   messageToClient.setId("mytopic");
-   messageToClient.setResult("Message From server");
-   wsEvent.fire(messageToClient);
-}</code></pre>
+});</code></pre>
