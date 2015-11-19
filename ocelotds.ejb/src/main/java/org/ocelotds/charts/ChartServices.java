@@ -10,8 +10,8 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import org.ocelotds.messaging.MessageEvent;
-import org.ocelotds.messaging.MessageToClient;
+import org.ocelotds.annotations.JsTopicEvent;
+import org.ocelotds.marshalling.annotations.JsonMarshaller;
 
 /**
  *
@@ -22,16 +22,13 @@ import org.ocelotds.messaging.MessageToClient;
 public class ChartServices {
 
 	@Inject
-	@MessageEvent
-	Event<MessageToClient> wsEvent;
-
+	@JsTopicEvent("values")
+	@JsonMarshaller(DataMarshaller.class)
+	Event<Object> topicEvent;
 
 	@Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/1", persistent = false)
 	public void getValues() {
 		Random randomGenerator = new Random();
-		MessageToClient messageToClient = new MessageToClient();
-		messageToClient.setId("values");
-		messageToClient.setResponse(new Data(new Date(), randomGenerator.nextFloat()));
-		wsEvent.fire(messageToClient);
+		topicEvent.fire(new Object[]{new Date(), randomGenerator.nextFloat()});
 	}
 }
