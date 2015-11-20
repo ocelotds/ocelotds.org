@@ -17,7 +17,7 @@ RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binar
 ENV BRANCH docker
 # Build ocelotds
 RUN curl --silent --location --retry 3 https://github.com/hhdevelopment/ocelotds.org/archive/$BRANCH.tar.gz | tar xz -C /tmp \
-  && cd /tmp/ocelotds.org-$BRANCH && mvn package -P $PROFILE && mv /tmp/ocelotds.org-$BRANCH/target/ocelotds*.war /tmp/
+  && cd /tmp/ocelotds.org-$BRANCH/ocelotds.web && mvn package -P $PROFILE && mv /tmp/ocelotds.org-$BRANCH/ocelotds.web/target/ocelotds*.war /tmp/
 
 # Clean
 RUN rm -rf /tmp/ocelot-master && rm -rf /tmp/ocelotds.org-master && rm -f /usr/bin/mvn && rm -rf /usr/share/maven && rm -rf ~/.m2
