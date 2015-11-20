@@ -40,7 +40,8 @@
 	</build>
 	<modules>
 		<module>ocelotds.ejb</module>
-		<module>ocelot.web</module>
+		<module>ocelotds.web</module>
 		<module>ocelotds.ear</module>
+		<module>ocelotds.cfg</module>
 	</modules>
 </project>

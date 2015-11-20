@@ -29,6 +29,11 @@
 			<version>${project.version}</version>
 			<type>ejb</type>
 		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ocelotds.cfg</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
