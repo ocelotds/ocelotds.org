@@ -50,7 +50,7 @@ public class ExposedService {
 <h2>Unexpose method to the front-end</h2>
 <p>As said previously, adding annotation <b>@DataService(resolver = "RESOLVERID")</b> expose all public methods to the front-end.<br/>
 	But sometimes, you have to hide methods for many reasons.<br/>
-	Hide it, just add an annotation @TransientDataService.</p>
+	Hide it, just add an annotation <b>@TransientDataService.</b></p>
 <pre><code class="java">@DataService(resolver = Constants.Resolver....) // this expose all methods in ExposedService to javascript client
 public class ExposedService {
    public Result methodExposed() {
