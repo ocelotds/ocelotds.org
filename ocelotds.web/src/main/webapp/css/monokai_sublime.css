@@ -140,6 +140,9 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 .tex .hljs-formula {
   color: #75715e;
 }
+.hljs-annotation {
+	color: #eb9316;
+}
 
 .coffeescript .javascript,
 .javascript .xml,
