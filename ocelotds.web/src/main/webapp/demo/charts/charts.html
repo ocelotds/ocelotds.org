@@ -1,4 +1,5 @@
-<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 <div class="container-fluid">
 	<div class="well col-md-4">
 		<div class="demotitle">
@@ -21,11 +22,13 @@
 			<div role="tabpanel" class="tab-pane active" id="about">
 				<h2>About demo : HighChart and <span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>...</h2>
 				<p>This is a demonstration base on <a href="http://www.highcharts.com/demo/dynamic-update">highcharts</a>.<br>With Ocelot your front end application communicate elegantly with your java back-end</p>
-				<p>This show how to implement a simple dynamic chart.</p>
+				<p>This shows how to implement a dynamic chart.</p>
+				<p>Two java classes are used. First one is an EJB Scheduler and publishes every seconds to all subscribers new datas.<br>The second one is optional and marshall Date and Float objects to json string.<br>The last one is just for illustrate the mecanism of marshaller.</p>
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java1">
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<p>This EJB Scheduler publish every seconds data to all subscribers.</p>
 				<pre><code class="java">@Singleton
 @Startup
 public class ChartServices {
@@ -43,6 +46,7 @@ public class ChartServices {
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java2">
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<p>This class is optional, it illustrate marshaller mecanism if you want to control the serialization.</p>
 				<pre><code class="java">public class DataMarshaller implements JsonMarshaller&lt;Object&gt;{
    @Override
    public String toJson(Object obj) throws JsonMarshallingException {
@@ -55,75 +59,33 @@ public class ChartServices {
 			</div>
 			<div role="tabpanel" class="tab-pane" id="js1">
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<p>This script is mainly highcharts code, only subscriber is part of ocelotds.</p>
 				<pre><code class="js">'use strict';
-var chart;
-<b class="cc" title="Observe when the websocket connection is open">ocelotController.addOpenListener</b>(function () {
-   Highcharts.setOptions({
-      global: {
-         useUTC: false
-      }
-   });
-   chart = new Highcharts.Chart({
-      chart: {
-         renderTo: 'graph-area',
-         type: 'spline',
-         animation: Highcharts.svg, // don't animate in old IE
-         marginRight: 10,
-         events: {
-            load: function () {
-               <b class="cc" title="Subscribe to topic named 'values'">new Subscriber("values")</b>.message(<b class="cc" title="Handler when message is post in topic">function</b> (vals) {
-                  chart.series[0].addPoint([vals.time, vals.value], true, true);
-               });
-            }
-         }
-      },
-      title: {
-         text: 'Live random data'
-      },
-      xAxis: {
-         type: 'datetime',
-         tickPixelInterval: 150
-      },
-      yAxis: {
-         title: {
-            text: 'Value'
+<b class="cc" title="Observe when the websocket connection is open for init the chart">ocelotController.addOpenListener</b>(function () {
+   new ChartServices().<b class="cc" title="Get initial datas. 1000 samples">getDatas(1000)</b>.then(function(<b class="cc" title="This is the payload">datas</b>) {
+      var chart = new Highcharts.StockChart({
+         chart: {renderTo: 'graph-area'},
+         rangeSelector: {
+            buttons: [
+               {count: 30, type: 'second', text: '30s'},
+               {count: 2, type: 'minute', text: '2m'},
+               {count: 5, type: 'minute', text: '5m'},
+               {type: 'all', text: 'All'}
+            ],
+            inputEnabled: false,
+            selected: 0
          },
-         plotLines: [{
-               value: 0,
-               width: 1,
-               color: '#808080'
-            }]
-      },
-      tooltip: {
-         formatter: function () {
-            return '&lt;b&gt;' + this.series.name + '&lt;/b&gt;&lt;br/&gt;' +
-               Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '&lt;br/&gt;' +
-               Highcharts.numberFormat(this.y, 2);
-         }
-      },
-      legend: {
-         enabled: false
-      },
-      exporting: {
-         enabled: false
-      },
-      series: [{
-            name: 'Random data',
-            data: (function () {
-               // generate an array of random data
-               var data = [],
-                  time = (new Date()).getTime(),
-                  i;
-               for (i = -19; i <= 0; i += 1) {
-                  data.push({
-                     x: time + i * 1000,
-                     y: Math.random()
-                  });
-               }
-               return data;
-            }())
-         }]
+         title: {text: 'Live random data'},
+         exporting: {enabled: true},
+         series: [{data: datas}]
+      });
    });
+   <b class="cc" title="Subscribe to topic named 'values'">new Subscriber("values")</b>.message(<b class="cc" title="Handler when message is post in topic">function</b> (vals) {
+      chart.series[0].addPoint([vals[0], vals[1]], true, true);
+   });
+});
+<b class="cc" title="Observe when the websocket connection is close.">ocelotController.addCloseListener</b>(function () {
+   <b class="cc" title="Re-open connection.">ocelotController.open();</b>
 });
 </code></pre>
 			</div>
