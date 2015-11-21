@@ -42,8 +42,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
        bean-discovery-mode="all"&gt;
-&lt;/beans&gt;
-		</code></pre>
+&lt;/beans&gt;</code></pre>
 <p>In web module add beans.xml in src/main/webapp/WEB-INF</p>
 <p>In ejb module add beans.xml in src/main/resources/META-INF</p>
 <h3 id="annotate-classe-service">Annotate classe service</h3>
@@ -54,15 +53,15 @@ public class TestService {
 		</code></pre>
 <p>Compilation generate javascript stub by introspection of annotated classes</p>
 <h3>Add Framework to html</h3>
-<p>Add core and generated services in html page (this script is provided by ocelot servlets)</p>
+<p>Add core and generated services in html page (this script is provided by ocelot servlet)</p>
 <pre><code class="html">
-&lt;body&gt;
-	&lt;script src="ocelot.js" type="text/javascript"&gt;&lt;/script&gt;
-		</code></pre>
+&lt;header&gt;
+   &lt;script src="ocelot.js" type="text/javascript"&gt;&lt;/script&gt;
+      </code></pre>
 <h3>Use it</h3>
-<p>Use services directly in your code</p>
-<pre><code class="javascript">var srv = new TestService();
-srv.getMessage(Math.floor(Math.random()*10)).event(function (evt) {
+<p>Use services directly in your code<br>You have a business service named TestService, so in frontend there is testService instance ready to use.</p>
+<p>In java : Class <b>TestService</b>, in javascript <b>testService</b>.</p>
+<pre><code class="javascript"><b>testService</b>.getMessage(Math.floor(Math.random()*10)).event(function (evt) {
    if(evt.type === "RESULT") {
       doSomethingWithResult(evt.result);
    } else {
