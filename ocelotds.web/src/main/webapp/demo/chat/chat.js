@@ -1,5 +1,5 @@
 angular.module('chatApp', []).controller('ChatController', ['$scope', function ($scope) {
-      var chatCtrl = this, alreadylogged = false, chatServices = new ChatServices();
+      var chatCtrl = this, alreadylogged = false;
       chatCtrl.chatters = [], chatCtrl.messages = [],
          chatCtrl.chatter = "", chatCtrl.message = "",
          chatCtrl.subChatRoom, chatCtrl.subChatters,

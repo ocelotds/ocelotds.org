@@ -4,7 +4,7 @@ ocelotController.addOpenListener(function () {
       global: {useUTC: false}
    });
    var chart;
-   new ChartServices().getDatas(1000).then(function(datas) {
+   chartServices.getDatas(1000).then(function(datas) {
       chart = new Highcharts.StockChart({
          chart: {renderTo: 'graph-area'},
          rangeSelector: {

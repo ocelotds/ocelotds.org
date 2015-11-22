@@ -1,6 +1,6 @@
 'use strict';
 ocelotController.addOpenListener(function () {
-   var subCanvasEvent, imageView, stage, pencil, drawingServices = new DrawingServices();
+   var subCanvasEvent, imageView, stage, pencil;
    // The drawing pencil.
    pencil = {
       mousedown: function (ev) {

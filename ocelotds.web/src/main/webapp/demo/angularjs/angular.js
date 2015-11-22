@@ -3,7 +3,6 @@ angular.module('todoApp', []).controller('TodoListController',
 	var todoList = this;
 	todoList.todos = [];
    todoList.todoText = "";
-	var todoServices = new TodoServices();
 	todoList.addTodo = function () {
 		todoServices.addTodo(todoList.todoText).then(function (todo) {
          $scope.$apply(function () {

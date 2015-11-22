@@ -1,5 +1,4 @@
 function TicketsViewModel() {
-	var ticketServices = new TicketServices();
 	var model = this;
 	model.tickets = ko.observableArray([]);
 	model.chosenTicket = ko.observable();
