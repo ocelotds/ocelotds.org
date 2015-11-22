@@ -69,8 +69,8 @@ System.out.println(" - "+msg);</code></pre>
       var idx = localeSelector.options.selectedIndex;
       var currentLocale = JSON.parse(localeSelector.options[idx].value);
       ocelotServices.setLocale(currentLocale);
-   }
-&lt;/script&gt;
+   }</code></pre>
+<pre><code class="html">...
 &lt;select id="localeSelector" onchange="changeLocale()"&gt;
    &lt;option value='{"language":"fr","country":"FR"}' selected>fr&lt;/option&gt;
    &lt;option value='{"language":"en","country":"US"}'&gt;en&lt;/option&gt;
