@@ -2,10 +2,12 @@
 
 	<h2>Why Ocelotds, and what Ocelotds do ?</h2>
 
+	<h3>Without Ocelotds</h3>
 	<p>Actually, when you write java back-end and javascript front-end, you probably do something like that :</p>
 
 	<p>You write your business layer :</p>
 
+	<h4>Some entities/DTO</h4>
 	<pre><code class="java">
 public class MyObject {  
    String prop1; // with getter setter of course, cause JSON librairy (java) use them.
@@ -13,6 +15,7 @@ public class MyObject {
 }
 	</code></pre>
 
+	<h4>Some services</h4>
 	<pre><code class="java">
 public class MyService { // EJB, CDI, Spring
    public Result getResult(String str, MyObject arg2) {
@@ -21,6 +24,7 @@ public class MyService { // EJB, CDI, Spring
 }
 	</code></pre>
 
+	<h4>REST Services</h4>
 	<p>But at this time, your service is not reachable from the front-end.<br />
 		So You have to write a web component for access it, for example a JAX-RS REST Service.  </p>
 
@@ -37,6 +41,7 @@ public class MyRestService {
 }
 	</code></pre>
 
+	<h4>Some calls from front-end</h4>
 	<p>Finally in javascript you have to write code for access to the rest service. <br />
 		Of course you can use helpers for that like jquery or other.</p>
 
@@ -55,18 +60,19 @@ req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 req.send("{\"prop1\":\"foo\",\"prop2\":true}");
 	</code></pre>
 
-	<h2>About the previous code :</h2>
+	<h3>About the previous code :</h3>
 	<ul>
 		<li>You have to write a REST service, but it not business code, it's boilerplate code.  </li>
 		<li>For access to the REST, Even with the helper, it's not really developper friendly and really different of code that you write in java.</li>
 		<li><b>And you have to do that for all methods that you want expose to the front-end.</b></li>
 	</ul>
 
-	<p>Finally, it should be nicer if we could write a similar javascript code to Java code.  </p>
+	<p>Finally, it should be nicer if we could write a similar javascript code to Java code.</p>
 
-	<h2>Now with Ocelotds</h2>
+	<h3>Now with Ocelotds</h3>
 	<p>So you write your business layer like previously :  </p>
 
+	<h4>Always some entities/DTO</h4>
 	<pre><code class="java">
 public class MyObject { 
    String prop1; // with getter setter of course, cause JSON librairy (java) use them.
@@ -74,6 +80,7 @@ public class MyObject {
 }
 	</code></pre>
 
+	<h4>Always some services</h4>
 	<p>Just add an annotation indicate all publics methods are exposed on the web layer, and the proper resolver</p>
 
 	<pre><code class="java">
@@ -87,6 +94,7 @@ public class MyService { // EJB, CDI, Spring
 
 	<p>For java layer, it's finish. Now in javascript : </p>
 
+	<h4>Calls from front-end</h4>
 	<pre><code class="javascript">
 <b class="cc" title="MyService, as in java...">myService</b>.getResult("foo", {"prop1":"foo","prop2":true}).then(function(res) { // You wrote MyService in java, you use myService in javascript, marvelous
    // do something with res
@@ -96,16 +104,15 @@ public class MyService { // EJB, CDI, Spring
 	<p>That's all, your front-end communicate elegantly with the back-end, with less boilerplate codes.
 		Ocelot framework allow to call differents services directly from simple classes methods call, like you can do in the back-end.</p>
 
-	<h2>And more : </h2>
+	<h3>And more : </h3>
+	<ul>
+		<li><h4>Ocelotds use one bidirection connection websocket.</h4></li>
+		<li><h4>Ocelotds allow to implement the Message driven bean/Channel/Notifications paragdim but for javascript with topic destination.
+		For push message/object to the client. See <a href="../documentations#push">Notifications Features</a> for details</h4></li>
+		<li><h4>Ocelotds allow a cache mecanism on browser, with powerfull eviction system. See <a href="../documentations#cache">Cache Features</a> for details</h4></li>
+	</ul>
 
-	<h3>Ocelot use one bidirection connection websocket.</h3>
-
-	<h3>Ocelot allow to implement the Message driven bean/Channel paragdim but for javascript with topic destination.
-		For push message/object to the client. See <a href="../documentations#push">Notifications Features</a> for details</h3>
-
-	<h3>Ocelot allow a simple cache on browser. See <a href="../documentations#cache">Cache Features</a> for details</h3>
-
-	<p>Enjoy…</p>
+	<h4>Enjoy...</h4>
 	<div id="disqus_thread"></div>
 	<script type="text/javascript">
       var disqus_shortname = 'ocelot';
