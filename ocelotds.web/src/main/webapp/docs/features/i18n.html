@@ -18,13 +18,22 @@ HELLOGUY=Hello {0}</code></pre>
 OcelotI18nServices ocelotI18nServices;</code></pre>
 <h3 id="use-it">Use it</h3>
 <p>When you want to use localization service, just call method <strong>getLocalizedMEssage</strong></p>
-<pre><code class="java">public String getLocaleHello(String who) {
-	return ocelotI18nServices.getLocalizedMessage("test", "HELLOGUY", new Object[]{who});
+<pre><code class="java">public class HelloService {
+   public String getLocaleHello(String who) {
+      return ocelotI18nServices.getLocalizedMessage("test", "HELLOGUY", new Object[]{who});
+   }
 }</code></pre>
+<p>In java</p>
 <pre><code class="java">String msg = getLocaleHello("François");
 System.out.println(" - "+msg);</code></pre>
 <p>Result :</p>
-<pre><code class="log">- Bonjour François</code></pre>
+<pre><code class="log"> - Bonjour François</code></pre>
+<p>In javascript</p>
+<pre><code class="javascript">helloService.getLocaleHello("François").then(function(msg) {
+   console.log(" - "+msg);
+});</code></pre>
+<p>Result :</p>
+<pre><code class="log"> - Bonjour François</code></pre>
 <h3 id="highlight">Highlight</h3>
 <p>You cannot set directly the locale from the business layout.</p>
 <p>If you want change the locale use the javascript ocelot services</p>
