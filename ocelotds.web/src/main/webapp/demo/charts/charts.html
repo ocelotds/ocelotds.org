@@ -12,18 +12,23 @@
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#about"	aria-controls="about"	role="tab" data-toggle="tab">About</a></li>
-			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">ChartServices.java</a></li>
+			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">DataPublisher.java</a></li>
 			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">DataMarshaller.java</a></li>
-			<li role="presentation">					<a href="#js1"		aria-controls="js1"		role="tab" data-toggle="tab">Javascript</a></li>
+			<li role="presentation">					<a href="#java3"	aria-controls="java3"	role="tab" data-toggle="tab">ChartServices.java</a></li>
+			<li role="presentation">					<a href="#js1"		aria-controls="js1"		role="tab" data-toggle="tab">charts.js</a></li>
 			<li role="presentation">					<a href="#html1"	aria-controls="html1"	role="tab" data-toggle="tab">Html</a></li>
 		</ul>
 		<!-- Tab panes -->
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane active" id="about">
-				<h2>About demo : HighChart and <span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>...</h2>
+				<h2>About demo : HighCharts and <span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>...</h2>
 				<p>This is a demonstration base on <a href="http://www.highcharts.com/demo/dynamic-update">highcharts</a>.<br>With Ocelot your front end application communicate elegantly with your java back-end</p>
-				<p>This shows how to implement a dynamic chart.</p>
-				<p>Two java classes are used. First one is an EJB Scheduler and publishes every seconds to all subscribers new datas.<br>The second one is optional and marshall Date and Float objects to json string.<br>The last one is just for illustrate the mecanism of marshaller.</p>
+				<p>This shows how to implement a dynamic chart. Only tree java classes are used</p>
+				<ul>
+					<li>First one is an EJB Scheduler that publishes every seconds to all subscribers new datas.</li>
+					<li>The second one is optional and marshall Date and Float objects to json string.<br>it is just for illustrate the mecanism of marshaller.</li>
+					<li>Third one is an EJB Stateless for get the initial datas.</li>
+				</ul>
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java1">
@@ -31,14 +36,14 @@
 				<p>This EJB Scheduler publish every seconds data to all subscribers.</p>
 				<pre><code class="java">@Singleton
 @Startup
-public class ChartServices {
+public class DataPublisher {
    <b class="cc" title="Inject the events dispacher">@Inject</b>
    <b class="cc" title="Specify the topic">@JsTopicEvent("values")</b>
    <b class="cc" title="Specify the marshaller if you want">@JsonMarshaller(DataMarshaller.class)</b>
    Event&lt;Object&gt; wsEvent;
 
    @Schedule(dayOfWeek = "*", month = "*", hour = "*", dayOfMonth = "*", year = "*", minute = "*", second = "*/1", persistent = false)
-   public void getValues() {
+   public void publishDatas() {
       Random randomGenerator = new Random();
       <b class="cc" title="Dispatch payload to all clients">topicEvent.fire</b>(new Object[]{new Date(), randomGenerator.nextFloat()});
    }
@@ -54,6 +59,24 @@ public class ChartServices {
       Date d = (Date) datas[0];
       float f = (float) datas[1];
       return String.format("[%s,%s]", d.getTime(), f);
+   }
+}</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="java3">
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<p>This EJB Stateless, expose method with initial datas.</p>
+				<pre><code class="java">@Stateless
+@LocalBean
+<b class="cc" title="Annotate service for expose it to the front-end">@DataService(resolver = Constants.Resolver.EJB)</b>
+public class ChartServices {
+
+   public List&lt;Object[]&gt; getDatas(int nb) {
+      List&lt;Object[]&gt; datas = new ArrayList&lt;&gt;();
+      Long now = new Date().getTime();
+      for (int i = nb; i &gt; 0; i--) {
+         datas.add(new Object[]{now - i * 1000, Math.random()});
+      }
+      return datas;
    }
 }</code></pre>
 			</div>
@@ -92,6 +115,7 @@ public class ChartServices {
 			<div role="tabpanel" class="tab-pane" id="html1">
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<pre><code class="html">&lt;script src="http://code.highcharts.com/highcharts.js"&gt;&lt;/script&gt;
+&lt;script src="js/charts.js"&gt;&lt;/script&gt;
 ...
 &lt;div id="graph-area" style="min-width: 310px; height: 400px; margin: 0 auto"&gt;&lt;/div&gt;</code></pre>
 			</div>
