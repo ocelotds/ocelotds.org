@@ -61,14 +61,6 @@ public class TestService {
 <h3>Use it</h3>
 <p>Use services directly in your code<br>You have a business service named TestService, so in frontend there is testService instance ready to use.</p>
 <p>In java : Class <b>TestService</b>, in javascript <b>testService</b>.</p>
-<pre><code class="javascript"><b>testService</b>.getMessage(Math.floor(Math.random()*10)).event(function (evt) {
-   if(evt.type === "RESULT") {
-      doSomethingWithResult(evt.result);
-   } else {
-      doSomethingWithFault(evt.fault);
-   }
-}).then(function (result) {
+<pre><code class="javascript"><b>testService</b>.getMessage(Math.floor(Math.random()*10)).then(function (result) {
    doSomethingWithResult(result);
-}, function (fault) {
-   doSomethingWithFault(fault);
 });</code></pre>

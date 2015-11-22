@@ -1,0 +1,40 @@
+<h2 id="useit">Use java services in javascript</h2>
+<p>It's the main feature of ocelotds, so it's really easy:</p>
+<p>Like explain before you annotated the class with annotation <b>@DataService</b> and set the correct resolverId.</p>
+<pre><code class="java">@DataService(resolver = Constants.Resolver....) // this expose all methods in ExposedService to javascript client
+public class ExposedService {
+...
+   public Result getResult() {...}
+...
+}</code></pre>
+<h3>Use java service in javascript</h3>
+<p>Now in javascript you can call directly the service like that</p>
+<pre><code class="javascript">exposedService.getResult().then(function(result) {
+    ...
+});</code></pre>
+<h3>Handle result event</h3>
+<p>For handle result event, use <b>then</b></p>
+<p>You can chain it</p>
+<pre><code class="javascript">exposedService.getResult().then(function(result) {
+   // doSomethingWithResult(result);
+}).then(function(result) {
+   // doSomethingElseWithResult(result);
+});</code></pre>
+<h3>Handle fault event</h3>
+<pre><code class="javascript">exposedService.getResult().catch(function(fault) {
+   // doSomethingWithFault(fault);
+}).then(function(result) {
+   // doSomethingElseWithFault(fault);
+});</code></pre>
+<h3>Handle result and fault events</h3>
+<pre><code class="javascript">exposedService.getResult().then(function(result) {
+   // doSomethingWithResult(fault);
+}, function(fault) {
+   // doSomethingWithFault(fault);
+});</code></pre>
+<h3>Handle event</h3>
+<pre><code class="javascript">exposedService.getResult().event(function(evt) {
+   if(evt.result === "RESULT") doSomethingWithResult(evt.response);
+   else if(evt.result === "FAULT") doSomethingWithFault(evt.fault);
+});</code></pre>
+
