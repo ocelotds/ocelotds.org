@@ -29,7 +29,7 @@ import org.ocelotds.context.OcelotContext;
  * @author hhfrancois
  */
 @DataService(resolver = Constants.Resolver.CDI)
-public class TestServices {
+public class CDIRequestBean {
 
 	@Inject
 	private Principal principal;
@@ -173,7 +173,6 @@ public class TestServices {
 		return "methodWithCollectionOfCollectionResult_" + ((i != null) ? i.size() : null);
 	}
 
-	@JsCacheResult(minute = 5, keys = {"a", "c.integer"})
 	public String methodWithManyParameters(String a, int b, Result c, Collection<String> d) {
 		return "methodWithManyParameters a=" + a + " - b=" + b + " - c=" + ((c != null) ? c.getInteger() : null) + " - d:" + ((d != null) ? d.size() : null);
 	}
@@ -206,13 +205,13 @@ public class TestServices {
 	@JsCacheResult(minute = 1)
 	public Collection<Integer> methodCached() {
 		Collection<Integer> result = new ArrayList<>();
-		for (int i = 0; i < random.nextInt(100); i++) {
-			result.add(i);
+		for (int i = 0; i < 5; i++) {
+			result.add(random.nextInt(100));
 		}
 		return result;
 	}
 
-	@JsCacheRemove(cls = TestServices.class, methodName = "methodCached")
+	@JsCacheRemove(cls = CDIRequestBean.class, methodName = "methodCached")
 	public void methodRemoveCache() {
 	}
 
