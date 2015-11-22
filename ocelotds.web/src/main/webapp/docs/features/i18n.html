@@ -28,20 +28,16 @@ System.out.println(" - "+msg);</code></pre>
 <h3 id="highlight">Highlight</h3>
 <p>You cannot set directly the locale from the business layout.</p>
 <p>If you want change the locale use the javascript ocelot services</p>
-<pre><code class="javascript">var ocelotServices = new OcelotServices();
-ocelotServices.setLocale({"language":"fr","country":"FR"}).then(function(msg) {
+<pre><code class="javascript">ocelotServices.setLocale({"language":"fr","country":"FR"}).then(function(msg) {
   // Reload 
   location.reload(); 
 });</code></pre>
 <p>The getLocale is cached during 1 year on cache client so you can set the locale choosen by the client easily during load of page.</p>
-<pre><code class="javascript">var ocelotServices = new OcelotServices();
-ocelotServices.getLocale().then(function(locale) {
+<pre><code class="javascript">ocelotServices.getLocale().then(function(locale) {
 
 });</code></pre>
 <p>If you want save the locale in user profile, in db maybe. Call your own service during loading page.</p>
-<pre><code class="javascript">var ocelotServices = new OcelotServices();
-var userServices = new UserServices();
-userServices.getUserLocale()then(function(locale) {
+<pre><code class="javascript">userServices.getUserLocale()then(function(locale) {
    ocelotServices.setLocale(locale).then(function(msg) {
       // Reload 
       location.reload(); 
@@ -49,7 +45,6 @@ userServices.getUserLocale()then(function(locale) {
 });</code></pre>
 <h4 id="example">Example</h4>
 <pre><code class="javascript">...
-   var ocelotServices = new OcelotServices();
    ocelotServices.getLocale().then(function(locale) {
       var localeSelector = document.getElementById("localeSelector");
       for (i = 0; i < localeSelector.options.length; i++) {

@@ -31,7 +31,7 @@ public class MessageServices {
    }
 ...</code></pre>
 <p>Call method from javascript</p>
-<pre><code class="javascript">new MessageServices().publish(message).then(function() {
+<pre><code class="javascript">messageServices.publish(message).then(function() {
    // confirm send
 }).catch(function(fault) {
    // send fail
@@ -42,7 +42,7 @@ public String publishToTopic(String message, @JsTopicName topic) {
    return message;
 }</code></pre>
 <p>Call method from javascript</p>
-<pre><code class="javascript">new MessageServices().publish(message, topic).then(function() {
+<pre><code class="javascript">messageServices.publish(message, topic).then(function() {
    // confirm send
 }).catch(function(fault) {
    // send fail

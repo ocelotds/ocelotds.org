@@ -1,11 +1,11 @@
 <h2 id="ocelotpromise">OcelotPromise</h2>
 <p>OcelotPromise is very similar of the promise object from javascript ES6 
 	&gt; OcelotPromise is serve by method calling</p>
-<pre><code class="javascript">var ocelotPromise = new Service().getMessage();</code></pre>
+<pre><code class="javascript">var ocelotPromise = service.getMessage();</code></pre>
 <h3>Use your java service in javascript</h3>
 <p>OcelotPromise uses the design pattern 'methods chaining'</p>
 <p>With this design you can separate clearly your code</p>
-<pre><code class="javascript">new Service().getMessage().then(function(obj) {
+<pre><code class="javascript">service.getMessage().then(function(obj) {
    doSomethingWithResult(obj);
 }).then(function(obj) {
    doSomethingWithResult(obj);

@@ -14,8 +14,7 @@ public class TestEJBService {
 }</code></pre>
 <p>When you will build your project, a spi extension will generate stub in javascipt.<br />
 	Like it, just call the EJB from client like it :</p>
-<pre><code class="javascript">var srv = new TestEJBService();
-srv.getMessage(Math.floor(Math.random()*10)).then(function (result) {
+<pre><code class="javascript">testEJBService.getMessage(Math.floor(Math.random()*10)).then(function (result) {
    doSomethingWithMsg(result); // payload
 }).catch(function (fault) {
    alert(fault.message + "\n" + fault.classname + "\n" + fault.stacktrace.join('\n'));

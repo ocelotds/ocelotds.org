@@ -8,8 +8,7 @@
 <h3>Use it</h3>
 <p>Use services directly in your code</p>
 <pre><code class="javascript">
-var srv = new TestEJBService();
-srv.getMessage(Math.floor(Math.random()*10)).event(function (evt) {
+testEJBService.getMessage(Math.floor(Math.random()*10)).event(function (evt) {
    if(evt.type === "RESULT") {
       doSomethingWithResult(evt.result);
    } else {

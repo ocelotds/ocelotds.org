@@ -33,8 +33,7 @@ public class SpringBeanService {
 }</code></pre>
 <p>When you will build your project, a apt extension will generate stub in javascipt.<br />
 	Like it, just call the Bean from client like it :</p>
-<pre><code class="javascript">var srv = new SpringBeanService();
-srv.getMessage(Math.floor(Math.random()*10)).then(function (result) {
+<pre><code class="javascript">springBeanService.getMessage(Math.floor(Math.random()*10)).then(function (result) {
    doSomethingWithMsg(result); // payload
 }).catch(function (fault) {
    alert(fault.message + "\n" + fault.classname + "\n" + fault.stacktrace.join('\n'));

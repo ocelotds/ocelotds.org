@@ -8,14 +8,12 @@
 <img src="%ROOT%/src/main/plantuml/qos.svg" width="400" alt="qos"/>
 <h3>what's determined calls are similar</h3>
 <p>Ocelotds consideres that 2 services is identic if the class, the method and arguments are identic. Handlers will not considerate.</p>
-<pre><code class="javascript">var  srv = new Service();
-srv.getValue(5, "foo", {"id":5,"name":"foo"}).then(handler1) 
+<pre><code class="javascript">service.getValue(5, "foo", {"id":5,"name":"foo"}).then(handler1) 
  == 
-srv.getValue(5, "foo", {"id":5,"name":"foo"}).then(handler2)</code></pre>
-<pre><code class="javascript">var  srv = new Service();
-srv.getValue(5, "foo", {"id":5,"name":"foo"}).then(handler1)
+service.getValue(5, "foo", {"id":5,"name":"foo"}).then(handler2)</code></pre>
+<pre><code class="javascript">service.getValue(5, "foo", {"id":5,"name":"foo"}).then(handler1)
  != 
-srv.getValue(6, "foo", {"id":5,"name":"foo"}).then(handler2)</code></pre>
+service.getValue(6, "foo", {"id":5,"name":"foo"}).then(handler2)</code></pre>
 <h4>Note, the calls signature is based on cache key</h4>
 <p>If the result have to put in cache, the mecanisms for determine that 2 calls are identic is based on the class, the method name and keys declared on java service.</p>
 <pre><code class="java">package test;
@@ -30,7 +28,6 @@ public class TestService {
   }
 }</code></pre>
 <p>In this case : </p>
-<pre><code class="javascript">var  srv = new TestService();
-srv.methodCached({"id":5,"name":"x"}, {"a":"y","b":"z"}, []).then(handler1)
+<pre><code class="javascript">testService.methodCached({"id":5,"name":"x"}, {"a":"y","b":"z"}, []).then(handler1)
  == 
-srv.methodCached({"id":5,"name":"y"}, null, []).then(handler2)</code></pre>
+testService.methodCached({"id":5,"name":"y"}, null, []).then(handler2)</code></pre>

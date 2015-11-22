@@ -1,24 +1,21 @@
 <h2 id="ocelotsrv">OcelotServices</h2>
-<p>OcelotService is service serve by Ocelot. It allow some actions</p>
-<p>You have to instance it for use it.</p>
-<h3>Create</h3>
-<pre><code class="javascript">var srv = new OcelotServices();</code></pre>
+<p>ocelotService is service served by Ocelot. It allow some actions</p>
 <blockquote>
-	<p>OcelotServices is a standard services like every service like you can create.</p>
+	<p>ocelotServices is a standard services like every service like you can create.</p>
 </blockquote>
 <h3>Method getLocale</h3>
-<pre><code class="javascript">srv.getLocale():String</code></pre>
+<pre><code class="javascript">ocelotServices.getLocale():String</code></pre>
 <blockquote>
 	<p>Get user locale from server
 		Exemple</p>
 </blockquote>
-<pre><code class="javascript">srv.getLocale().then(function(loc) {
+<pre><code class="javascript">ocelotServices.getLocale().then(function(loc) {
    doSmethingWithLocale(loc);
 });</code></pre>
 <h3>Method setLocale</h3>
-<pre><code class="javascript">srv.setLocale(loc:String)</code></pre>
+<pre><code class="javascript">ocelotServices.setLocale(loc:String)</code></pre>
 <blockquote>
 	<p>set user locale to server
 		Exemple</p>
 </blockquote>
-<pre><code class="javascript">srv.setLocale({"language":"fr", "country":"FR"});</code></pre>
+<pre><code class="javascript">ocelotServices.setLocale({"language":"fr", "country":"FR"});</code></pre>

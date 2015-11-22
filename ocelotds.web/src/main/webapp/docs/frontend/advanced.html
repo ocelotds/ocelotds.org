@@ -6,8 +6,7 @@
 <pre><code class="javascript">ocelotController.addOpenListener(function() {
    QUnit.test("Test MyService", function (assert) {
       var done = assert.async();
-      var srv = new MyService();
-      srv.getMessage(5).Then(function (msg) {
+      myService.getMessage(5).Then(function (msg) {
          assert.equal(msg, "expected");
          done();
       });

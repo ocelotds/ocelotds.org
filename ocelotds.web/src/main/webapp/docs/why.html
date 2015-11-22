@@ -88,8 +88,7 @@ public class MyService { // EJB, CDI, Spring
 	<p>For java layer, it's finish. Now in javascript : </p>
 
 	<pre><code class="javascript">
-var srv = <b class="cc" title="MyService, as in java...">new MyService()</b>; // You wrote MyService in java, you use MyService in javascript, marvelous
-srv.getResult("foo", {"prop1":"foo","prop2":true}).then(function(res) {
+<b class="cc" title="MyService, as in java...">myService</b>.getResult("foo", {"prop1":"foo","prop2":true}).then(function(res) { // You wrote MyService in java, you use myService in javascript, marvelous
    // do something with res
 });
 	</code></pre>
