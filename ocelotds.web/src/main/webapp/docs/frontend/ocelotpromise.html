@@ -21,28 +21,51 @@
       doSomethingWithFault(evt.response);
    }
 });</code></pre>
-<h3>then</h3>
+<h3>then(function(result));</h3>
 <pre><code class="javascript">occelotPromise.then(resultHandler:Function(result:Object)):OcelotPromise</code></pre>
 <blockquote>
 	<p>Add result handler.  <br />
 		The Object result is the result returned by the java method in json format.</p>
 </blockquote>
-<h3>then</h3>
+<h3>then(function(result), function(fault));</h3>
 <pre><code class="javascript">occelotPromise.then(resultHandler:Function(result:Object), Function(fault:Fault)):OcelotPromise</code></pre>
 <blockquote>
 	<p>Add result handler and fault handler. <br />
 		The Object result is the result returned by the java method in json format.<br />
-		The Object fault is a fault .</p>
+		The Object fault is a <a href="#objects">fault</a>.<br>
+		The Object event is a <a href="#objects">event</a></p>
 </blockquote>
-<h3>catch</h3>
+<h3>catch(function(fault));</h3>
 <pre><code class="javascript">occelotPromise.catch(Function(fault:Fault)):OcelotPromise</code></pre>
 <blockquote>
 	<p>Add fault handler. <br />
-		The Object fault is the result returned by the java method in json format.</p>
+		The Object <a href="#objects">fault</a> is an object that embeds the exception throws by the java method in json format.</p>
 </blockquote>
-<h3>event</h3>
+<h3>event(function(event));</h3>
 <pre><code class="javascript">occelotPromise.event(Function(event:OcelotEvent)):OcelotPromise</code></pre>
 <blockquote>
 	<p>Add event handler. <br />
-		The Object event support result or fault returned by the java method in json format.</p>
+		The Object <a href="#objects">event</a> support result or fault returned by the java method in json format.<br>
+		<a href="#objects">event</a> Object support informations about the initial request</p>
+	<p>This object is particulary usefull if you need to get informations about the request.<br>For example, imagine your ui allows to delete a row from a list.<br>
+		Your ui includes a button on each rows. When you click on it, you call method <b>itemService.removeItem(id)</b>.<br>
+		Of course you don't delete the row, cause, you have to wait the response of server.<br>
+		When you receive positive response from server, you need informations to remove the good row. But the method returns <b>void</b>, so you don't have any information from response (response is null).
+	</p>
 </blockquote>
+<pre><code class="java">@DataService(resolver = Constants.Resolver....) // this expose all methods in ExposedService to javascript client
+public class ItemService {
+...
+   public void removeItem(Long id) {...}
+...
+}</code></pre>
+<pre><code class="javascript">itemService.removeItem(id).event(function(evt) { // event method is particulary usefull when you want to get the origin of calling because you can get the arguments.
+   console.debug("Receive result of "+evt.dataservice+"."+evt.operation+"("+JSON.stringify(evt.args)+")"); 
+   var id = evt.args[0];
+   if(event.type === "RESULT") {
+      console.debug("Item "+id+" Removed correctly on server, remove on ui");
+      removeRowWithItemId(id);
+   } else if(event.type === "FAULT") {
+      removeRowWithItemIdFailed(id);
+   }
+});</code></pre>
