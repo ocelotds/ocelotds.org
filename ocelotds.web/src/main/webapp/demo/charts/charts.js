@@ -1,4 +1,5 @@
 'use strict';
+if(window.chartServices === undefined) alert("Thid demo works only in Java EE server");
 ocelotController.addOpenListener(function () {
    Highcharts.setOptions({
       global: {useUTC: false}
