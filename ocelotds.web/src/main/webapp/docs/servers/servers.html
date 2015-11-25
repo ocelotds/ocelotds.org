@@ -1,1 +1,5 @@
-<h1 id="servers"><span  class="bg-primary">Servers guide</span></h1>
+<div class="alert alert-info">
+	<h1 id="servers">Servers guide</h1>
+</div>
+<p>Ocelotds works on Java EE servers with CDI support, but can works in servlet containers.</p>
+<div class="alert alert-warning">There are major limitations to using a servlet container; servlet containers doesn’t support deploying session beans, injection using @EJB or @PersistenceContext, or using transactional events. For enterprise features such as these, you should really be looking at a Java EE application server.</div>
