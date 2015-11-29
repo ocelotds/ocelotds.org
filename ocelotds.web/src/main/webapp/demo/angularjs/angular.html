@@ -123,7 +123,6 @@ angular.module('todoApp', []).controller('TodoListController',
    var todoList = this;
    todoList.todos = [];
    todoList.todoText = "";
-   <b class="cc" title="Get TodoServices java service">var todoServices = new TodoServices();</b>
    todoList.addTodo = function () {
       <b class="cc" title="Call TodoServices.addTodo(String todoLabel) java service&#013;Directly, as you would if you were in java side.">todoServices.addTodo(todoList.todoText)</b>.<b class="cc" title="Handle method return">then</b>(function (<b class="cc" title="Payload : method return">todo</b>) {
          $scope.$apply(function () {

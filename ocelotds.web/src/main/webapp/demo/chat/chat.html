@@ -144,7 +144,7 @@ public class ChatServices {
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<pre><code class="js">
 angular.module('chatApp', []).controller('ChatController', ['$scope', function ($scope) {
-   var chatCtrl = this, <b class="cc" title="Get ChatServices java service">chatServices = new ChatServices();</b>
+   var chatCtrl = this;
    chatCtrl.chatters = [], chatCtrl.messages = [], 
    chatCtrl.chatter = "", chatCtrl.message = "", 
    chatCtrl.subChatRoom, chatCtrl.subChatters, 

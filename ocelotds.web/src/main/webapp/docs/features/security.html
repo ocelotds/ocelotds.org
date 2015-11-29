@@ -14,7 +14,7 @@
 }</code></pre>
 <h3>Creation a policy for specific topic.</h3>
 <p>It's Very simple too, create a annotated CDI Bean that implements <strong>org.ocelotds.security.TopicAccessControl</strong> and Qualified by <strong>org.ocelotds.security.TopicControl</strong>.</p>
-<pre><code class="java">@TopicControl(SPECIFIC_TOPIC)
+<pre><code class="java">@JsTopicAccessControl(SPECIFIC_TOPIC)
 public class GlobalTopicAccessControl implements TopicAccessControl {
    @Override
    public void checkAccess(Session session, String topic) throws IllegalAccessException {
