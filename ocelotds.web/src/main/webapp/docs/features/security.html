@@ -1,5 +1,29 @@
 <h2 id="security">About security :</h2>
-<p>You can use the standard security provided by you framework on your managed bean.</p>
+<h2>JAAS Security</h2>
+<p>Websocket cannot use standard JAAS RBAC (Role Base Access Control).</p>
+<p>For fix this problem and keep the compatibility with all servers, we introduce a new annotation similar to the standard JAAS annotation : <b>@org.ocelotds.annotations.RolesAllowed</b>.</p>
+<p>You can use it as the standard annotation.</p>
+<h3>RolesAllowed</h3>
+<p>Declare ROLE in standard web.xml, and annotate your methods with it.</p>
+<pre><code class="java">public class MyService {
+   @org.ocelotds.annotations.RolesAllowed("ADMIN") // not javax.annotation.security.RolesAllowed
+   public void adminSecureMethod() {
+   }
+   @RolesAllowed({"USER", "ADMIN"}) 
+   public void secureMethod() {
+   }
+}</code></pre>
+<h3>OcelotContext</h3>
+<p>As JAAS, you can inject a context allows programmatic security.</p>
+<pre><code class="java">public class MyService {
+   @Inject
+   OcelotContext oc;
+   public void secureMethod() {
+      if(oc.isUserInRole("ADMIN")) {
+         // ok
+      }	
+   }
+}</code></pre>
 <h2>About topics security :</h2>
 <p>But Ocelot manages the security about topic.</p>
 <p>By default every clients can subscribe to a topic, but probably you need to control that.</p>

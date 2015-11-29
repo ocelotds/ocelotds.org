@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Random;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import org.ocelotds.annotations.RolesAllowed;
 import org.ocelotds.context.OcelotContext;
 
 /**
@@ -227,5 +228,22 @@ public class CDIRequestBean {
 	@JsTopic
 	public String sendToSpecificTopic(String message, @JsTopicName String topic) {
 		return message;
+	}
+
+	public String getCtxPrincipalName() {
+		return ctx.getPrincipal().getName();
+	}
+
+	@RolesAllowed("USERR")
+	public boolean isUserInRole(String role) {
+		return ctx.isUserInRole(role);
+	}
+
+	@RolesAllowed("USERR")
+	public void callAuthorized() {
+	}
+
+	@RolesAllowed("ADMINR")
+	public void callUnauthorized() {
 	}
 }

@@ -3,13 +3,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 package org.ocelotds.tests;
 
+import java.security.Principal;
 import java.util.Date;
-import javax.annotation.Resource;
-import javax.annotation.security.RolesAllowed;
-import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import org.ocelotds.Constants;
 import org.ocelotds.annotations.DataService;
+import org.ocelotds.annotations.RolesAllowed;
+import org.ocelotds.context.OcelotContext;
 
 /**
  *
@@ -19,7 +20,12 @@ import org.ocelotds.annotations.DataService;
 @DataService(resolver = Constants.Resolver.EJB)
 public class EJBStateless {
 
-	@RolesAllowed("USERR")
+	@Inject
+	private OcelotContext sc;
+	
+	@Inject
+	private Principal principal;
+
 	public Date getDate() {
 		Date d = new Date();
 		try {
@@ -29,17 +35,17 @@ public class EJBStateless {
 		return d;
 	}
 
-	@Resource
-	private SessionContext sc;
+	public String getCDIPrincipalName() {
+		return principal.getName();
+	}
 
-	@RolesAllowed("USERR")
-	public String getEJBPrincipalName() {
-		return sc.getCallerPrincipal().getName();
+	public String getCtxPrincipalName() {
+		return sc.getPrincipal().getName();
 	}
 
 	@RolesAllowed("USERR")
 	public boolean isUserInRole(String role) {
-		return sc.isCallerInRole(role);
+		return sc.isUserInRole(role);
 	}
 
 	@RolesAllowed("USERR")

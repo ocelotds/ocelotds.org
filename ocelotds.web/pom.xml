@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.ocelotds</groupId>
 		<artifactId>ocelotds</artifactId>
-		<version>1.4.0-SNAPSHOT</version>
+		<version>1.5.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>org.ocelotds</groupId>
@@ -60,13 +60,6 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>${project.groupId}</groupId>
-					<artifactId>ocelot-glassfish</artifactId>
-					<version>${ocelot.version}</version>
-				</dependency>
-			</dependencies>
 			<build>
 				<plugins>
 					<plugin>
@@ -82,13 +75,6 @@
 		</profile>
 		<profile>
 			<id>weblogic</id>
-			<dependencies>
-				<dependency>
-					<groupId>${project.groupId}</groupId>
-					<artifactId>ocelot-weblogic</artifactId>
-					<version>${ocelot.version}</version>
-				</dependency>
-			</dependencies>
 			<build>
 				<plugins>
 					<plugin>
@@ -104,13 +90,6 @@
 		</profile>
 		<profile>
 			<id>wildfly</id>
-			<dependencies>
-				<dependency>
-					<groupId>${project.groupId}</groupId>
-					<artifactId>ocelot-wildfly</artifactId>
-					<version>${ocelot.version}</version>
-				</dependency>
-			</dependencies>
 			<build>
 				<plugins>
 					<plugin>
