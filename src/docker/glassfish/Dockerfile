@@ -16,7 +16,7 @@ RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binar
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
 # Build ocelotds
-RUN curl --silent --location --retry 3 https://github.com/hhdevelopment/ocelotds.org/archive/$BRANCH.tar.gz | tar xz -C /tmp \
+RUN curl --silent --location --retry 3 https://github.com/ocelods/ocelotds.org/archive/$BRANCH.tar.gz | tar xz -C /tmp \
   && cd /tmp/ocelotds.org-$BRANCH && mvn package -P $PROFILE && mv /tmp/ocelotds.org-$BRANCH/target/ocelotds*.war /tmp/
 
 # Clean

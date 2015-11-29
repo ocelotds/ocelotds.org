@@ -9,8 +9,6 @@
 
 [Browsers limitations](http://webdebug.net/2013/12/browser-connection-limit)
 
-[HOW TO](https://github.com/hhdevelopment/ocelot/wiki/howto)
-
 Ocelot framework allow to call differents services directly from simple classes methods call, like you can do in the backend.   
 Don't write WEB Services, focus on business methods, ocelot do communication between business layout and font-end.
 
