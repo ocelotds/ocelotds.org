@@ -22,7 +22,7 @@ language: java
 jdk: oraclejdk7
 install: mvn install -DskipTests=true
 after_success:
-  - sshpass -p $VPS_PASSWORD scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ocelotds.ear/target/ocelotds*.ear $VPS_USERNAME@$VPS_HOST:/root/autodeploy/ocelotds.ear
+  - sshpass -p $VPS_PASSWORD scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ocelotds.ear/target/ocelotds*.ear $VPS_LOGIN@$VPS_HOST:/root/autodeploy/ocelotds.ear
 #  - "curl -H \"Content-Type: application/json\" --data '{\"build\": true}' -X POST https://registry.hub.docker.com/u/hhfrancois/ocelotds.org/trigger/a3344f80-4bed-406c-9e6c-bac48428c0cf/"
 #  - ls target/ocelotds*.war
 
