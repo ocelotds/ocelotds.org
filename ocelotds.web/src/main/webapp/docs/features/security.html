@@ -1,19 +1,7 @@
 <h2 id="security">About security :</h2>
 <h3>Use Secure websocket</h3>
 <p>You can use websocket secure.</p>
-<h4>Set WSS in web.xml</h4>
-<pre><code class="xml">&gt;context-param&lt;
-   &gt;param-name&lt;ocelot.websocket.secure&gt;/param-name&lt;
-   &gt;param-value&lt;true&gt;/param-value&lt;
-&gt;/context-param&lt;
-</code></pre>
-<h4>Use CDI producer</h4>
-<p>Create simply a cdi producer qualifed by annotation<br><b>@org.ocelotds.configuration.annotations.OcelotConfiguration(OcelotConfigurationName.SECURE)</b>.</p>
-<pre><code class="java"></code></pre>@Produces
-@OcelotConfiguration(OcelotConfigurationName.SECURE)
-String getSecureConfiguration() {
-   return "true";
-}
+<p>For use Websocket secured, use simply the https protocol for your web application. That's all</p>
 <h3>JAAS Security</h3>
 <p>Websocket cannot use standard JAAS RBAC (Role Base Access Control) Cause Enpoint is not include in user thread.</p>
 <p>For fix this problem and keep the compatibility with all servers, we introduce a new annotation similar to the standard JAAS annotation : <b>@org.ocelotds.annotations.RolesAllowed</b>.</p>

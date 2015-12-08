@@ -14,12 +14,6 @@ import org.ocelotds.configuration.annotations.OcelotConfiguration;
 public class OcelotConfig {
 	
 	@Produces
-	@OcelotConfiguration(OcelotConfigurationName.SECURE)
-	String getProtocolSecure() {
-		return "false";
-	}
-	
-	@Produces
 	@OcelotConfiguration(OcelotConfigurationName.STACKTRACELENGTH)
 	String getStackLength() {
 		return "10";
