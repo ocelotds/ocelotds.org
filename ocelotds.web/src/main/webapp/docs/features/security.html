@@ -1,9 +1,24 @@
 <h2 id="security">About security :</h2>
-<h2>JAAS Security</h2>
-<p>Websocket cannot use standard JAAS RBAC (Role Base Access Control).</p>
+<h3>Use Secure websocket</h3>
+<p>You can use websocket secure.</p>
+<h4>Set WSS in web.xml</h4>
+<pre><code class="xml">&gt;context-param&lt;
+   &gt;param-name&lt;ocelot.websocket.secure&gt;/param-name&lt;
+   &gt;param-value&lt;true&gt;/param-value&lt;
+&gt;/context-param&lt;
+</code></pre>
+<h4>Use CDI producer</h4>
+<p>Create simply a cdi producer qualifed by annotation<br><b>@org.ocelotds.configuration.annotations.OcelotConfiguration(OcelotConfigurationName.SECURE)</b>.</p>
+<pre><code class="java"></code></pre>@Produces
+@OcelotConfiguration(OcelotConfigurationName.SECURE)
+String getSecureConfiguration() {
+   return "true";
+}
+<h3>JAAS Security</h3>
+<p>Websocket cannot use standard JAAS RBAC (Role Base Access Control) Cause Enpoint is not include in user thread.</p>
 <p>For fix this problem and keep the compatibility with all servers, we introduce a new annotation similar to the standard JAAS annotation : <b>@org.ocelotds.annotations.RolesAllowed</b>.</p>
 <p>You can use it as the standard annotation.</p>
-<h3>RolesAllowed</h3>
+<h4>RolesAllowed</h4>
 <p>Declare ROLE in standard web.xml, and annotate your methods with it.</p>
 <pre><code class="java">public class MyService {
    @org.ocelotds.annotations.RolesAllowed("ADMIN") // not javax.annotation.security.RolesAllowed
@@ -13,7 +28,7 @@
    public void secureMethod() {
    }
 }</code></pre>
-<h3>OcelotContext</h3>
+<h4>OcelotContext</h4>
 <p>As JAAS, you can inject a context allows programmatic security.</p>
 <pre><code class="java">public class MyService {
    @Inject
@@ -24,11 +39,11 @@
       }	
    }
 }</code></pre>
-<h2>About topics security :</h2>
+<h3>About topics security :</h3>
 <p>But Ocelot manages the security about topic.</p>
 <p>By default every clients can subscribe to a topic, but probably you need to control that.</p>
 <p>Ocelotds is CDI based and allow an ellegant mecanism for manage it.</p>
-<h3>Creation a global policy for all topics.</h3>
+<h4>Creation a global policy for all topics.</h4>
 <p>It's Very simple just create a default CDI Bean that implements <strong>org.ocelotds.security.TopicAccessControl</strong> in the war project.</p>
 <pre><code class="java">public class GlobalTopicAccessControl implements TopicAccessControl {
    @Override
@@ -36,7 +51,7 @@
       // if access not allowed, throw IllegalAccessException
    }
 }</code></pre>
-<h3>Creation a policy for specific topic.</h3>
+<h4>Creation a policy for specific topic.</h4>
 <p>It's Very simple too, create a annotated CDI Bean that implements <strong>org.ocelotds.security.TopicAccessControl</strong> and Qualified by <strong>org.ocelotds.security.TopicControl</strong>.</p>
 <pre><code class="java">@JsTopicAccessControl(SPECIFIC_TOPIC)
 public class GlobalTopicAccessControl implements TopicAccessControl {

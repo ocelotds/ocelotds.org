@@ -1,0 +1,31 @@
+<h2 id="configuration">Configuration :</h2>
+<h3>Configure Secure websocket</h3>
+<p>You can use websocket secure.</p>
+<h4>Set WSS in web.xml</h4>
+<pre><code class="xml">&gt;context-param&lt;
+   &gt;param-name&lt;ocelot.websocket.secure&gt;/param-name&lt;
+   &gt;param-value&lt;true&gt;/param-value&lt;
+&gt;/context-param&lt;
+</code></pre>
+<h4>Use CDI producer</h4>
+<p>Create simply a cdi producer qualifed by annotation<br><b>@org.ocelotds.configuration.annotations.OcelotConfiguration(OcelotConfigurationName.SECURE)</b>.</p>
+<pre><code class="java"></code></pre>@Produces
+@OcelotConfiguration(OcelotConfigurationName.SECURE)
+String getSecureConfiguration() {
+   return "true";
+}
+<h3>Configure stacktrace length</h3>
+<p>You can set the length of stacktrace.</p>
+<h4>In web.xml</h4>
+<pre><code class="xml">&gt;context-param&lt;
+   &gt;param-name&lt;ocelot.stacktrace.length&gt;/param-name&lt;
+   &gt;param-value&lt;10&gt;/param-value&lt;
+&gt;/context-param&lt;
+</code></pre>
+<h4>Use CDI producer</h4>
+<p>Create simply a cdi producer qualifed by annotation<br><b>@org.ocelotds.configuration.annotations.OcelotConfiguration(OcelotConfigurationName.STACKTRACELENGTH)</b>.</p>
+<pre><code class="java"></code></pre>@Produces
+@OcelotConfiguration(OcelotConfigurationName.STACKTRACELENGTH)
+String getStacktraceConfiguration() {
+   return "20";
+}
