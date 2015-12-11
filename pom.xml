@@ -18,6 +18,10 @@
 			<id>oss</id>
 			<url>https://oss.sonatype.org/service/local/repositories/releases/content</url>
 		</repository>
+		<repository>
+			<id>osss</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/content</url>
+		</repository>
 	</repositories>
 	
 	<dependencies>
