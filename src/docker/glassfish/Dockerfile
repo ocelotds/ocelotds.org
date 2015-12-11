@@ -14,14 +14,14 @@ ENV BRANCH docker
 RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
   && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+############### END COMMON PART ###############
 
 # Build ocelotds
 RUN curl --silent --location --retry 3 https://github.com/ocelotds/ocelotds.org/archive/$BRANCH.tar.gz | tar xz -C /tmp \
-  && cd /tmp/ocelotds.org-$BRANCH && mvn package -P $PROFILE && mv /tmp/ocelotds.org-$BRANCH/target/ocelotds*.war /tmp/
+  && cd /tmp/ocelotds.org-$BRANCH && mvn package -P $PROFILE && mv /tmp/ocelotds.org-$BRANCH/ocelotds.ear/target/ocelotds*.ear /tmp/
 
 # Clean
 RUN rm -rf /tmp/ocelot-master && rm -rf /tmp/ocelotds.org-master && rm -f /usr/bin/mvn && rm -rf /usr/share/maven && rm -rf ~/.m2
-############### END COMMON PART ###############
 
 # Set the GLASSFISH env variable
 ENV GLASSFIH_VERSION 4.1.1
@@ -42,7 +42,7 @@ RUN $GLASSFISH_HOME/bin/asadmin start-domain domain1 \
   && rm pwd.txt
 
 # Deploy ocelotds
-RUN mv /tmp/ocelot*.war $GLASSFISH_HOME/glassfish/domains/domain1/autodeploy 
+RUN mv /tmp/ocelot*.ear $GLASSFISH_HOME/glassfish/domains/domain1/autodeploy 
 
 # Expose the ports we're interested in
 EXPOSE 8080 4848 8181
