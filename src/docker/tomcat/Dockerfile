@@ -3,21 +3,26 @@ FROM java:openjdk-8-jdk
 MAINTAINER Francois Achache <francois.achache@gmail.com>
 
 ENV PROFILE tomcat
+ENV ARTIFACT war
+ENV EXT web
 
 ############### BEGIN COMMON PART ###############
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 ENV PATH $PATH:$JAVA_HOME/bin
 ENV MAVEN_VERSION 3.3.3
+ENV BRANCH docker
 
 # Get maven
 RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
   && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
-ENV BRANCH docker
 # Build ocelotds
 RUN curl --silent --location --retry 3 https://github.com/ocelotds/ocelotds.org/archive/$BRANCH.tar.gz | tar xz -C /tmp \
-  && cd /tmp/ocelotds.org-$BRANCH/ocelotds.web && mvn package -P $PROFILE && mv /tmp/ocelotds.org-$BRANCH/ocelotds.web/target/ocelotds*.war /tmp/
+  && cd /tmp/ocelotds.org-$BRANCH && mvn package -P $PROFILE
+
+# Move application
+RUN mv /tmp/ocelotds.org-$BRANCH/ocelotds.$EXT/target/ocelotds*.$ARTIFACT /tmp/
 
 # Clean
 RUN rm -rf /tmp/ocelot-master && rm -rf /tmp/ocelotds.org-master && rm -f /usr/bin/mvn && rm -rf /usr/share/maven && rm -rf ~/.m2
@@ -25,8 +30,8 @@ RUN rm -rf /tmp/ocelot-master && rm -rf /tmp/ocelotds.org-master && rm -f /usr/b
 
 # Set the TOMCAT env variables
 ENV TOMCAT_VERSION 8
-ENV TOMCAT_RELEASE 8.0.28
-ENV TOMCAT_URL http://www.eu.apache.org/dist/tomcat
+ENV TOMCAT_RELEASE 8.0.30
+ENV TOMCAT_URL http://www.us.apache.org/dist/tomcat
 ENV TOMCAT_HOME /usr/local/apache-tomcat-$TOMCAT_RELEASE
 ENV PATH $PATH:$TOMCAT_HOME/bin
 
