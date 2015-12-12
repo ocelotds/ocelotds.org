@@ -10,7 +10,6 @@
 	<groupId>org.ocelotds</groupId>
 	<artifactId>ocelotds.web</artifactId>
 	<packaging>war</packaging>
-	<name>ocelotds.web</name>
 	
 	<properties>
 		<spring.version>4.2.1.RELEASE</spring.version>

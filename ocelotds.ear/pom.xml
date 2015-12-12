@@ -10,7 +10,6 @@
 	<groupId>org.ocelotds</groupId>
 	<artifactId>ocelotds.ear</artifactId>
 	<packaging>ear</packaging>
-	<name>ocelodds.ear</name>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
