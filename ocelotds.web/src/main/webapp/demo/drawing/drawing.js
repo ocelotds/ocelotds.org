@@ -72,7 +72,7 @@ ocelotController.addOpenListener(function () {
       imageView.removeEventListener('mouseout', sendMouseEvent);
    }
    function sendMouseEvent(ev) {
-      drawingServices.pushCanvasEvent({"x": ev.offsetX, "y": ev.offsetY, "type": ev.type});
+      drawingServices.pushCanvasEvent({"x": ev.offsetX | ev.layerX, "y": ev.offsetY | ev.layerY, "type": ev.type});
    }
    ocelotController.addCloseListener(function () {
       subCanvasEvent.unsubscribe();
