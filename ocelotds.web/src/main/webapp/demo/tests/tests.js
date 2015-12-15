@@ -17,17 +17,17 @@ ocelotController.addOpenListener(function () {
          done();
       });
    });
-   QUnit.module("CDIRequestBean");
+   QUnit.module("CdiRequestBean");
    QUnit.test(".getVoid()", function (assert) {
       var done = assert.async();
-      cDIRequestBean.getVoid().event(function (evt) {
+      cdiRequestBean.getVoid().event(function (evt) {
          assert.equal(evt.type, "RESULT");
          done();
       });
    });
    QUnit.test(".getString()", function (assert) {
       var done = assert.async();
-      cDIRequestBean.getString().event(function (evt) {
+      cdiRequestBean.getString().event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.equal(evt.response, "FOO");
          done();
@@ -35,7 +35,7 @@ ocelotController.addOpenListener(function () {
    });
    QUnit.test(".getNum()", function (assert) {
       var done = assert.async();
-      cDIRequestBean.getNum().event(function (evt) {
+      cdiRequestBean.getNum().event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.equal(evt.response, 1);
          done();
@@ -43,7 +43,7 @@ ocelotController.addOpenListener(function () {
    });
    QUnit.test(".getNumber()", function (assert) {
       var done = assert.async();
-      cDIRequestBean.getNumber().event(function (evt) {
+      cdiRequestBean.getNumber().event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.equal(evt.response, 2);
          done();
@@ -51,7 +51,7 @@ ocelotController.addOpenListener(function () {
    });
    QUnit.test(".getBool()", function (assert) {
       var done = assert.async();
-      cDIRequestBean.getBool().event(function (evt) {
+      cdiRequestBean.getBool().event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.equal(evt.response, true);
          done();
@@ -59,7 +59,7 @@ ocelotController.addOpenListener(function () {
    });
    QUnit.test(".getBoolean()", function (assert) {
       var done = assert.async();
-      cDIRequestBean.getBoolean().event(function (evt) {
+      cdiRequestBean.getBoolean().event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.equal(evt.response, false);
          done();
@@ -69,7 +69,7 @@ ocelotController.addOpenListener(function () {
       var done = assert.async();
       var now = new Date();
       setTimeout(function () {
-         cDIRequestBean.getDate().event(function (evt) {
+         cdiRequestBean.getDate().event(function (evt) {
             assert.equal(evt.type, "RESULT");
             assert.ok(new Date(evt.response).getDate() === now.getDate(), "Same day...");
             done();
@@ -78,7 +78,7 @@ ocelotController.addOpenListener(function () {
    });
    QUnit.test(".getResult()", function (assert) {
       var done = assert.async();
-      cDIRequestBean.getResult().event(function (evt) {
+      cdiRequestBean.getResult().event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, {"integer": 5});
          done();
@@ -89,7 +89,7 @@ ocelotController.addOpenListener(function () {
       for (i = 1; i < 5; i++) {
          expected.push(i);
       }
-      cDIRequestBean.getCollectionInteger().event(function (evt) {
+      cdiRequestBean.getCollectionInteger().event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -100,7 +100,7 @@ ocelotController.addOpenListener(function () {
       for (i = 0; i < 4; i++) {
          expected.push({"integer": 5});
       }
-      cDIRequestBean.getCollectionResult().event(function (evt) {
+      cdiRequestBean.getCollectionResult().event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -115,7 +115,7 @@ ocelotController.addOpenListener(function () {
             result.push({"integer": 5});
          }
       }
-      cDIRequestBean.getCollectionOfCollectionResult().event(function (evt) {
+      cdiRequestBean.getCollectionOfCollectionResult().event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -126,7 +126,7 @@ ocelotController.addOpenListener(function () {
       for (i = 1; i < 5; i++) {
          expected["" + i] = {"integer": 5};
       }
-      cDIRequestBean.getMapResult().event(function (evt) {
+      cdiRequestBean.getMapResult().event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -135,7 +135,7 @@ ocelotController.addOpenListener(function () {
    QUnit.test(".methodWithNum(i)", function (assert) {
       var expected, done = assert.async();
       expected = "methodWithNum_1";
-      cDIRequestBean.methodWithNum(1).event(function (evt) {
+      cdiRequestBean.methodWithNum(1).event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -144,7 +144,7 @@ ocelotController.addOpenListener(function () {
    QUnit.test(".methodWithNumber(i)", function (assert) {
       var expected, done = assert.async();
       expected = "methodWithNumber_1";
-      cDIRequestBean.methodWithNumber(1).event(function (evt) {
+      cdiRequestBean.methodWithNumber(1).event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -153,7 +153,7 @@ ocelotController.addOpenListener(function () {
    QUnit.test(".methodWithBool(true)", function (assert) {
       var expected, done = assert.async();
       expected = "methodWithBool_true";
-      cDIRequestBean.methodWithBool(true).event(function (evt) {
+      cdiRequestBean.methodWithBool(true).event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -162,7 +162,7 @@ ocelotController.addOpenListener(function () {
    QUnit.test(".methodWithBool(false)", function (assert) {
       var expected, done = assert.async();
       expected = "methodWithBool_false";
-      cDIRequestBean.methodWithBool(false).event(function (evt) {
+      cdiRequestBean.methodWithBool(false).event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -171,7 +171,7 @@ ocelotController.addOpenListener(function () {
    QUnit.test(".methodWithBoolean(false)", function (assert) {
       var expected, done = assert.async();
       expected = "methodWithBoolean_false";
-      cDIRequestBean.methodWithBoolean(false).event(function (evt) {
+      cdiRequestBean.methodWithBoolean(false).event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -180,7 +180,7 @@ ocelotController.addOpenListener(function () {
    QUnit.test(".methodWithBoolean(true)", function (assert) {
       var expected, done = assert.async();
       expected = "methodWithBoolean_true";
-      cDIRequestBean.methodWithBoolean(true).event(function (evt) {
+      cdiRequestBean.methodWithBoolean(true).event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -190,7 +190,7 @@ ocelotController.addOpenListener(function () {
       var expected, d, done = assert.async();
       d = new Date();
       expected = "methodWithDate_" + d.getTime();
-      cDIRequestBean.methodWithDate(d.getTime()).event(function (evt) {
+      cdiRequestBean.methodWithDate(d.getTime()).event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -200,7 +200,7 @@ ocelotController.addOpenListener(function () {
       var expected, r, done = assert.async();
       r = {"integer": 5};
       expected = "methodWithResult_" + r.integer;
-      cDIRequestBean.methodWithResult(r).event(function (evt) {
+      cdiRequestBean.methodWithResult(r).event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -210,7 +210,7 @@ ocelotController.addOpenListener(function () {
       var expected, r, done = assert.async();
       r = [1, 2, 3, 4, 5];
       expected = "methodWithArrayInteger_" + r.length;
-      cDIRequestBean.methodWithArrayInteger(r).event(function (evt) {
+      cdiRequestBean.methodWithArrayInteger(r).event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -220,7 +220,7 @@ ocelotController.addOpenListener(function () {
       var expected, r, done = assert.async();
       r = [1, 2, 3, 4, 5];
       expected = "methodWithCollectionInteger_" + r.length;
-      cDIRequestBean.methodWithCollectionInteger(r).event(function (evt) {
+      cdiRequestBean.methodWithCollectionInteger(r).event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -232,7 +232,7 @@ ocelotController.addOpenListener(function () {
          r.push({"integer": 5});
       }
       expected = "methodWithArrayResult_" + r.length;
-      cDIRequestBean.methodWithArrayResult(r).event(function (evt) {
+      cdiRequestBean.methodWithArrayResult(r).event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -244,7 +244,7 @@ ocelotController.addOpenListener(function () {
          r.push({"integer": 5});
       }
       expected = "methodWithCollectionResult_" + r.length;
-      cDIRequestBean.methodWithCollectionResult(r).event(function (evt) {
+      cdiRequestBean.methodWithCollectionResult(r).event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -256,7 +256,7 @@ ocelotController.addOpenListener(function () {
          r["" + i] = {"integer": 5};
       }
       expected = "methodWithMapResult_4";
-      cDIRequestBean.methodWithMapResult(r).event(function (evt) {
+      cdiRequestBean.methodWithMapResult(r).event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -272,7 +272,7 @@ ocelotController.addOpenListener(function () {
          }
       }
       expected = "methodWithCollectionOfCollectionResult_" + r.length;
-      cDIRequestBean.methodWithCollectionOfCollectionResult(r).event(function (evt) {
+      cdiRequestBean.methodWithCollectionOfCollectionResult(r).event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -282,7 +282,7 @@ ocelotController.addOpenListener(function () {
       var a, b, c, d, expected, done = assert.async();
       a = "text", b = 5, c = {"integer": 5}, d = ["a", "b"];
       expected = "methodWithManyParameters a=" + a + " - b=" + b + " - c=" + c.integer + " - d:" + d.length;
-      cDIRequestBean.methodWithManyParameters(a, b, c, d).event(function (evt) {
+      cdiRequestBean.methodWithManyParameters(a, b, c, d).event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -291,7 +291,16 @@ ocelotController.addOpenListener(function () {
    QUnit.test(".methodWithAlmostSameSignature(s)", function (assert) {
       var expected, done = assert.async();
       expected = "String";
-      cDIRequestBean.methodWithAlmostSameSignature("text").event(function (evt) {
+      cdiRequestBean.methodWithAlmostSameSignature("text").event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+         assert.deepEqual(evt.response, expected);
+         done();
+      });
+   });
+   QUnit.test(".methodWithAlmostSameSignature(s1, s2)", function (assert) {
+      var expected, done = assert.async();
+      expected = "String2";
+      cdiRequestBean.methodWithAlmostSameSignature("text", "text").event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -300,7 +309,7 @@ ocelotController.addOpenListener(function () {
    QUnit.test(".methodWithAlmostSameSignature(i)", function (assert) {
       var expected, done = assert.async();
       expected = "Integer";
-      cDIRequestBean.methodWithAlmostSameSignature(5).event(function (evt) {
+      cdiRequestBean.methodWithAlmostSameSignature(5).event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.deepEqual(evt.response, expected);
          done();
@@ -308,7 +317,7 @@ ocelotController.addOpenListener(function () {
    });
    QUnit.test(".methodThatThrowException()", function (assert) {
       var done = assert.async();
-      cDIRequestBean.methodThatThrowException().event(function (evt) {
+      cdiRequestBean.methodThatThrowException().event(function (evt) {
          assert.equal(evt.type, "FAULT");
          assert.equal(evt.response.classname, "org.ocelotds.tests.MethodException");
          done();
@@ -316,10 +325,10 @@ ocelotController.addOpenListener(function () {
    });
    QUnit.test(".methodCached()", function (assert) {
       var expected, done = assert.async();
-      cDIRequestBean.methodCached().event(function (evt) {
+      cdiRequestBean.methodCached().event(function (evt) {
          assert.equal(evt.type, "RESULT", "Receive result : " + expected + " from server and put in cache.");
          expected = evt.response.length;
-         cDIRequestBean.methodCached().event(function (evt) {
+         cdiRequestBean.methodCached().event(function (evt) {
             assert.equal(evt.response.length, expected, "Receive result from cache : " + evt.response.length);
             done();
          });
@@ -328,14 +337,14 @@ ocelotController.addOpenListener(function () {
    QUnit.test(".methodRemoveCache()", function (assert) {
       ocelotController.cacheManager.clearCache();
       var expected, done = assert.async();
-      cDIRequestBean.methodCached().event(function (evt) {
+      cdiRequestBean.methodCached().event(function (evt) {
          expected = evt.response;
          assert.equal(evt.type, "RESULT", "Receive result : " + JSON.stringify(expected) + " from server and put in cache.");
-         cDIRequestBean.methodCached().event(function (evt) {
+         cdiRequestBean.methodCached().event(function (evt) {
             assert.deepEqual(evt.response, expected, "Receive result from cache : " + JSON.stringify(evt.response));
-            cDIRequestBean.methodRemoveCache().event(function (evt) {
+            cdiRequestBean.methodRemoveCache().event(function (evt) {
                assert.equal(evt.type, "RESULT", "Cache removed.");
-               cDIRequestBean.methodCached().event(function (evt) {
+               cdiRequestBean.methodCached().event(function (evt) {
                   assert.notEqual(evt.response, expected, "Receive result " + JSON.stringify(evt.response) + " from server and previously : "+JSON.stringify(expected));
                   done();
                });
@@ -346,14 +355,14 @@ ocelotController.addOpenListener(function () {
    QUnit.test(".methodRemoveAllCache()", function (assert) {
       ocelotController.cacheManager.clearCache();
       var expected, done = assert.async();
-      cDIRequestBean.methodCached().event(function (evt) {
+      cdiRequestBean.methodCached().event(function (evt) {
          expected = evt.response;
          assert.equal(evt.type, "RESULT", "Receive result : " + JSON.stringify(expected) + " from server and put in cache.");
-         cDIRequestBean.methodCached().event(function (evt) {
+         cdiRequestBean.methodCached().event(function (evt) {
             assert.deepEqual(evt.response, expected, "Receive result from cache : " + JSON.stringify(evt.response));
-            cDIRequestBean.methodRemoveAllCache().event(function (evt) {
+            cdiRequestBean.methodRemoveAllCache().event(function (evt) {
                assert.equal(evt.type, "RESULT", "All Cache removed.");
-               cDIRequestBean.methodCached().event(function (evt) {
+               cdiRequestBean.methodCached().event(function (evt) {
                   assert.notEqual(evt.response, expected, "Receive result " + JSON.stringify(evt.response) + " from server and previously : "+JSON.stringify(expected));
                   done();
                });
@@ -365,14 +374,14 @@ ocelotController.addOpenListener(function () {
       var timer, done = assert.async();
       ocelotController.close().then(function(reason) {
          console.info("Websocket closed reason : "+reason)
-         cDIRequestBean.getVoid().event(function (evt) {
+         cdiRequestBean.getVoid().event(function (evt) {
             assert.equal(evt.type, "FAULT", "WebSocket should be closed : reason : "+reason);
             timer = setTimeout(function () {
                assert.ok(false, "WebSocket doesn't open after re-open");
                done();
             }, 4000);
             ocelotController.open().then(function(){
-               cDIRequestBean.getVoid().event(function (evt) {
+               cdiRequestBean.getVoid().event(function (evt) {
                   window.clearTimeout(timer);
                   assert.equal(evt.type, "RESULT", "Receive response after re-open");
                   done();
@@ -387,7 +396,7 @@ ocelotController.addOpenListener(function () {
       assert.equal(sub.topic, "mytopic", "topic name accessible");
       sub.event(function (evt) {
          assert.equal(evt.type, "RESULT", "Subscription to 'mytopic' : ok.");
-         cDIRequestBean.publish("mytopic", 1).event(function (evt) {
+         cdiRequestBean.publish("mytopic", 1).event(function (evt) {
             assert.equal(evt.type, "RESULT", "Call publish method : ok.");
          });
       }).message(function (msg) {
@@ -429,7 +438,7 @@ ocelotController.addOpenListener(function () {
       done = assert.async();
       sub = new Subscriber("mytopic").event(function (evt) {
          assert.equal(evt.type, "RESULT", "Subscription to 'mytopic' : ok.");
-         cDIRequestBean.publish("mytopic", expected).event(function (evt) {
+         cdiRequestBean.publish("mytopic", expected).event(function (evt) {
             assert.equal(evt.type, "RESULT", "Call publish(" + expected + ") method : ok.");
          });
       }).message(function (msg) {
@@ -444,7 +453,7 @@ ocelotController.addOpenListener(function () {
       var sub, timer, topic = "GlobalTopic", expected = "my message", done = assert.async();
       sub = new Subscriber(topic).event(function (evt) {
          assert.equal(evt.type, "RESULT", "Subscription to '" + topic + "' : ok.");
-         cDIRequestBean.sendToGlobalTopic(expected).event(function (evt) {
+         cdiRequestBean.sendToGlobalTopic(expected).event(function (evt) {
             assert.equal(evt.type, "RESULT", "Call sendToGlobalTopic(" + expected + ") method : ok.");
             sub.message(function (msg) {
                window.clearTimeout(timer);
@@ -462,7 +471,7 @@ ocelotController.addOpenListener(function () {
       var sub, timer, topic = "MyTopic", expected = "my message", done = assert.async();
       sub = new Subscriber(topic).event(function (evt) {
          assert.equal(evt.type, "RESULT", "Subscription to '" + topic + "' : ok.");
-         cDIRequestBean.sendToSpecificTopic(expected, topic).event(function (evt) {
+         cdiRequestBean.sendToSpecificTopic(expected, topic).event(function (evt) {
             assert.equal(evt.type, "RESULT", "Call sendToSpecificTopic(" + expected + ", " + topic + ")");
             sub.message(function (msg) {
                window.clearTimeout(timer);
@@ -480,12 +489,12 @@ ocelotController.addOpenListener(function () {
    });
    QUnit.test(".testGlobalTopicAccess()", function (assert) {
       var sub, done = assert.async();
-      cDIRequestBean.setGlobalTopicAccess(false).then(function () {
+      cdiRequestBean.setGlobalTopicAccess(false).then(function () {
          new Subscriber("GlobalTopic").event(function (evt) {
             assert.equal(evt.type, "FAULT", "Subscription to 'GlobalTopic' failed : ok.");
             new Subscriber("mytopic").event(function (evt) {
                assert.equal(evt.type, "FAULT", "Subscription to 'mytopic' failed : ok.");
-               cDIRequestBean.setGlobalTopicAccess(true);
+               cdiRequestBean.setGlobalTopicAccess(true);
                sub = new Subscriber("mytopic").event(function (evt) {
                   assert.equal(evt.type, "RESULT", "Subscription to 'mytopic' : ok.");
                   sub.unsubscribe();
@@ -497,12 +506,12 @@ ocelotController.addOpenListener(function () {
    });
    QUnit.test(".testSpecificTopicAccess()", function (assert) {
       var sub, done = assert.async();
-      cDIRequestBean.setSpecificTopicAccess(false).then(function () {
+      cdiRequestBean.setSpecificTopicAccess(false).then(function () {
          new Subscriber("mytopic").event(function (evt) {
             assert.equal(evt.type, "FAULT", "Subscription to 'GlobalTopic' failed : ok.");
             sub = new Subscriber("GlobalTopic").event(function (evt) {
                assert.equal(evt.type, "RESULT", "Subscription to 'mytopic' : ok.");
-               cDIRequestBean.setSpecificTopicAccess(true);
+               cdiRequestBean.setSpecificTopicAccess(true);
                sub.unsubscribe();
                done();
             });
@@ -511,7 +520,7 @@ ocelotController.addOpenListener(function () {
    });
    QUnit.test(".testGetCDIPrincipalName()", function (assert) {
       var login, done = assert.async();
-      cDIRequestBean.getCDIPrincipalName().event(function (evt) {
+      cdiRequestBean.getCDIPrincipalName().event(function (evt) {
          assert.equal(evt.type, "RESULT");
          login = evt.response;
          assert.notEqual(login, "ANONYMOUS", "login should be different to ANONYMOUS and was "+login);
@@ -525,11 +534,11 @@ ocelotController.addOpenListener(function () {
          assert.equal(okCount, 50, "50 response with login = "+login);
          done();
       };
-      cDIRequestBean.getCtxPrincipalName().event(function (evt) {
+      cdiRequestBean.getCtxPrincipalName().event(function (evt) {
          login = evt.response;
          assert.notEqual(login, "ANONYMOUS", "login should be different to ANONYMOUS and was "+login);
          var getName = function () {
-            cDIRequestBean.getCtxPrincipalName().event(function (evt) {
+            cdiRequestBean.getCtxPrincipalName().event(function (evt) {
                if (evt.response === login) okCount++;
                resultCount++;
                if (resultCount < 50) getName();
@@ -541,7 +550,7 @@ ocelotController.addOpenListener(function () {
    });
    QUnit.test(".testIsUserInRoleTrue()", function (assert) {
       var done = assert.async();
-      cDIRequestBean.isUserInRole("USERR").event(function (evt) {
+      cdiRequestBean.isUserInRole("USERR").event(function (evt) {
          assert.equal(evt.type, "RESULT", "User should be in role : USERR");
          assert.equal(evt.response, true);
          done();
@@ -549,7 +558,7 @@ ocelotController.addOpenListener(function () {
    });
    QUnit.test(".testIsUserInRoleFalse()", function (assert) {
       var done = assert.async();
-      cDIRequestBean.isUserInRole("ADMINR").event(function (evt) {
+      cdiRequestBean.isUserInRole("ADMINR").event(function (evt) {
          assert.equal(evt.type, "RESULT");
          assert.equal(evt.response, false);
          done();
@@ -557,14 +566,14 @@ ocelotController.addOpenListener(function () {
    });
    QUnit.test(".callAuthorized()", function (assert) {
       var done = assert.async();
-      cDIRequestBean.callAuthorized().event(function (evt) {
+      cdiRequestBean.callAuthorized().event(function (evt) {
          assert.equal(evt.type, "RESULT");
          done();
       });
    });
    QUnit.test(".callUnauthorized()", function (assert) {
       var done = assert.async();
-      cDIRequestBean.callUnauthorized().event(function (evt) {
+      cdiRequestBean.callUnauthorized().event(function (evt) {
          assert.equal(evt.type, "FAULT");
          done();
       });
@@ -572,16 +581,16 @@ ocelotController.addOpenListener(function () {
    /**
     * CDISessionBEan
     */
-   QUnit.module("CDISessionBean");
+   QUnit.module("CdiSessionBean");
    QUnit.test(".getValue()", function (assert) {
       var res, done = assert.async();
-      cDISessionBean.getValue().event(function (evt) {
+      cdiSessionBean.getValue().event(function (evt) {
          assert.equal(evt.type, "RESULT", "Result : "+evt.response);
          res = evt.response;
-         cDISessionBean.getValue().event(function (evt) {
+         cdiSessionBean.getValue().event(function (evt) {
             assert.equal(evt.type, "RESULT");
             assert.equal(res+1, evt.response, "Result is increase each call : "+evt.response);
-            cDISessionBean.getValue().event(function (evt) {
+            cdiSessionBean.getValue().event(function (evt) {
                assert.equal(evt.type, "RESULT");
                assert.equal(res+2, evt.response, "Result is increase each call : "+evt.response);
                done();
@@ -589,16 +598,16 @@ ocelotController.addOpenListener(function () {
          });
       });
    });
-   QUnit.module("CDISingletonBean");
+   QUnit.module("CdiSingletonBean");
    QUnit.test(".getValue()", function (assert) {
       var res, done = assert.async();
-      cDISingletonBean.getValue().event(function (evt) {
+      cdiSingletonBean.getValue().event(function (evt) {
          assert.equal(evt.type, "RESULT", "Result : "+evt.response);
          res = evt.response;
-         cDISingletonBean.getValue().event(function (evt) {
+         cdiSingletonBean.getValue().event(function (evt) {
             assert.equal(evt.type, "RESULT");
             assert.equal(res+1, evt.response, "Result is increase each call : "+evt.response);
-            cDISingletonBean.getValue().event(function (evt) {
+            cdiSingletonBean.getValue().event(function (evt) {
                assert.equal(evt.type, "RESULT");
                assert.equal(res+2, evt.response, "Result is increase each call : "+evt.response);
                done();
@@ -606,8 +615,8 @@ ocelotController.addOpenListener(function () {
          });
       });
    });
-   QUnit.module("EJBStateless");
-   if(eJBStateless != undefined) {
+   QUnit.module("EjbStateless");
+   if(ejbStateless != undefined) {
       QUnit.test(".testGetDate() with QOS", function (assert) {
          var r1, r2, done = assert.async(), timer = setTimeout(checkResult, 4000);
          var checkResult = function() {
@@ -615,12 +624,12 @@ ocelotController.addOpenListener(function () {
             assert.equal(r1, r2);
             done();
          };
-         eJBStateless.getDate().event(function (evt) {
+         ejbStateless.getDate().event(function (evt) {
             r1 = evt.response;
             assert.equal(evt.type, "RESULT", "r1 = "+new Date(r1).toString());
             if(r2) checkResult();
          });
-         eJBStateless.getDate().event(function (evt) {
+         ejbStateless.getDate().event(function (evt) {
             r2 = evt.response;
             assert.equal(evt.type, "RESULT", "r2 = "+new Date(r2).toString());
             if(r1) checkResult();
@@ -633,11 +642,11 @@ ocelotController.addOpenListener(function () {
             assert.equal(okCount, 50, "50 response with login = "+login);
             done();
          };
-         eJBStateless.getCDIPrincipalName().event(function (evt) {
+         ejbStateless.getCDIPrincipalName().event(function (evt) {
             login = evt.response;
             assert.notEqual(login, "ANONYMOUS", "login should be different to ANONYMOUS and was "+login);
             var getName = function () {
-               eJBStateless.getCDIPrincipalName().event(function (evt) {
+               ejbStateless.getCDIPrincipalName().event(function (evt) {
                   if (evt.response === login) okCount++;
                   resultCount++;
                   if (resultCount < 50) getName();
@@ -720,13 +729,6 @@ ocelotController.addOpenListener(function () {
          getCount();
       });
    });
-//   QUnit.test(".getPrincipal()", function (assert) {
-//      var done = assert.async();
-//      springPrototypeBean.getPrincipal().event(function (evt) {
-//         assert.equal(evt.type, "RESULT");
-//         done();
-//      });
-//   });
    QUnit.module("SpringSessionBean");
    QUnit.test(".getCount()", function (assert) {
       var result = 0, nb = 10, num = 0, done = assert.async(), 
