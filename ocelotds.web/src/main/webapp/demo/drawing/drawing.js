@@ -1,15 +1,14 @@
 'use strict';
 ocelotController.addOpenListener(function () {
-   var subCanvasEvent, imageView, stage, pencil;
+   var color = "black", subCanvasEvent, imageView, stage, pencil;
    // The drawing pencil.
    pencil = {
       mousedown: function (ev) {
-         var color, ctx = this.drawingArea(ev.id).getContext('2d');
+         var ctx = this.drawingArea(ev.id).getContext('2d');
          ctx.beginPath();
          ctx.moveTo(ev.x, ev.y);
-         color = "#" + ev.id.substring(0, 6).replace(/[^0-9^A-F]/g, "8");
-         console.log("color computed : "+color);
-         ctx.strokeStyle = color;
+         ctx.strokeStyle = ev.color;
+//         ctx.lineWidth = 5;
       },
       mousemove: function (ev) {
          var ctx = this.drawingArea(ev.id).getContext('2d');
@@ -33,7 +32,7 @@ ocelotController.addOpenListener(function () {
          var canvas = document.getElementById(id);
          if (!canvas) {
             canvas = document.createElement('canvas');
-            canvas.setAttribute('width', "400px");
+            canvas.setAttribute('width', "430px");
             canvas.setAttribute('height', "300px");
             canvas.setAttribute('id', id);
             stage.insertBefore(canvas, imageView);
@@ -54,6 +53,7 @@ ocelotController.addOpenListener(function () {
       imageView.addEventListener('mouseup', endDrawing, false);
       imageView.addEventListener('mouseleave', endDrawing, false);
       imageView.addEventListener('mouseout', endDrawing, false);
+      color = getColor();
       sendMouseEvent(event);
    }, false);
    // Subscribe Topic
@@ -72,7 +72,17 @@ ocelotController.addOpenListener(function () {
       imageView.removeEventListener('mouseout', sendMouseEvent);
    }
    function sendMouseEvent(ev) {
-      drawingServices.pushCanvasEvent({"x": ev.offsetX | ev.layerX, "y": ev.offsetY | ev.layerY, "type": ev.type});
+      drawingServices.pushCanvasEvent({"x": ev.offsetX | ev.layerX, "y": ev.offsetY | ev.layerY, "type": ev.type, "color": color});
+   }
+   function getColor() {
+      var colors = document.getElementsByName('color');
+      for(var i=0; i<colors.length; i++) {
+         var color = colors[i];
+         if(color.checked) {
+            return color.nextSibling.style.color;
+         }
+      }
+      return "black";
    }
    ocelotController.addCloseListener(function () {
       subCanvasEvent.unsubscribe();

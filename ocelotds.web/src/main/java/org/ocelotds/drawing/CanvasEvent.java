@@ -22,6 +22,15 @@ public class CanvasEvent {
 	private int x;
 	private int y;
 	private String type;
+	private String color;
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
 
 	public int getX() {
 		return x;
