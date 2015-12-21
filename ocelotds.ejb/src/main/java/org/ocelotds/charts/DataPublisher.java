@@ -11,7 +11,6 @@ import javax.ejb.Startup;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import org.ocelotds.annotations.JsTopicEvent;
-import org.ocelotds.annotations.TransientDataService;
 import org.ocelotds.marshalling.annotations.JsonMarshaller;
 
 /**
