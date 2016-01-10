@@ -23,17 +23,6 @@
 			<version>7.0</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- LOGBACK -->
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-core</artifactId>
-			<version>${logback.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>${logback.version}</version>
-		</dependency>
 		<!-- OCELOTDS -->
 		<dependency>
 			<groupId>org.ocelotds</groupId>
