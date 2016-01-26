@@ -1,1 +1,5 @@
 /nb-configuration.xml
+/ocelotds.ejb/target/
+/ocelotds.web/target/
+/ocelotds.cfg/target/
+/ocelotds.ear/target/

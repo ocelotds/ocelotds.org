@@ -3,15 +3,25 @@
 <h3>Configure stacktrace length</h3>
 <p>You can set the length of stacktrace. (default value 50)</p>
 <h4>In web.xml</h4>
-<pre><code class="xml">&gt;context-param&lt;
-   &gt;param-name&lt;ocelot.stacktrace.length&gt;/param-name&lt;
-   &gt;param-value&lt;10&gt;/param-value&lt;
-&gt;/context-param&lt;
+<pre><code class="xml">&lt;context-param&gt;
+   &lt;param-name&gt;ocelot.stacktrace.length&lt;/param-name&gt;
+   &lt;param-value&gt;10&lt;/param-value&gt;
+&lt;/context-param&gt;
 </code></pre>
 <h4>Use CDI producer</h4>
 <p>Create simply a cdi producer qualifed by annotation<br><b>@org.ocelotds.configuration.annotations.OcelotConfiguration(OcelotConfigurationName.STACKTRACELENGTH)</b>.</p>
-<pre><code class="java"></code></pre>@Produces
+<pre><code class="java">@Produces
 @OcelotConfiguration(OcelotConfigurationName.STACKTRACELENGTH)
 String getStacktraceConfiguration() {
    return "20";
 }
+</code></pre>
+<h3>Enabled monitoring (2.7.0)</h3>
+Add to the url the following param for enabled monitoring
+<pre><code class="html">http://hostname/index.html?ocelot={"monitor":true}</code></pre>
+<h4>Use monitoring</h4>
+<pre><code class="javascript">exposedService.getResult().event(function(evt) {
+   console.log("getResult total : "+evt.totaltime+" ms / java : "+evt.javatime+" ms");
+});</code></pre>
+<h4>Monitoring services</h4>
+You can see monitoring on the services test page <a href="%ROOT%/ocelot.htm?ocelot={%22monitor%22:true}" target="_blank">ocelot.htm?ocelot={"monitor":true}</a>
