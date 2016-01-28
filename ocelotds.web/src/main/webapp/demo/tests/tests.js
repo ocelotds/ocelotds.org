@@ -656,6 +656,36 @@ ocelotController.addOpenListener(function () {
             getName();
          });
       });
+		QUnit.test(".testIsUserInRoleTrue()", function (assert) {
+			var done = assert.async();
+			ejbStateless.isUserInRole("USERR").event(function (evt) {
+				assert.equal(evt.type, "RESULT", "User should be in role : USERR");
+				assert.equal(evt.response, true);
+				done();
+			});
+		});
+		QUnit.test(".testIsUserInRoleFalse()", function (assert) {
+			var done = assert.async();
+			ejbStateless.isUserInRole("ADMINR").event(function (evt) {
+				assert.equal(evt.type, "RESULT");
+				assert.equal(evt.response, false);
+				done();
+			});
+		});
+		QUnit.test(".callAuthorized()", function (assert) {
+			var done = assert.async();
+			ejbStateless.callAuthorized().event(function (evt) {
+				assert.equal(evt.type, "RESULT");
+				done();
+			});
+		});
+		QUnit.test(".callUnauthorized()", function (assert) {
+			var done = assert.async();
+			ejbStateless.callUnauthorized().event(function (evt) {
+				assert.equal(evt.type, "FAULT");
+				done();
+			});
+		});
    }
    QUnit.module("OcelotServices");
    QUnit.test(".setLocale()", function (assert) {

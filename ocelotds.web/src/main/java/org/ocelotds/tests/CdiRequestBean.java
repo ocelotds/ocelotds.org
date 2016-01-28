@@ -238,7 +238,6 @@ public class CdiRequestBean {
 		return ctx.getPrincipal().getName();
 	}
 
-	@RolesAllowed("USERR")
 	public boolean isUserInRole(String role) {
 		return ctx.isUserInRole(role);
 	}

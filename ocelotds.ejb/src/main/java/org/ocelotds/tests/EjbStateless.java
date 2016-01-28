@@ -43,7 +43,6 @@ public class EjbStateless {
 		return sc.getPrincipal().getName();
 	}
 
-	@RolesAllowed("USERR")
 	public boolean isUserInRole(String role) {
 		return sc.isUserInRole(role);
 	}
