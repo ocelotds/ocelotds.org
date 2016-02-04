@@ -1,13 +1,9 @@
-<div class="container theme-showcase" role="main">
-
-	<h1>Tips</h1>
-	<p>This section for compile some tips, that I fix for this project</p>
-	<h2>Test authentication & autorisation with arquillian and embedded glassfish</h2>
-	<p>For test authentication & autorisation, users must be added to glassfish.</p>
-	<h3>How to add users</h3>
-	<p>Actually, when you cannot add users to glassfish with Embedded container and arquillian mecanism.</p>
-	<p>So maybe we can to use commandRunner of glassfish.</p>
-	<pre><code class="java">@RunWith(Arquillian.class)
+<h2 href="arquillian-auth">Test authentication & autorisation with arquillian and embedded glassfish</h2>
+<p>For test authentication & autorisation, users must be added to glassfish.</p>
+<h3>How to add users</h3>
+<p>Actually, you cannot add users to glassfish with Embedded container and arquillian mecanism.</p>
+<p>So maybe we can to use commandRunner of glassfish.</p>
+<pre><code class="java">@RunWith(Arquillian.class)
 public class OcelotTest {
    @Resource(mappedName = "org.glassfish.embeddable.CommandRunner")
    CommandRunner commandRunner;
@@ -26,22 +22,21 @@ public class OcelotTest {
          }
       }
    }
-}
-	</code></pre>
-	<p>But with commandRunner, it's impossible to specify password. Neither with userpassword option or passwordfile option</p>
-	<h3>Add a realm</h3>
-	<p>An other solution is to use the existant realm and change the file where the users are stocked.</p>
-	<p>But the probleme is that you cannot change the users file for an existant realm.</p> 
-	<p>Solution create a new realm and specify the users file.</p> 
-	<p>Before we have to create userfile, for that, just manage your users in your local glassfish, and get users file in config folder.</p> 
-	<p>Put users file in resources folder of your project. Example, this file define some users with password equals to username, and some groupnames</p> 
-	<pre><code class="conf">test;{SSHA256}dXiBUbqQ1FQZGGAQ7fiwtnF+BF4Htq5Q8TZ89WeEmItcFh+/In119w==;USERGP,TESTGP
+}</code></pre>
+<p>That seems fine, but with commandRunner, it is not possible to specify password. Neither with userpassword option or passwordfile option</p>
+<h3>Add a realm</h3>
+<p>An other solution is to use the existant realm and change the file where the users are stored.</p>
+<p>But the probleme is that you cannot change the users file for an existant realm.</p> 
+<p>Solution create a new realm and specify the users file "keyfile".</p> 
+<p>Before we have to create users file, for that, just manage your users in your local glassfish, and get "keyfile" file in config folder.</p> 
+<p>Put "keyfile" file in src/test/resources/glassfish folder of your project (maven) . Example, this defines some users with password equals to username, and some groupnames</p> 
+<pre><code class="conf">test;{SSHA256}dXiBUbqQ1FQZGGAQ7fiwtnF+BF4Htq5Q8TZ89WeEmItcFh+/In119w==;USERGP,TESTGP
 admin;{SSHA256}dlIcDOextJ5m6bhgCiEfXyUTfr4toeR4/k8qURqr3W54nOBjocMNug==;USERGP,ADMINGP
 demo;{SSHA256}9tmmAdO+T5oCndLdxaEizfBPTAJ03cqVP2TyTRhg9aMCegAWgJaxSQ==;USERGP
 user;{SSHA256}78jzX0iBjXiLGWXC7m8J3PS50P4RLGEWLO+kfrE0AVNmYY4kAdnJEw==;USERGP</code></pre>
 	
-	<p>Now we can to create our realm "test-file"</p> 
-	<pre><code class="java">   ...
+<p>Now we can to create our realm "test-file"</p> 
+<pre><code class="java">   ...
    @Resource(mappedName = "org.glassfish.embeddable.CommandRunner")
    CommandRunner commandRunner;
 
@@ -61,29 +56,30 @@ user;{SSHA256}78jzX0iBjXiLGWXC7m8J3PS50P4RLGEWLO+kfrE0AVNmYY4kAdnJEw==;USERGP</c
    }
    ...</code></pre>
 	
-	<p>Now if you try to authenticate user.</p> 
+<p>Now if you try to authenticate user.</p> 
 
-	<pre><code class="java">   ...
+<pre><code class="java">   ...
    public static boolean loginFileUser(final String username, final String password) throws Exception {
       final ProgrammaticLogin login = new ProgrammaticLogin();
       return login.login(username, password.toCharArray(), "fileRealm", true);
    }
    ...</code></pre>
 
-	<p>You receive an exception.</p> 
-	<pre><code class="java">WEB9102: Web Login Failed: com.sun.enterprise.security.auth.login.common.LoginException: Login failed: No LoginModule setted for fileRealm</code></pre>
+<p>You receive an exception.</p> 
+<pre><code class="java">WEB9102: Web Login Failed: com.sun.enterprise.security.auth.login.common.LoginException: Login failed: No LoginModule setted for fileRealm</code></pre>
 
-	<p>In fact the file login.conf is not define.</p> 
-	<h3>login.conf</h3>
-	<h4>Create the login.conf</h4>
-	<p>Create login.conf in resources folder</p> 
-	<pre><code class="conf">fileRealm {
+<p>In fact the file login.conf is not define.</p> 
+<h3>login.conf</h3>
+<h4>Create the login.conf</h4>
+<p>Create login.conf in resources folder</p> 
+<pre><code class="conf">fileRealm {
 	com.sun.enterprise.security.auth.login.FileLoginModule required;
 };</code></pre>
 
-	<h4>Specify the login.conf</h4>
-	<p>In pom.xml use surefire plugin for add system property and specify the path of login.conf</p> 
-	<pre><code class="xml">   ...
+<h4>Specify the login.conf</h4>
+<p>The login.conf, is java system file, and is override by JVM Option. But when we create the realm, the JVM is already started. So we have to use surefire plugin to set it.</p>
+<p>In pom.xml use surefire plugin for add system property and specify the path of login.conf</p> 
+<pre><code class="xml">   ...
    &lt;build&gt;
       &lt;plugins&gt;
          &lt;plugin&gt;
@@ -102,14 +98,14 @@ user;{SSHA256}78jzX0iBjXiLGWXC7m8J3PS50P4RLGEWLO+kfrE0AVNmYY4kAdnJEw==;USERGP</c
       &lt;/plugins&gt;
    &lt;/build&gt;
    ...</code></pre>
-	<h3>Finally secure web app as usual</h3>
-	<h4>web.xml</h4>
-	<pre><code class="xml">   ...
+<h3>Finally secure web app as usual</h3>
+<h4>web.xml</h4>
+<pre><code class="xml">   ...
     &lt;security-constraint&gt;
         &lt;display-name&gt;authentication&lt;/display-name&gt;
         &lt;web-resource-collection&gt;
             &lt;web-resource-name&gt;secure&lt;/web-resource-name&gt;
-            &lt;url-pattern&gt;/ocelot-endpoint&lt;/url-pattern&gt;
+            &lt;url-pattern&gt;/SECURERESOURCE&lt;/url-pattern&gt;
         &lt;/web-resource-collection&gt;
         &lt;auth-constraint&gt;
             &lt;description/&gt;
@@ -133,9 +129,9 @@ user;{SSHA256}78jzX0iBjXiLGWXC7m8J3PS50P4RLGEWLO+kfrE0AVNmYY4kAdnJEw==;USERGP</c
         &lt;role-name&gt;ADMINR&lt;/role-name&gt;
     &lt;/security-role&gt;
    ...</code></pre>
-	<h4>glasssfisg-web.xml</h4>
+<h4>glasssfisg-web.xml or glassfish-application.xml</h4>
 	
-	<pre><code class="xml">   ...
+<pre><code class="xml">   ...
    &lt;security-role-mapping&gt;
       &lt;role-name&gt;USERR&lt;/role-name&gt;
       &lt;group-name&gt;USERGP&lt;/group-name&gt;
@@ -149,20 +145,4 @@ user;{SSHA256}78jzX0iBjXiLGWXC7m8J3PS50P4RLGEWLO+kfrE0AVNmYY4kAdnJEw==;USERGP</c
       &lt;group-name&gt;TESTGP&lt;/group-name&gt;
    &lt;/security-role-mapping&gt;
    ...</code></pre>
-	<p>This method and more are used in sources of <a target="_blank" href="https://github.com/ocelotds/ocelot">ocelotds</a></p> 
-	
-	
-	<div id="disqus_thread"></div>
-	<script type="text/javascript">
-      var disqus_shortname = 'ocelot';
-      /* * * DON'T EDIT BELOW THIS LINE * * */
-      (function () {
-         var dsq = document.createElement('script');
-         dsq.type = 'text/javascript';
-         dsq.async = true;
-         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
-	</script>
-	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
+<p>This method and more are used in sources of <a target="_blank" href="https://github.com/ocelotds/ocelot">ocelotds</a></p> 

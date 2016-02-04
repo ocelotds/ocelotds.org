@@ -54,7 +54,8 @@ public class DocServlet extends HttpServlet {
 				"/docs/backend/backend.html", "/docs/backend/ejb.html", "/docs/backend/cdi.html", "/docs/backend/spring.html",
 				"/docs/frontend/frontend.html", "/docs/frontend/html.html", "/docs/frontend/ocelotsrv.html", "/docs/frontend/ocelotctrl.html", 
 				"/docs/frontend/ocelotpromise.html", "/docs/frontend/objects.html", "/docs/frontend/advanced.html",
-				"/docs/extends/extends.html", "/docs/extends/resolver.html", "/docs/extends/argcleaner.html"
+				"/docs/extends/extends.html", "/docs/extends/resolver.html", "/docs/extends/argcleaner.html",
+				"/docs/tips/tips.html", "/docs/tips/arquillian-auth.html"
 			};
 			for (String doc : docs) {
 				out.write("<div class=\"container bs-docs-container\" role=\"main\"><div class=\"row\"><div class=\"col-md-9\"><div class=\"bs-docs-section\">");
