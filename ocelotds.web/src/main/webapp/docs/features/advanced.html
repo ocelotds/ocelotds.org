@@ -1,6 +1,6 @@
 <h2 id="advancedbe">Advanced features</h2>
 <h3>Show all services reachable from front-end</h3>
-<p>Ocelotds generate a webpage that expose all services reachable by the front-end.</p>
+<p>Ocelotds generate a webpage that exposes all services reachable by the front-end.</p>
 <p>In your browser go to ocelot.htm page.</p>
 <p>In this page you can see all services exposed by the back-end. And you can test it.</p>
 <h4>Try it</h4>
@@ -16,7 +16,7 @@ public void setLocale(java.util.Locale locale) {
 }</code></pre>
 <p>Locale object is not serialisable in json, but you don't want to create a Data Transfert Object (DTO) only for that.<br>
 	If you do a DTO, you should map it before send it to front-end (getLocale method)<br>
-	And also when you receive if from front-end to useit in back-end (setLocale method).<br>
+	And also when you receive it from front-end to useit in back-end (setLocale method).<br>
 	Ocelot proposes to you an elegant mecanism to remove this unusefull code.
 	Write and use Marshaller and Unmarshaller : 
 </p>
