@@ -1,2 +1,25 @@
 <h2 id="argcleaner">Use exotic javascript framework</h2>
-<p>Documentation comes soon</p>
+<p>Ocelotds enable hability to use the same object in javascript from java.</p>
+<p>For marshall to javascript from java, it's almost very easy. But in the other side, ocelotds has to determine how it must transform json object to java.</p>
+<p>For that ocelotds helps itself with the name of method called. Finally it tries to convert json object to java object, calls the empty constructor, and calls all setters from json attributes.</p>
+<p>For example if json object owns an attribute named "name", ocelotds will try to call the method "setName".</p>
+<p>But some javascript frameworks add some technic attributes for internal process.</p>
+<p>For example angularjs add an attribute named : "$$hashkey".</p>
+<p>So we have to ignore them.</p>
+<p>Ocelotds allow an ellegant mecanism for add json argument cleaner.</p>
+<h3>Implements Cleaner</h3>
+<p>Just implement the interface org.ocelotds.core.Cleaner. The argument is the json object in string format. So the easiest way is to use a regular expression for remove unusefull attributes.</p>
+<pre><code class="java">public class AngularClearner implements org.ocelotds.core.Cleaner {
+   /**
+    * Method allow cleaning all extra fields on arguments from framework web For sample angularjs add some variables begin $$ So replace : ,"$$hashKey":"object:\d" 
+    *
+    * @param arg 
+    * @return
+    */
+   @Override
+   public String cleanArg(String arg) {
+      String angularvar = "(,\"\\$\\$\\w+\":\".*\")";
+      return arg.replaceAll(angularvar, "");
+   }
+}</code></pre>
+<p>Put this class in your web module, that's all.</p>
