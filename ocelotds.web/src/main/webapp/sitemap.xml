@@ -1,168 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-		  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-                           http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-	<url>
-		<loc>http://www.ocelotds.org/</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>1.00</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/why.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/demo/angularjs/angular.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/demo/drawing/drawing.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/demo/chat/chat.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/demo/knockout/knockout.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/demo/tests/tests.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/quickstart.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/servers/glassfish.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/servers/wildfly.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/servers/tomcat.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/servers/other.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/backend/advanced.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/backend/ejb.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/backend/cdi.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/backend/spring.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/backend/cache.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/backend/push.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/backend/security.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/backend/i18n.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/frontend/advanced.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/frontend/html.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.99</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/frontend/ocelotsrv.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.98</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/frontend/ocelotctrl.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.98</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/frontend/ocelotpromise.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.98</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/frontend/objects.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.98</priority>
-		<changefreq>daily</changefreq>
-	</url>
-	<url>
-		<loc>http://www.ocelotds.org/docs/extends.html</loc>
-		<lastmod>2015-08-06T18:45:20+00:00</lastmod>
-		<priority>0.98</priority>
-		<changefreq>daily</changefreq>
-	</url>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+<url>
+  <loc>http://ocelotds.org/</loc>
+  <lastmod>2016-02-05T15:50:40+00:00</lastmod>
+</url>
+<url>
+  <loc>http://ocelotds.org/docs/why.html</loc>
+  <lastmod>2016-02-05T15:50:40+00:00</lastmod>
+</url>
+<url>
+  <loc>http://ocelotds.org/demo/angularjs/angular.html</loc>
+  <lastmod>2016-02-05T15:50:40+00:00</lastmod>
+</url>
+<url>
+  <loc>http://ocelotds.org/demo/drawing/drawing.html</loc>
+  <lastmod>2016-02-05T15:50:40+00:00</lastmod>
+</url>
+<url>
+  <loc>http://ocelotds.org/demo/charts/charts.html</loc>
+  <lastmod>2016-02-05T15:50:40+00:00</lastmod>
+</url>
+<url>
+  <loc>http://ocelotds.org/demo/chat/chat.html</loc>
+  <lastmod>2016-02-05T15:50:40+00:00</lastmod>
+</url>
+<url>
+  <loc>http://ocelotds.org/demo/knockout/knockout.html</loc>
+  <lastmod>2016-02-05T15:50:40+00:00</lastmod>
+</url>
+<url>
+  <loc>http://ocelotds.org/demo/tests/tests.html</loc>
+</url>
+<url>
+  <loc>http://ocelotds.org/documentations</loc>
+</url>
+<url>
+  <loc>http://ocelotds.org/ocelot.htm?ocelot={%22monitor%22:true}</loc>
+</url>
+<url>
+  <loc>http://ocelotds.org/ocelot.htm</loc>
+</url>
+<url>
+  <loc>http://ocelotds.org/docs/servers/tomcat.html</loc>
+  <lastmod>2016-02-05T15:50:40+00:00</lastmod>
+</url>
 </urlset>
