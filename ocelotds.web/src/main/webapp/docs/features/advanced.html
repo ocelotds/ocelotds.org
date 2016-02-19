@@ -18,26 +18,22 @@ public void setLocale(java.util.Locale locale) {
 	If you do a DTO, you should map it before send it to front-end (getLocale method)<br>
 	And also when you receive it from front-end to useit in back-end (setLocale method).<br>
 	Ocelot proposes to you an elegant mecanism to remove this unusefull code.
-	Write and use Marshaller and Unmarshaller : 
+	Write Marshaller that implements IJsonMarshaller and use annotations JsonUnmarshaller and JsonMarshaller : 
 </p>
-<h4>Annotate Argument Type</h4>
-<pre><code class="java">public void setLocale(@JsonUnmarshaller(LocaleUnmarshaller.class) Locale locale) {
+<h4>Annotate Argument Type with JsonUnmarshaller</h4>
+<pre><code class="java">public void setLocale(@JsonUnmarshaller(LocaleMarshaller.class) Locale locale) {
 ...
 }</code></pre>
-<h4>Annotate Return Type</h4>
+<h4>Annotate Return Type with JsonMarshaller</h4>
 <pre><code class="java">@JsonMarshaller(LocaleMarshaller.class)
 public Locale getLocale() {
 ...
 }</code></pre>
-<h4>Marshaller</h4>
-<pre><code class="java">public class LocaleMarshaller implements JsonMarshaller&lt;Locale&gt; {
+<h4>Write your Marshaller</h4>
+<pre><code class="java">public class LocaleMarshaller implements IJsonMarshaller&lt;Locale&gt; {
    @Override
    public String toJson(Locale obj) throws JsonMarshallingException {
-       ...
-   }</code>
-</pre>
-<h4>UnMarshaller</h4>
-<pre><code class="java">public class LocaleUnmarshaller implements JsonUnmarshaller&lt;Locale&gt; {
+
    @Override
    public Locale toJava(String json) throws JsonUnmarshallingException {
        ...
