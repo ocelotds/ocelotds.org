@@ -5,6 +5,18 @@
 		<h2>Ocelot<font color="chocolate">ds</font> : Ocelot <font color="chocolate">d</font>atas <font color="chocolate">s</font>ervices</h2>
 		<p>Welcome to Ocelotds! Ocelotds is java and javascript framework remoting and web messaging technology that enables developers to easily connect to back-end data and push data in real-time to javascript applications, for more responsive rich Internet application (RIA) experiences.</p>
 		<h3>The best and easiest communication way between java 7+ and javascript</h3>
+		<h3>Do that in java</h3>
+		<pre><code class="java">@DataService(resolver = Constants.Resolver.CDI)
+public class MyService {
+   public MyResult getSomething(Param1 p1, Param2) {
+      // Your business code
+   }
+}</code></pre>
+		<h3>Do that in javavascript</h3>
+		<pre><code class="javascript">myService.getSomething(param1, param2).then(function (myresult) {
+   doSomethingWithMyResult(myresult);
+});</code></pre>
+
 		<p>Forget REST, forget AJAX, forget http, forget protocol, Ocelotds uses a WebSocket and do everything for you.</p>
 		<b>Ocelotds use one bidirectional connection WebSocket, and is designed to be use in a single page application (SPA).</b>
 		<p>Forget the <a href="http://webdebug.net/2013/12/browser-connection-limit">browsers connection limits</a> with your backend. The 6 simultaneous connections limit is not your problem anymore.</p>
