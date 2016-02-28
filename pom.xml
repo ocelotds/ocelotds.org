@@ -5,6 +5,7 @@
 	<version>1.5.0-SNAPSHOT</version>
 	<artifactId>ocelotds</artifactId>
 	<packaging>pom</packaging>
+	<name>ocelotds</name>
 	<properties>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -9,6 +9,7 @@
 	<groupId>org.ocelotds</groupId>
 	<artifactId>ocelotds.ejb</artifactId>
 	<packaging>ejb</packaging>
+	<name>ocelotds.ejb</name>
 
 	<properties>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>

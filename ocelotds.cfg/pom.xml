@@ -8,4 +8,5 @@
     </parent>
     <artifactId>ocelotds.cfg</artifactId>
     <packaging>jar</packaging>
+	<name>ocelotds.cfg</name>
 </project>
