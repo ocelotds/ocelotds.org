@@ -38,7 +38,7 @@ exposedService1.getResult().then(function(result) {
 });</code></pre>
 
 <h3>Choose your own marshaller /unmarshaller</h3>
-<p>Sometime you have to use the pattern DTO, maybe cause object is not serializable<br>With Ocelotds, it's easy, write implemetation of JsonMarshaller and JsonUnmarshaller and annote the method and arguments target.</p>
+<p>Sometime you have to use the pattern DTO, cause the object is not serializable<br>With Ocelotds, it's easy, write implemetation of JsonMarshaller and JsonUnmarshaller and annote the method and arguments target.</p>
 <pre><code class="java">@DataService(resolver = Constants.Resolver....)
 public class ExposedService {
 
@@ -47,17 +47,15 @@ public class ExposedService {
       return ...;
    }
 
-   public void setObjectNonSerializable(@JsonUnmarshaller(NoSerializableUnmarshaller.class) NoSerializable ns) {
+   public void setObjectNonSerializable(@JsonUnmarshaller(NoSerializableMarshaller.class) NoSerializable ns) {
       return ...;
    }
 }</code></pre>
-<pre><code class="java">public NoSerializableMarshaller implements JsonMarshaller&lt;NoSerializableMarshaller&gt; {
+<pre><code class="java">public NoSerializableMarshaller implements JsonMarshaller&lt;NoSerializable&gt; {
    @Override
    public String toJson(NoSerializable obj) throws JsonMarshallingException {
       // transform java object to json
    }
-}</code></pre>
-<pre><code class="java">public NoSerializableUnmarshaller implements JsonUnmarshaller&lt;NoSerializableMarshaller&gt; {
    @Override
    public NoSerializable toJava(String json) throws JsonUnmarshallingException {
       // transform json to java object

@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.Random;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import org.ocelotds.annotations.RolesAllowed;
 import org.ocelotds.context.OcelotContext;
 
 /**
@@ -234,19 +233,7 @@ public class CdiRequestBean {
 		return message;
 	}
 
-	public String getCtxPrincipalName() {
-		return ctx.getPrincipal().getName();
-	}
-
 	public boolean isUserInRole(String role) {
 		return ctx.isUserInRole(role);
-	}
-
-	@RolesAllowed("USERR")
-	public void callAuthorized() {
-	}
-
-	@RolesAllowed("ADMINR")
-	public void callUnauthorized() {
 	}
 }

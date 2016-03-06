@@ -1,14 +1,22 @@
 'use strict';
 ocelotController.addOpenListener(function () {
-   var color = "black", subCanvasEvent, imageView, stage, pencil;
+   var color = "black", subCanvasEvent, imageView, stage, pencil, guid;
+	function S4() {
+		 return (((1+Math.random())*0x10000)|0).toString(16).substring(1); 
+	}
+	// generate an unique ident
+	guid = (S4() + S4() + "-" + S4() + "-4" + S4().substr(0,3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
    // The drawing pencil.
    pencil = {
       mousedown: function (ev) {
          var ctx = this.drawingArea(ev.id).getContext('2d');
          ctx.beginPath();
-         ctx.moveTo(ev.x, ev.y);
+			ctx.lineJoin = ctx.lineCap = 'round';
+			ctx.shadowBlur = 1;
+			ctx.shadowColor = ev.color;
          ctx.strokeStyle = ev.color;
-//         ctx.lineWidth = 5;
+         ctx.lineWidth = 3;
+         ctx.moveTo(ev.x, ev.y);
       },
       mousemove: function (ev) {
          var ctx = this.drawingArea(ev.id).getContext('2d');
@@ -64,7 +72,6 @@ ocelotController.addOpenListener(function () {
       pencil[evt.type](evt);
    });
    function endDrawing(event) {
-      console.log("END DRAWING");
       sendMouseEvent(event);
       imageView.removeEventListener('mousemove', sendMouseEvent);
       imageView.removeEventListener('mouseup', sendMouseEvent);
@@ -72,7 +79,7 @@ ocelotController.addOpenListener(function () {
       imageView.removeEventListener('mouseout', sendMouseEvent);
    }
    function sendMouseEvent(ev) {
-      drawingServices.pushCanvasEvent({"x": ev.offsetX | ev.layerX, "y": ev.offsetY | ev.layerY, "type": ev.type, "color": color});
+      drawingServices.pushCanvasEvent({"id":guid, "x": ev.offsetX | ev.layerX, "y": ev.offsetY | ev.layerY, "type": ev.type, "color": color});
    }
    function getColor() {
       var colors = document.getElementsByName('color');

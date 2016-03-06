@@ -5,12 +5,13 @@ package org.ocelotds.tests;
 
 import java.security.Principal;
 import java.util.Date;
+import javax.annotation.Resource;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.ocelotds.Constants;
 import org.ocelotds.annotations.DataService;
-import org.ocelotds.annotations.RolesAllowed;
-import org.ocelotds.context.OcelotContext;
 
 /**
  *
@@ -20,8 +21,8 @@ import org.ocelotds.context.OcelotContext;
 @DataService(resolver = Constants.Resolver.EJB)
 public class EjbStateless {
 
-	@Inject
-	private OcelotContext sc;
+	@Resource
+	private SessionContext sc;
 	
 	@Inject
 	private Principal principal;
@@ -40,11 +41,11 @@ public class EjbStateless {
 	}
 
 	public String getCtxPrincipalName() {
-		return sc.getPrincipal().getName();
+		return sc.getCallerPrincipal().getName();
 	}
 
 	public boolean isUserInRole(String role) {
-		return sc.isUserInRole(role);
+		return sc.isCallerInRole(role);
 	}
 
 	@RolesAllowed("USERR")

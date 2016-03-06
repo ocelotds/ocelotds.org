@@ -371,28 +371,29 @@ ocelotController.addOpenListener(function () {
       });
    });
    QUnit.test(".closeAndOpen()", function (assert) {
-      var timer, done = assert.async();
+      var timer, done = assert.async(), sub;
       ocelotController.close().then(function(reason) {
          console.info("Websocket closed reason : "+reason)
-         cdiRequestBean.getVoid().event(function (evt) {
+			sub = new Subscriber("mytopic");
+         sub.event(function (evt) {
             assert.equal(evt.type, "FAULT", "WebSocket should be closed : reason : "+reason);
             timer = setTimeout(function () {
                assert.ok(false, "WebSocket doesn't open after re-open");
                done();
             }, 4000);
             ocelotController.open().then(function(){
-               cdiRequestBean.getVoid().event(function (evt) {
+               sub = new Subscriber("mytopic").event(function (evt) {
                   window.clearTimeout(timer);
                   assert.equal(evt.type, "RESULT", "Receive response after re-open");
                   done();
                });
             });
          });
+	      sub.unsubscribe("mytopic");
       });
    });
    QUnit.test(".onMessage()", function (assert) {
-      var timer, done = assert.async(),
-         sub = new Subscriber("mytopic");
+      var timer, done = assert.async(), sub = new Subscriber("mytopic");
       assert.equal(sub.topic, "mytopic", "topic name accessible");
       sub.event(function (evt) {
          assert.equal(evt.type, "RESULT", "Subscription to 'mytopic' : ok.");
@@ -494,12 +495,13 @@ ocelotController.addOpenListener(function () {
             assert.equal(evt.type, "FAULT", "Subscription to 'GlobalTopic' failed : ok.");
             new Subscriber("mytopic").event(function (evt) {
                assert.equal(evt.type, "FAULT", "Subscription to 'mytopic' failed : ok.");
-               cdiRequestBean.setGlobalTopicAccess(true);
-               sub = new Subscriber("mytopic").event(function (evt) {
-                  assert.equal(evt.type, "RESULT", "Subscription to 'mytopic' : ok.");
-                  sub.unsubscribe();
-                  done();
-               });
+               cdiRequestBean.setGlobalTopicAccess(true).then(function() {
+						sub = new Subscriber("mytopic").event(function (evt) {
+							assert.equal(evt.type, "RESULT", "Subscription to 'mytopic' : ok.");
+							sub.unsubscribe();
+							done();
+						});
+					});
             });
          });
       });
@@ -527,28 +529,7 @@ ocelotController.addOpenListener(function () {
          done();
       });
    });
-   QUnit.test(".testGetCtxPrincipalName()", function (assert) {
-      var login, done = assert.async(), resultCount = 0, okCount = 0, timer = setTimeout(checkResult, 4000);
-      var checkResult = function() {
-         if(timer) clearTimeout(timer);
-         assert.equal(okCount, 50, "50 response with login = "+login);
-         done();
-      };
-      cdiRequestBean.getCtxPrincipalName().event(function (evt) {
-         login = evt.response;
-         assert.notEqual(login, "ANONYMOUS", "login should be different to ANONYMOUS and was "+login);
-         var getName = function () {
-            cdiRequestBean.getCtxPrincipalName().event(function (evt) {
-               if (evt.response === login) okCount++;
-               resultCount++;
-               if (resultCount < 50) getName();
-               else checkResult();
-            });
-         };
-         getName();
-      });
-   });
-   QUnit.test(".testIsUserInRoleTrue()", function (assert) {
+  QUnit.test(".testIsUserInRoleTrue()", function (assert) {
       var done = assert.async();
       cdiRequestBean.isUserInRole("USERR").event(function (evt) {
          assert.equal(evt.type, "RESULT", "User should be in role : USERR");
@@ -563,21 +544,7 @@ ocelotController.addOpenListener(function () {
          assert.equal(evt.response, false);
          done();
       });
-   });
-   QUnit.test(".callAuthorized()", function (assert) {
-      var done = assert.async();
-      cdiRequestBean.callAuthorized().event(function (evt) {
-         assert.equal(evt.type, "RESULT");
-         done();
-      });
-   });
-   QUnit.test(".callUnauthorized()", function (assert) {
-      var done = assert.async();
-      cdiRequestBean.callUnauthorized().event(function (evt) {
-         assert.equal(evt.type, "FAULT");
-         done();
-      });
-   });
+   });	
    /**
     * CDISessionBEan
     */

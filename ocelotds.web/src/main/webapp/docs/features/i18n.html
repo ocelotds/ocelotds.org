@@ -13,13 +13,14 @@ HELLOGUY=Bonjour {0}
 // test_en_US.properties
 HELLOGUY=Hello {0}</code></pre>
 <h3>Inject OcelotServices</h3>
-<p>Now in your managed Bean (CDI Bean, EJB, Spring Bean) inject OcelotI18nServices</p>
+<p>Now in your managed Bean (CDI Bean, EJB) inject OcelotI18nServices</p>
 <pre><code class="java">@Inject 
 OcelotI18nServices ocelotI18nServices;</code></pre>
 <h3 id="use-it">Use it</h3>
 <p>When you want to use localization service, just call method <strong>getLocalizedMEssage</strong></p>
 <pre><code class="java">public class HelloService {
    public String getLocaleHello(String who) {
+                                               // bundlename, entry   , arguments
       return ocelotI18nServices.getLocalizedMessage("test", "HELLOGUY", new Object[]{who});
    }
 }</code></pre>

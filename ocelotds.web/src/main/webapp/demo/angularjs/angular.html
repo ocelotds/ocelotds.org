@@ -20,7 +20,7 @@
 				<input class="form-control" type="text" ng-model="todoList.todoText"  size="30" value="{{todoList.todoText}}" placeholder="add new todo here">
 				<input class="btn btn-primary" type="submit" value="Add">
 				<input class="btn btn-primary" type="button" ng-click="todoList.refresh()" value="Refresh">
-				<input class="btn btn-danger" type="button" ng-click="todoList.init()" value="Init">
+				<input class="btn btn-danger" type="button" ng-click="todoList.reset()" value="Init">
 			</form>
 		</div>
 		<div id="disqus_thread"></div>
@@ -125,10 +125,9 @@ angular.module('todoApp', []).controller('TodoListController',
    todoList.todoText = "";
    todoList.addTodo = function () {
       <b class="cc" title="Call TodoServices.addTodo(String todoLabel) java service&#013;Directly, as you would if you were in java side.">todoServices.addTodo(todoList.todoText)</b>.<b class="cc" title="Handle method return">then</b>(function (<b class="cc" title="Payload : method return">todo</b>) {
-         $scope.$apply(function () {
-            todoList.todos.push(<b class="cc" title="Use it">todo</b>);
-            todoList.todoText = '';
-         });
+         todoList.todos.push(<b class="cc" title="Use it">todo</b>);
+         todoList.todoText = '';
+         $scope.$apply();
       }).<b class="cc" title="Handle method exceptions">catch</b>(onFault);
    };
    todoList.remaining = function () {
@@ -140,9 +139,8 @@ angular.module('todoApp', []).controller('TodoListController',
    };
    todoList.archive = function () {
       <b class="cc" title="Call TodoServices.archive() java service&#013;Directly, as you would if you were in java side.">todoServices.archive()</b>.<b class="cc" title="Handle method return">then</b>(function (todos) {
-         $scope.$apply(function () {
-            todoList.todos = todos;
-        });
+         todoList.todos = todos;
+         $scope.$apply();
       }).<b class="cc" title="Handle method exceptions">catch</b>(onFault);
    };
    todoList.update = function (todo) {
@@ -151,18 +149,15 @@ angular.module('todoApp', []).controller('TodoListController',
    };
    todoList.refresh = function () {
       <b class="cc" title="Call todoServices.getTodos() java service&#013;Directly, as you would if you were in java side.">todoServices.getTodos()</b>.<b class="cc" title="Handle method return">then</b>(function (todos) {
-         $scope.$apply(function () {
-            todoList.todos = todos;
-        });
+         todoList.todos = todos;
+         $scope.$apply();
       }).<b class="cc" title="Handle method exceptions">catch</b>(onFault);
    };
    var onFault = function (<b class="cc" title="Fault object from ocelotds">fault</b>) {
       alert(fault.message + "\n" + fault.classname + "\n" + fault.stacktrace.join('\n'));
    };
    $scope.init = function() {
-      <b class="cc" title="Do something when websocket is ready">ocelotController.addOpenListener</b>(function() {
-         todoList.refresh();
-      });
+      todoList.refresh();
    };
 }]);
 					</code></pre>

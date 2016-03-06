@@ -55,3 +55,7 @@
 .chatmsg .popover.left {
     float: left;
 }
+.highlightkey {
+	color : #286090;
+	font-weight: bold;
+}
