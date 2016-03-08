@@ -41,7 +41,7 @@
 				<artifactId>maven-ear-plugin</artifactId>
 				<version>2.10.1</version>
 				<configuration>
-					<version>6</version>
+					<version>7</version>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
 					<modules>
 						<webModule>
