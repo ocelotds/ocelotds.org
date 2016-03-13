@@ -1,0 +1,40 @@
+<h2 id="valid">Beans validation</h2>
+<p>A cool feature in Java EE is Bean validation (JSR 303)
+</p>
+<p>With Ocelotds you can use Bean validation usualy in your backend.</p>
+<p>You receive a new CONSTRAINT event in the frontend. You can use it for notify user that his entries are incomple or wrong.</p>
+<h3>Annotate your service or bean with JSR 303 annotation</h3>
+<pre><code class="java">public void methodWithArgumentNotNull(@NotNull String str0) {
+   ...
+}</code></pre>
+<h4>Receive event to client</h4>
+<pre><code class="javascript">service.methodWithArgumentNotNull(null)
+       .then(handlerResult)
+       .constraint(function(violations) {
+          violations.forEach(function(violation) {
+             console.log(violation.index); // 0
+             console.log(violation.name); // "str0"
+             console.log(violation.message); // "can't be null" 
+          });
+       });
+</code></pre>
+<h3>Annotate your entity</h3>
+<pre><code class="java">public class WithConstraint {
+   @NotNull
+   String name = null; // with getter setter of course
+}</code></pre>
+<pre><code class="java">public void methodWithArgumentConstraint(@Valid WithConstraint wc) {
+   ...
+}</code></pre>
+<h4>Receive event to client</h4>
+<pre><code class="javascript">service.methodWithArgumentNotNull(null)
+       .then(handlerResult)
+       .constraint(function(violations) {
+          violations.forEach(function(violation) {
+             console.log(violation.index); // 0
+             console.log(violation.name); // "wc"
+             console.log(violation.prop); // "name"
+             console.log(violation.message); // "can't be null" 
+          });
+       });
+</code></pre>

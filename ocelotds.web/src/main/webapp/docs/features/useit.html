@@ -32,9 +32,14 @@ public class ExposedService {
 }, function(fault) {
    // doSomethingWithFault(fault);
 });</code></pre>
+<h3>Handle constraint event</h3>
+<pre><code class="javascript">exposedService.getResult().constraint(function(violations) {
+   // doSomethingWithViolations(violations);
+});</code></pre>
 <h3>Handle event</h3>
 <pre><code class="javascript">exposedService.getResult().event(function(evt) {
    if(evt.result === "RESULT") doSomethingWithResult(evt.response);
-   else if(evt.result === "FAULT") doSomethingWithFault(evt.fault);
+   else if(evt.result === "CONSTRAINT") doSomethingWithViolations(evt.response);
+   else if(evt.result === "FAULT") doSomethingWithFault(evt.response);
 });</code></pre>
 

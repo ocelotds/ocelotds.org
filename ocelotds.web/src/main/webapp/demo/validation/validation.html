@@ -1,0 +1,117 @@
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+<link rel="stylesheet" href="validation.css">
+<script src="validation.js"></script>
+<div class="container-fluid">
+	<div class="well col-md-5" ng-app="validationApp">
+		<div class="demotitle">
+			<img class="logo pull-left" title="Ocelotds" src="../../assets/ocelot_128x128.png" alt="Ocelotds"/>
+			<img src="https://angularjs.org/img/AngularJS-large.png" width="200" alt="Angularjs" style="padding-top: 30px"/>
+		</div>
+		<div ng-controller="ValidationController as validCtrl">
+			<form class="form-inline" ng-submit="todoList.addTodo()">
+				<input class="form-control" type="text" ng-model="validCtrl.user.name" placeholder="enter name here">
+				<input class="btn btn-primary" type="button" value="Save" ng-click="validCtrl.saveUser()">
+			</form>
+			<div ng-repeat="vc in validCtrl.validationConstraints">{{vc.name}}.{{vc.prop}} {{vc.message}}</div>
+		</div>
+		<div id="disqus_thread"></div>
+		<script type="text/javascript">
+            var disqus_shortname = 'ocelot';
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+               (function() {
+               var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+               })();		</script>
+		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+	</div>
+	<div class="well col-md-7">
+		<!-- Nav tabs -->
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#about"	aria-controls="about"	role="tab" data-toggle="tab">About</a></li>
+			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">UserServices.java</a></li>
+			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">User.java</a></li>
+			<li role="presentation">					<a href="#js1"		aria-controls="js1"		role="tab" data-toggle="tab">Javascript</a></li>
+			<li role="presentation">					<a href="#html1"	aria-controls="html1"	role="tab" data-toggle="tab">Html</a></li>
+		</ul>
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="about">
+				<h2>About demo : <span style="color:darkred">A</span>ngular<span style="color:darkred">js</span> <span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span> and Validation JSR303...</h2>
+				<p>This is a really simple example about validation form, directly from Java side.</p>
+				<p>This demo use <a href="https://angularjs.org/">angularjs</a>.<br>With Ocelot your front end application communicate elegantly with your java back-end</p>
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="java1">
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<pre><code class="java"><b class="cc" title="Annotate service for expose it to the front-end">@DataService(resolver = Constants.Resolver.CDI)</b>
+public class UserServices {
+   public void saveUser(<b class="cc" title="This is a standard JSR303 Annotation">@Valid</b> User user) {
+		
+   }
+}				</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="java2">
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<pre><code class="java">public class User {
+   <b class="cc" title="This is a standard JSR303 Annotation">@NotNull</b>
+   <b class="cc" title="This is a standard JSR303 Annotation">@Pattern(regexp = "\\w+")</b>
+   <b class="cc" title="This is a standard JSR303 Annotation">@Size(min = 3, max=20)</b>
+   String name = null;
+
+   public String getName() {
+      return name;
+   }
+
+   public void setName(String name) {
+      this.name = name;
+   }
+}					</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="js1">
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<pre><code class="js">angular.module('validationApp', []).controller('ValidationController', ['$scope', function ($scope) {
+   var inst = this;
+   inst.user = {"name":""};
+   inst.validationConstraints = [];
+   inst.saveUser = function () {
+      console.log("saveUSer");
+      <b class="cc" title="Call UserServices.saveUser(User user) java service&#013;Directly, as you would if you were in java side.">userServices.saveUser(inst.user)</b>
+      .<b class="cc" title="Handle method return">then</b>(function () {
+         console.log("saveUSer ok");
+         inst.validationConstraints = [];
+         $scope.$apply();
+      })
+      .<b class="cc" title="Handle method exceptions">catch</b>(onFault)
+      .<b class="cc" title="Handle validations">constraint</b>(function (violations) {
+         console.log(violations);
+         inst.validationConstraints = violations;
+         $scope.$apply();
+      });
+   };
+   var onFault = function (fault) {
+      alert(fault.message + "\n" + fault.classname + "\n" + fault.stacktrace.join('\n'));
+   };
+}]);			</code></pre>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="html1">
+				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<pre><code class="html">&lt;html&gt;
+   &lt;head&gt;
+      <b class="cc" title="Add ocelot.js to the page... that's all">&lt;script src="ocelot.js" type="text/javascript"&gt;&lt;/script&gt;</b>
+   &lt;/head&gt;
+   &lt;body&gt;
+      &lt;div ng-controller="ValidationController as validCtrl"&gt;
+         &lt;form class="form-inline" ng-submit="todoList.addTodo()"&gt;
+            &lt;input class="form-control" type="text" ng-model="validCtrl.user.name" placeholder="enter name here"&gt;
+            &lt;input class="btn btn-primary" type="button" value="Save" ng-click="validCtrl.saveUser()"&gt;
+         &lt;/form&gt;
+         &lt;div ng-repeat="vc in validCtrl.validationConstraints">{{vc.name}}.{{vc.prop}} {{vc.message}}&lt;/div&gt;
+      &lt;/div&gt;
+   &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -53,8 +53,7 @@
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java1">
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
-				<pre><code class="java">
-@Singleton
+				<pre><code class="java">@Singleton
 <b class="cc" title="Annotate service for expose it to the front-end">@DataService(resolver = Constants.Resolver.CDI)</b>
 public class TodoServices {
 	private List&lt;Todo&gt; todos;
@@ -90,13 +89,11 @@ public class TodoServices {
 			}
 		}
 		return todos;
-	}
-					</code></pre>
+	}			</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java2">
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
-				<pre><code class="java">
-public class Todo {
+				<pre><code class="java">public class Todo {
 	private String text;
 	private boolean done = false;
 
@@ -112,13 +109,11 @@ public class Todo {
 	public void setDone(boolean done) {
 		this.done = done;
 	}
-}
-					</code></pre>
+}				</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="js1">
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
-				<pre><code class="js">
-angular.module('todoApp', []).controller('TodoListController', 
+				<pre><code class="js">angular.module('todoApp', []).controller('TodoListController', 
 ['$scope', function ($scope) {
    var todoList = this;
    todoList.todos = [];
@@ -159,13 +154,11 @@ angular.module('todoApp', []).controller('TodoListController',
    $scope.init = function() {
       todoList.refresh();
    };
-}]);
-					</code></pre>
+}]);			</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="html1">
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
-				<pre><code class="html">
-&lt;html&gt;
+				<pre><code class="html">&lt;html&gt;
    &lt;head&gt;
       <b class="cc" title="Add ocelot.js to the page... that's all">&lt;script src="ocelot.js" type="text/javascript"&gt;&lt;/script&gt;</b>
    &lt;/head&gt;
@@ -186,10 +179,8 @@ angular.module('todoApp', []).controller('TodoListController',
          &lt;/form&gt;
       &lt;/div&gt;
    &lt;/body&gt;
-&lt;/html&gt;
-					</code></pre>
+&lt;/html&gt;</code></pre>
 			</div>
 		</div>
 	</div>
 </div>
-

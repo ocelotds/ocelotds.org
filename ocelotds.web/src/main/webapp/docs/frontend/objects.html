@@ -6,6 +6,13 @@
    "stacktrace": ["", ""] // stacktrace
 }</code></pre>
 <p>The length of stacktrace is settable in the option see <a href="#advanced">details</a></p>
+<h3>Object Violation</h3>
+<pre><code class="javascript">var violation = {
+   "index": 0, // the index of argument in the call that concern this violation
+   "name": "", // the name of argument
+   "message": "", // the message of violation constraint
+   "prop": "" // the name of property concerned
+}</code></pre>
 <h3>Object OcelotEvent</h3>
 <pre><code class="javascript">var event = {
    "type": "RESULT/FAULT/MESSAGE", // MESSAGE IS ONLY FOR PUSH FEATURES

@@ -545,6 +545,215 @@ ocelotController.addOpenListener(function () {
          done();
       });
    });	
+   QUnit.test(".methodWithValidationArgumentsTest()", function (assert) {
+      var done = assert.async();
+      cdiRequestBean.methodWithValidationArguments(null, "foo", null).event(function (evt) {
+         assert.equal(evt.type, "CONSTRAINT");
+			var constraints = evt.response;
+         assert.equal(constraints.length, 2);
+			var c = constraints[0];
+			if(c.index===0) {
+	         assert.equal(c.index, 0);
+	         assert.equal(c.name, 'str0');
+				c = constraints[1];
+	         assert.equal(c.index, 2);
+	         assert.equal(c.name, 'str2');
+			} else {
+	         assert.equal(c.index, 2);
+	         assert.equal(c.name, 'str2');
+				c = constraints[1];
+	         assert.equal(c.index, 0);
+	         assert.equal(c.name, 'str0');
+			}
+         done();
+      });
+   });	
+   QUnit.test(".methodWithArgumentNotNullTest()", function (assert) {
+      var done = assert.async();
+      cdiRequestBean.methodWithArgumentNotNull("foo").event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+	      cdiRequestBean.methodWithArgumentNotNull(null).event(function (evt) {
+				assert.equal(evt.type, "CONSTRAINT");
+				var constraints = evt.response;
+				assert.equal(constraints.length, 1);
+				done();
+			});
+      });
+   });	
+   QUnit.test(".methodWithArgumentNullTest()", function (assert) {
+      var done = assert.async();
+      cdiRequestBean.methodWithArgumentNull(null).event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+	      cdiRequestBean.methodWithArgumentNull("foo").event(function (evt) {
+				assert.equal(evt.type, "CONSTRAINT");
+				var constraints = evt.response;
+				assert.equal(constraints.length, 1);
+				done();
+			});
+      });
+   });	
+   QUnit.test(".methodWithArgumentMaxTest()", function (assert) {
+      var done = assert.async();
+      cdiRequestBean.methodWithArgumentMax(8).event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+	      cdiRequestBean.methodWithArgumentMax(15).event(function (evt) {
+				assert.equal(evt.type, "CONSTRAINT");
+				var constraints = evt.response;
+				assert.equal(constraints.length, 1);
+				done();
+			});
+      });
+   });	
+   QUnit.test(".methodWithArgumentMinTest()", function (assert) {
+      var done = assert.async();
+      cdiRequestBean.methodWithArgumentMin(15).event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+	      cdiRequestBean.methodWithArgumentMin(8).event(function (evt) {
+				assert.equal(evt.type, "CONSTRAINT");
+				var constraints = evt.response;
+				assert.equal(constraints.length, 1);
+				done();
+			});
+      });
+   });	
+   QUnit.test(".methodWithArgumentFalseTest()", function (assert) {
+      var done = assert.async();
+      cdiRequestBean.methodWithArgumentFalse(false).event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+	      cdiRequestBean.methodWithArgumentFalse(true).event(function (evt) {
+				assert.equal(evt.type, "CONSTRAINT");
+				var constraints = evt.response;
+				assert.equal(constraints.length, 1);
+				done();
+			});
+      });
+   });	
+   QUnit.test(".methodWithArgumentTrueTest()", function (assert) {
+      var done = assert.async();
+      cdiRequestBean.methodWithArgumentTrue(true).event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+	      cdiRequestBean.methodWithArgumentTrue(false).event(function (evt) {
+				assert.equal(evt.type, "CONSTRAINT");
+				var constraints = evt.response;
+				assert.equal(constraints.length, 1);
+				done();
+			});
+      });
+   });	
+   QUnit.test(".methodWithArgumentFutureTest()", function (assert) {
+      var done = assert.async();
+		var fut = new Date();
+		var past = new Date();
+		fut.setMonth(fut.getMonth()+1);
+		past.setMonth(past.getMonth()-1);
+      cdiRequestBean.methodWithArgumentFuture(fut.getTime()).event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+	      cdiRequestBean.methodWithArgumentFuture(past.getTime()).event(function (evt) {
+				assert.equal(evt.type, "CONSTRAINT");
+				var constraints = evt.response;
+				assert.equal(constraints.length, 1);
+				done();
+			});
+      });
+   });	
+   QUnit.test(".methodWithArgumentPastTest()", function (assert) {
+      var done = assert.async();
+		var fut = new Date();
+		var past = new Date();
+		fut.setMonth(fut.getMonth()+1);
+		past.setMonth(past.getMonth()-1);
+      cdiRequestBean.methodWithArgumentPast(past.getTime()).event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+	      cdiRequestBean.methodWithArgumentPast(fut.getTime()).event(function (evt) {
+				assert.equal(evt.type, "CONSTRAINT");
+				var constraints = evt.response;
+				assert.equal(constraints.length, 1);
+				done();
+			});
+      });
+   });	
+   QUnit.test(".methodWithArgumentDecimalMaxTest()", function (assert) {
+      var done = assert.async();
+      cdiRequestBean.methodWithArgumentDecimalMax(20).event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+	      cdiRequestBean.methodWithArgumentDecimalMax(60).event(function (evt) {
+				assert.equal(evt.type, "CONSTRAINT");
+				var constraints = evt.response;
+				assert.equal(constraints.length, 1);
+				done();
+			});
+      });
+   });	
+   QUnit.test(".methodWithArgumentDecimalMinTest()", function (assert) {
+      var done = assert.async();
+      cdiRequestBean.methodWithArgumentDecimalMin(60).event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+	      cdiRequestBean.methodWithArgumentDecimalMin(20).event(function (evt) {
+				assert.equal(evt.type, "CONSTRAINT");
+				var constraints = evt.response;
+				assert.equal(constraints.length, 1);
+				done();
+			});
+      });
+   });	
+   QUnit.test(".methodWithArgumentPatternTest()", function (assert) {
+      var done = assert.async();
+      cdiRequestBean.methodWithArgumentPattern("123456").event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+	      cdiRequestBean.methodWithArgumentPattern("123a456").event(function (evt) {
+				assert.equal(evt.type, "CONSTRAINT");
+				var constraints = evt.response;
+				assert.equal(constraints.length, 1);
+				done();
+			});
+      });
+   });
+   QUnit.test(".methodWithArgumentConstraintTest()", function (assert) {
+      var done = assert.async();
+      cdiRequestBean.methodWithArgumentConstraint({"name":"foo"}).event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+	      cdiRequestBean.methodWithArgumentConstraint({}).event(function (evt) {
+				assert.equal(evt.type, "CONSTRAINT");
+				var constraints = evt.response;
+				assert.equal(constraints.length, 1);
+				assert.equal(constraints[0].name, "wc");
+				assert.equal(constraints[0].prop, "name");
+				done();
+			});
+      });
+   });
+   QUnit.test(".methodWithArgumentSize2_10Test()", function (assert) {
+      var done = assert.async();
+      cdiRequestBean.methodWithArgumentSize2_10("azerty").event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+	      cdiRequestBean.methodWithArgumentSize2_10("qwertyuiop^").event(function (evt) {
+				assert.equal(evt.type, "CONSTRAINT");
+				var constraints = evt.response;
+				assert.equal(constraints.length, 1);
+				assert.equal(constraints[0].name, "str0");
+				done();
+			});
+      });
+   });
+   QUnit.test(".methodWithArgumentDigits3_2Test()", function (assert) {
+      var done = assert.async();
+      cdiRequestBean.methodWithArgumentDigits3_2(123.45).event(function (evt) {
+         assert.equal(evt.type, "RESULT");
+	      cdiRequestBean.methodWithArgumentDigits3_2(1432432.34).event(function (evt) {
+				assert.equal(evt.type, "CONSTRAINT");
+				var constraints = evt.response;
+				assert.equal(constraints.length, 1);
+				assert.equal(constraints[0].name, "bd0");
+				cdiRequestBean.methodWithArgumentDigits3_2(432.3423434).event(function (evt) {
+					assert.equal(evt.type, "CONSTRAINT");
+					var constraints = evt.response;
+					assert.equal(constraints.length, 1);
+					assert.equal(constraints[0].name, "bd0");
+					done();
+				});
+			});
+      });
+   });
    /**
     * CDISessionBEan
     */

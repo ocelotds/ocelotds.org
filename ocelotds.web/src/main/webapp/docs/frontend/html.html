@@ -20,6 +20,8 @@ testEJBService.getMessage(Math.floor(Math.random()*10)).event(function (evt) {
    doSomethingWithResult(result);
 }, function (fault) {
    doSomethingWithFault(fault);
+}).constraint(function (violations) {
+   doSomethingWithViolations(violations);
 }).catch(function (fault) {
    doSomethingWithFault(fault);
 });</code></pre>
