@@ -48,7 +48,7 @@ public class DocServlet extends HttpServlet {
 				}
 			}
 			String[] docs = new String[]{"/docs/quickstart.html",
-				"/docs/features/features.html", "/docs/features/exposesrv.html", "/docs/features/ocelot.html", "/docs/features/useit.html", "/docs/features/cache.html",
+				"/docs/features/features.html", "/docs/features/exposesrv.html", "/docs/features/marshallers.html", "/docs/features/ocelot.html", "/docs/features/useit.html", "/docs/features/cache.html",
 				"/docs/features/push.html", "/docs/features/validation.html", "/docs/features/i18n.html", "/docs/features/qos.html", "/docs/features/security.html", "/docs/features/configuration.html", "/docs/features/advanced.html",
 				"/docs/servers/servers.html", "/docs/servers/glassfish.html", "/docs/servers/wildfly.html", "/docs/servers/weblogic.html", "/docs/servers/was.html", "/docs/servers/tomcat.html", "/docs/servers/other.html",
 				"/docs/backend/backend.html", "/docs/backend/ejb.html", "/docs/backend/cdi.html", "/docs/backend/spring.html",

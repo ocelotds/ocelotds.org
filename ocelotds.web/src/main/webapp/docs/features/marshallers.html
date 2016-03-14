@@ -1,0 +1,40 @@
+<h2 id="marshallers">Choose your own marshaller /unmarshaller</h2>
+<p>Sometime you have to use the pattern DTO, cause the object is not serializable<br>With Ocelotds, it's easy, write implemetation of JsonMarshaller and JsonUnmarshaller and annote the method and arguments target.</p>
+
+<h3>Marshall, unmarshall simple object</h3>
+<pre><code class="java">@DataService(resolver = Constants.Resolver....)
+public class ExposedService {
+
+   @JsonMarshaller(NoSerializableMarshaller.class)
+   public NoSerializable getObjectNonSerializable() {
+      return ...;
+   }
+
+   public void setObjectNonSerializable(@JsonUnmarshaller(NoSerializableMarshaller.class) NoSerializable ns) {
+      return ...;
+   }
+}</code></pre>
+<pre><code class="java">public NoSerializableMarshaller implements IJsonMarshaller&lt;NoSerializable&gt; {
+   @Override
+   public String toJson(NoSerializable obj) throws JsonMarshallingException {
+      // transform java object to json
+   }
+   @Override
+   public NoSerializable toJava(String json) throws JsonUnmarshallingException {
+      // transform json to java object
+   }
+}</code></pre>
+<h3>Marshall, unmarshall iterable object</h3>
+<p>If you want to re-use a marshaller/unmarshaller for iterable object, jsut set iterable to true</p>
+<pre><code class="java">@DataService(resolver = Constants.Resolver....)
+public class ExposedService {
+
+   @JsonMarshaller(value = NoSerializableMarshaller.class, iterable = true)
+   public List&lt;NoSerializable&gt; getObjectNonSerializable() {
+      return ...;
+   }
+
+   public void setObjectNonSerializable(@JsonUnmarshaller(value = NoSerializableMarshaller.class, iterable = true) List&lt;NoSerializable&gt; ns) {
+      return ...;
+   }
+}</code></pre>
