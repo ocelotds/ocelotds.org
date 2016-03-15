@@ -1,7 +1,80 @@
-<h2 id="marshallers">Choose your own marshaller /unmarshaller</h2>
-<p>Sometime you have to use the pattern DTO, cause the object is not serializable<br>With Ocelotds, it's easy, write implemetation of JsonMarshaller and JsonUnmarshaller and annote the method and arguments target.</p>
+<h2 id="marshallers">Use specific serialization</h2>
+<p>Sometime you want to use an objet to front-end, but it is not serializable to json.</p>
+<h3>Considerate this case</h3>
+<pre><code class="java">public java.util.Locale getLocale() {
+...
+}
+public void setLocale(java.util.Locale locale) {
+...
+}</code></pre>
+<p>Locale object is not serialisable in json, but you don't want to create a Data Transfert Object (DTO) only for that.<br>
+	If you do a DTO, you should map it before send it to front-end (getLocale method)<br>
+	And also when you receive it from front-end to useit in back-end (setLocale method).<br>
+</p>
+<h4>Annotate Argument Type with JsonUnmarshaller</h4>
+<pre><code class="java">public void setLocale(@JsonUnmarshaller(LocaleMarshaller.class) Locale locale) {
+...
+}</code></pre>
+<h4>Annotate Return Type with JsonMarshaller</h4>
+<pre><code class="java">@JsonMarshaller(LocaleMarshaller.class)
+public Locale getLocale() {
+...
+}</code></pre>
+<h3>Considerate this other case</h3>
+<p>LocaleMarshaller is bulk with ocelotds but how write a custom Marshaller/Unmarshaller ?</p>
+<pre><code class="java">public java.io.File getFile() {
+...
+}
+public void setFile(java.io.File file) {
+...
+}</code></pre>
+<p>File object is not serialisable in json like Locale object.<br>
+	Ocelotds proposes to you an elegant mecanism for marshall or unmarshall object.
+	Write Marshaller that implements IJsonMarshaller and use annotations JsonUnmarshaller and JsonMarshaller : 
+</p>
+<h4>Write your custom Marshaller/Unmarshaller</h4>
+<pre><code class="java">public class FileMarshaller implements IJsonMarshaller&lt;File&gt; {
+   @Override
+   public String toJson(File obj) throws JsonMarshallingException {
+      // becarefull, here generate json, don't forget '\"' around string 
+      return "{\"filename\":\""+obj.getName()+"\",\"path\":\""+obj.getAbsolutePath()+"\"}";
+   }
 
-<h3>Marshall, unmarshall simple object</h3>
+   @Override
+   public File toJava(String json) throws JsonUnmarshallingException {
+      File file = null;
+      if(null != json) {
+         try (JsonReader reader = Json.createReader(new StringReader(json))) {
+            JsonObject root = reader.readObject();
+            file = new File(root.getString("path"));
+         } catch(Throwable t) {
+            throw new JsonUnmarshallingException(json);
+         }
+      }
+      return locale;
+   }</code>
+</pre>
+<h4>Use your custom Marshaller/Unmarshaller</h4>
+<pre><code class="java">@JsonMarshaller(FileMarshaller.class)
+public java.io.File getFile() {
+...
+}
+public void setFile(@JsonUnmarshaller(FileMarshaller.class)java.io.File file) {
+...
+}</code></pre>
+<h3>Advanced</h3>
+<p>Considerate this Marshaller/Unmarshaller</p>
+<pre><code class="java">public NoSerializableMarshaller implements IJsonMarshaller&lt;NoSerializable&gt; {
+   @Override
+   public String toJson(NoSerializable obj) throws JsonMarshallingException {
+      // transform java object to json
+   }
+   @Override
+   public NoSerializable toJava(String json) throws JsonUnmarshallingException {
+      // transform json to java object
+   }
+}</code></pre>
+<h4>Marshall, unmarshall simple object</h4>
 <pre><code class="java">@DataService(resolver = Constants.Resolver....)
 public class ExposedService {
 
@@ -14,18 +87,8 @@ public class ExposedService {
       return ...;
    }
 }</code></pre>
-<pre><code class="java">public NoSerializableMarshaller implements IJsonMarshaller&lt;NoSerializable&gt; {
-   @Override
-   public String toJson(NoSerializable obj) throws JsonMarshallingException {
-      // transform java object to json
-   }
-   @Override
-   public NoSerializable toJava(String json) throws JsonUnmarshallingException {
-      // transform json to java object
-   }
-}</code></pre>
 <h3>Marshall, unmarshall iterable object</h3>
-<p>If you want to re-use a marshaller/unmarshaller for iterable object, jsut set iterable to true</p>
+<p>If you want to re-use a marshaller/unmarshaller for iterable object, just set iterable to true</p>
 <pre><code class="java">@DataService(resolver = Constants.Resolver....)
 public class ExposedService {
 
