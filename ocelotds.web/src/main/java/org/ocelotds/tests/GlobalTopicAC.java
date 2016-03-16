@@ -6,6 +6,7 @@ package org.ocelotds.tests;
 import javax.inject.Inject;
 import org.ocelotds.security.JsTopicAccessController;
 import javax.inject.Singleton;
+import org.ocelotds.annotations.OcelotLogger;
 import org.ocelotds.security.UserContext;
 import org.slf4j.Logger;
 
@@ -17,6 +18,7 @@ import org.slf4j.Logger;
 public class GlobalTopicAC implements JsTopicAccessController {
 
 	@Inject
+	@OcelotLogger
 	Logger logger;
 
 	private boolean access = true;
