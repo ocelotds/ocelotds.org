@@ -3,13 +3,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 package org.ocelotds.tests;
 
-import javax.inject.Inject;
 import org.ocelotds.annotations.JsTopicControl;
 import org.ocelotds.security.JsTopicAccessController;
 import javax.inject.Singleton;
-import org.ocelotds.annotations.OcelotLogger;
 import org.ocelotds.security.UserContext;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -19,9 +18,7 @@ import org.slf4j.Logger;
 @JsTopicControl("mytopic")
 public class SpecificTopicAC implements JsTopicAccessController {
 
-	@Inject
-	@OcelotLogger
-	Logger logger;
+	private static Logger logger = LoggerFactory.getLogger(SpecificTopicAC.class);
 
 	private boolean access = true;
 
