@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import javax.enterprise.event.Event;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.AssertFalse;
@@ -38,6 +40,8 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import org.ocelotds.context.OcelotContext;
+import org.ocelotds.security.JsTopicAccessController;
+import org.ocelotds.security.JsTopicCtrlAnnotationLiteral;
 
 /**
  *
@@ -58,7 +62,12 @@ public class CdiRequestBean {
 	private OcelotContext ctx;
 
 	@Inject
-	private SpecificTopicAC specificTopicAC;
+	@Any
+	Instance<JsTopicAccessController> myTopicAccessControllers;
+	
+	JsTopicAccessController getJsTopicAccessController() {
+		return myTopicAccessControllers.select(new JsTopicCtrlAnnotationLiteral("mytopic")).get();
+	}
 
 	public String getCDIPrincipalName() {
 		return principal.getName();
@@ -69,7 +78,7 @@ public class CdiRequestBean {
 	}
 
 	public void setSpecificTopicAccess(boolean b) {
-		specificTopicAC.setAccess(b);
+		((SpecificTopicAC) getJsTopicAccessController()).setAccess(b);
 	}
 
 	public void getVoid() {
