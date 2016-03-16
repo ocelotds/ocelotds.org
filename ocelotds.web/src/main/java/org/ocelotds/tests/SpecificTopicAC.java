@@ -3,22 +3,23 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 package org.ocelotds.tests;
 
-import org.ocelotds.annotations.JsTopicAccessControl;
+import javax.inject.Inject;
+import org.ocelotds.annotations.JsTopicControl;
 import org.ocelotds.security.JsTopicAccessController;
 import javax.inject.Singleton;
-import javax.websocket.Session;
+import org.ocelotds.security.UserContext;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author hhfrancois
  */
 @Singleton
-@JsTopicAccessControl("mytopic")
+@JsTopicControl("mytopic")
 public class SpecificTopicAC implements JsTopicAccessController {
 
-	private final static Logger logger = LoggerFactory.getLogger(SpecificTopicAC.class);
+	@Inject
+	Logger logger;
 
 	private boolean access = true;
 
@@ -31,7 +32,7 @@ public class SpecificTopicAC implements JsTopicAccessController {
 	}
 
 	@Override
-	public void checkAccess(Session session, String topic) throws IllegalAccessException {
+	public void checkAccess(UserContext ctx, String topic) throws IllegalAccessException {
 		logger.warn("Check mytopic access to topic {} : access = {}", topic, access);
 		if (!access) {
 			throw new IllegalAccessException("mytopic access is set to false");

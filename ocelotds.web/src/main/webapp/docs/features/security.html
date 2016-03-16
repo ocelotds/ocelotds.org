@@ -3,11 +3,12 @@
 <p>You can use websocket secure.</p>
 <p>For use Websocket secured, use simply the https protocol for your web application. That's all</p>
 <h3>JAAS Security (JASPIC)</h3>
-<p>Websocket cannot use standard JAAS RBAC (Role Base Access Control) Cause Enpoint is not include in user thread. The enfdpoint is like a singleton.</p>
+<p>Websocket cannot use standard JAAS RBAC (Role Base Access Control) Cause Enpoint is not include in user thread. The endpoint is like a singleton.</p>
 <p>This is the reason why for commons calls ocelotds uses http services. this Enpoint is include in user thread.</p>
-<p>So if you use full java EE server and EJB, you can use standard annotation as usually.</p>
-<h4>RolesAllowed</h4>
-<p>Declare ROLES in standard web.xml, and annotate your methods with it like a normal web application.</p>
+<p>So if you use full java EE server and EJB, you can use standard annotation from JSR-250 as usually.</p>
+<h4>RolesAllowed, DenyAll, PermitAll, DeclareRoles, RunAs</h4>
+<p>Declare ROLES in standard web.xml, or annotate your methods following JSR-250 specifications.</p>
+<p>Finally annotate Classes, methods with standart annotations.</p>
 <pre><code class="java">public class MyService {
    @javax.annotation.security.RolesAllowed("ADMIN")
    public void adminSecureMethod() {
@@ -17,7 +18,7 @@
    }
 }</code></pre>
 <h4>OcelotContext</h4>
-<p>As JAAS, you can inject a context allows programmatic security.</p>
+<p>If you don't use a Java EE specification As JAAS, you can inject a context for allows programmatic security.</p>
 <pre><code class="java">public class MyService {
    @Inject
    OcelotContext oc;
@@ -28,23 +29,48 @@
    }
 }</code></pre>
 <h3>About topics security :</h3>
-<p>But Ocelot manages the security about topic.</p>
+<p>Ocelotds manages the topic security in 3 ways.</p>
 <p>By default every clients can subscribe to a topic, but probably you need to control that.</p>
 <p>Ocelotds is CDI based and allow an ellegant mecanism for manage it.</p>
-<h4>Creation a global policy for all topics.</h4>
-<p>It's Very simple just create a default CDI Bean that implements <strong>org.ocelotds.security.TopicAccessControl</strong> in the war project.</p>
-<pre><code class="java">public class GlobalTopicAccessControl implements TopicAccessControl {
+<h4>Prevent to subscribe to all topics.</h4>
+<b>Create a global controller for all topics.</b>
+<p>It's Very simple just create a default CDI Bean that implements <strong>org.ocelotds.security.JsTopicAccessController</strong> in the war project.</p>
+<pre><code class="java">public class GlobalTopicAccessControl implements JsTopicAccessController {
    @Override
-   public void checkAccess(Session session, String topic) throws IllegalAccessException {
-      // if access not allowed, throw IllegalAccessException
+   public void checkAccess(UserContext ctx, String topic) throws IllegalAccessException {
+      // if user access to all topic not allowed, throw IllegalAccessException
+      String user = ctx.getPrincipal().getName();
+      if(!ctx.isUserInRole("ROLE")) {
+         throw new IllegalAccessException(user);
+      }
    }
 }</code></pre>
-<h4>Creation a policy for specific topic.</h4>
-<p>It's Very simple too, create a annotated CDI Bean that implements <strong>org.ocelotds.security.TopicAccessControl</strong> and Qualified by <strong>org.ocelotds.security.TopicControl</strong>.</p>
-<pre><code class="java">@JsTopicAccessControl(SPECIFIC_TOPIC)
-public class GlobalTopicAccessControl implements TopicAccessControl {
+<h4>Prevent to subscribe to specific topic.</h4>
+<b>Create a specific controller for topic.</b>
+<p>It's Very simple too, create a annotated CDI Bean that implements <strong>org.ocelotds.security.JsTopicAccessController</strong> and Qualified by <strong>org.ocelotds.annotations.JsTopicControl</strong>.</p>
+<pre><code class="java">@JsTopicControl(SPECIFIC_TOPIC)
+public class SpecificTopicAccessControl implements JsTopicAccessController {
    @Override
-   public void checkAccess(Session session, String topic) throws IllegalAccessException {
-      // if access to SPECIFIC_TOPIC not allowed, throw IllegalAccessException
+   public void checkAccess(UserContext ctx, String topic) throws IllegalAccessException {
+      // if user access to SPECIFIC_TOPIC not allowed, throw IllegalAccessException
+      String user = ctx.getPrincipal().getName();
+      if(!ctx.isUserInRole("ROLE")) {
+         throw new IllegalAccessException(user);
+      }
+   }
+}</code></pre>
+<h4>Prevent to send message to user.</h4>
+<b>Create a message controller for topic.</b>
+<p>Again, with CDI is very simple, create a annotated CDI Bean that implements <strong>org.ocelotds.security.JsTopicMessageController</strong> and Qualified by <strong>org.ocelotds.annotations.JsTopicControl</strong>.</p>
+<pre><code class="java">@JsTopicControl(SPECIFIC_TOPIC)
+public class SpecificTopicMessageControl implements JsTopicMessageController {
+
+   @Override
+   public void checkRight(UserContext ctx, MessageToClient mtc) throws NotRecipientException {
+      // if user access to SPECIFIC_TOPIC not allowed, throw NotRecipientException
+      String user = ctx.getPrincipal().getName();
+      if(!ctx.isUserInRole("ROLE")) {
+         throw new NotRecipientException(user);
+      }
    }
 }</code></pre>

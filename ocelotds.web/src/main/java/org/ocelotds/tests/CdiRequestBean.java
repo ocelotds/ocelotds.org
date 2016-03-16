@@ -10,7 +10,7 @@ import org.ocelotds.annotations.JsCacheRemove;
 import org.ocelotds.annotations.JsCacheRemoveAll;
 import org.ocelotds.annotations.JsCacheResult;
 import org.ocelotds.annotations.JsTopic;
-import org.ocelotds.annotations.JsTopicAccessControl;
+import org.ocelotds.annotations.JsTopicControl;
 import org.ocelotds.annotations.JsTopicName;
 import org.ocelotds.messaging.MessageEvent;
 import org.ocelotds.messaging.MessageToClient;
@@ -58,7 +58,6 @@ public class CdiRequestBean {
 	private OcelotContext ctx;
 
 	@Inject
-	@JsTopicAccessControl("mytopic")
 	private SpecificTopicAC specificTopicAC;
 
 	public String getCDIPrincipalName() {
