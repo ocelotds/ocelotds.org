@@ -5,13 +5,13 @@ import org.ocelotds.annotations.DataService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.inject.Singleton;
+import javax.enterprise.context.ApplicationScoped;
 
 /**
  *
  * @author hhfrancois
  */
-@Singleton
+@ApplicationScoped
 @DataService(resolver = Constants.Resolver.CDI)
 public class TicketServices {
 

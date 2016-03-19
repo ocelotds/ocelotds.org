@@ -3,8 +3,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 package org.ocelotds.tests;
 
+import javax.enterprise.context.ApplicationScoped;
 import org.ocelotds.security.JsTopicAccessController;
-import javax.inject.Singleton;
 import org.ocelotds.security.UserContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author hhfrancois
  */
-@Singleton
+@ApplicationScoped
 public class GlobalTopicAC implements JsTopicAccessController {
 
 	private static Logger logger = LoggerFactory.getLogger(GlobalTopicAC.class);

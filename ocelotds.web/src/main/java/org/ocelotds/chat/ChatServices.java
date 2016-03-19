@@ -9,13 +9,13 @@ import org.ocelotds.annotations.JsTopic;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import javax.inject.Singleton;
+import javax.enterprise.context.ApplicationScoped;
 
 /**
  *
  * @author hhfrancois
  */
-@Singleton
+@ApplicationScoped
 @DataService(resolver = Constants.Resolver.CDI)
 public class ChatServices {
 

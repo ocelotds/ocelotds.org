@@ -84,8 +84,7 @@
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java1">
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
-				<pre><code class="java">
-@Singleton
+				<pre><code class="java">@ApplicationScoped
 <b class="cc" title="Annotate service for expose it to the front-end">@DataService(resolver = Constants.Resolver.CDI)</b>
 public class ChatServices {
    private static final Collection&lt;String&gt; chatters = new ArrayList&lt;&gt;();
