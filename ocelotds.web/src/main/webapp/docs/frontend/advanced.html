@@ -1,24 +1,22 @@
 <h2 id="advancedfe">Advanced feature on front-end</h2>
 <h3>Launch services at document loading</h3>
-<p>Understand that ocelot framework is completly asynchronous.<br />
-	So if you try to call server before the connection is etablished, there will be probably a problem.<br />
+<p>Understand that some ocelot services are asynchronous.<br />
+	As subscribe to a topic. So if you try to subscribe before the connection is etablished, there will be probably a problem.<br />
 	For fix this problem (not really one) the ocelotController have a method for add handlers for when the connection is ready.</p>
 <pre><code class="javascript">ocelotController.addOpenListener(function() {
-   QUnit.test("Test MyService", function (assert) {
-      var done = assert.async();
-      myService.getMessage(5).Then(function (msg) {
-         assert.equal(msg, "expected");
-         done();
-      });
-   };
+	new subscriber("mytopic").message(function (msg) {
+      // receive message
+   });
 }</code></pre>
-<h2>Optional configuration</h2>
+<h2>Javascript integration</h2>
 <h3>minify/magnify javascript</h3>
-<p>By default javascript ocelot serves ocelot.js minified<br />
-	This is usefull for preserve the band width.<br />
-	Ifyou want to read it, magnify it adding minify=false to ocelot.js url</p>
+<p>Ocelotds serves <b>ocelot/services.js</b> minified.</p>
+<p>However, by default ocelot serves <b>ocelot/core.js</b> not minified<br />
+	For preserve the band width you can include it minified. Just use <b>/ocelot/core.min.js</b></p>
 <pre><code class="html">&lt;body&gt;
-   &lt;script src="ocelot.js?minify=false" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
+   &lt;script src="ocelot/services.js" type="text/javascript"&gt;&lt;/script&gt;
+   &lt;script src="ocelot/core.min.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
+<h2>Optional configuration</h2>
 <h3>configure stacktrace size sent to client</h3>
 <p>In your web project, you can specify the size of stacktrace sent on client side.<br />
 	The default value is <strong>50</strong><br />

@@ -1,0 +1,39 @@
+<h2 id="codehint">Web developper, gulp user</h2>
+<p>Ocelotds generate javascript services from java services.<br>However Your Web IDE (netbeans, IntelliJ, Eclipse, Webstorm...) don't know generate services.</p>
+<p>It will be great, if the front-end developper can use code completion. So for that you can use the followig option</p>
+<h3>Chose generate services directory</h3>
+<p>In <b>pom.xml</b> add compiler option <b>jsdir</b></p>
+<p>If you build enterprise application (ear), add this option in parent <b>pom.xml</b> or in each <b>pom.xml</b></p>
+<p>Becareful, use the correct version of maven plugin</p>
+<h3>Maven 2</h3>
+<pre><code class="xml">&lt;build&gt;
+   ...
+   &lt;plugins&gt;
+      &lt;plugin&gt;
+         &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+         &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+         &lt;version&gt;2.5.1&lt;/version&gt;
+         &lt;configuration&gt;
+            &lt;compilerArguments&gt;
+               &lt;Ajsdir&gt;/home/user/projects/frontend/services&lt;/Ajsdir&gt;
+            &lt;/compilerArguments&gt;
+         &lt;/configuration&gt;
+      &lt;/plugin&gt;
+   &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>
+<h3>Maven 3</h3>
+<pre><code class="xml">&lt;build&gt;
+   ...
+   &lt;plugins&gt;
+      &lt;plugin&gt;
+         &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+         &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+         &lt;version&gt;3.5.1&lt;/version&gt;
+         &lt;configuration&gt;
+            &lt;compilerArguments&gt;
+               &lt;arg&gt;-Ajsdir:/home/user/projects/frontend/services&lt;/arg&gt;
+            &lt;/compilerArguments&gt;
+         &lt;/configuration&gt;
+      &lt;/plugin&gt;
+   &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>

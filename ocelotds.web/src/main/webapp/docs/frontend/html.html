@@ -1,10 +1,9 @@
 <h2 id="html">Configure frontend</h2>
-<h3>Add Framework to html</h3>
-<p>Add core and generated services in html page (those scripts are provided by ocelot servlets)</p>
-<pre><code class="html">
-&lt;body&gt;
-	&lt;script src="ocelot.js" type="text/javascript"&gt;&lt;/script&gt;
-			</code></pre>
+<h3>Add Services abnd Framework to html</h3>
+<p>Add generated services and core in html page (these scripts are provided by ocelot REST)</p>
+<pre><code class="html">&lt;header&gt;
+   &lt;script src="${CONTEXT_PATH}/ocelot/services.js" type="text/javascript"&gt;&lt;/script&gt;
+   &lt;script src="${CONTEXT_PATH}/ocelot/core.min.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
 <h3>Use it</h3>
 <p>Use services directly in your code</p>
 <pre><code class="javascript">

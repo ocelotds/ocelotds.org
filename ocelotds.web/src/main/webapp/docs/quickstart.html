@@ -54,12 +54,11 @@
 public class TestService {
 		</code></pre>
 <p>Compilation generate javascript stub by introspection of annotated classes</p>
-<h3>Add Framework to html</h3>
-<p>Add core and generated services in html page (this script is provided by ocelot servlet)</p>
-<pre><code class="html">
-&lt;header&gt;
-   &lt;script src="${CONTEXT_PATH}/ocelot.js" type="text/javascript"&gt;&lt;/script&gt;
-      </code></pre>
+<h3>Add Services and Framework to html</h3>
+<p>Add generated services and core in html page (these files are provided by REST services)</p>
+<pre><code class="html">&lt;header&gt;
+   &lt;script src="${CONTEXT_PATH}/ocelot/services.js" type="text/javascript"&gt;&lt;/script&gt;
+   &lt;script src="${CONTEXT_PATH}/ocelot/core.min.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
 <h3>Use it</h3>
 <p>Use services directly in your code<br>You have a business service named TestService, so in frontend there is testService instance ready to use.</p>
 <p>In java : Class <b>TestService</b>, in javascript <b>testService</b>.</p>
