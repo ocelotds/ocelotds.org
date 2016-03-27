@@ -10,7 +10,6 @@ import org.ocelotds.annotations.JsCacheRemove;
 import org.ocelotds.annotations.JsCacheRemoveAll;
 import org.ocelotds.annotations.JsCacheResult;
 import org.ocelotds.annotations.JsTopic;
-import org.ocelotds.annotations.JsTopicControl;
 import org.ocelotds.annotations.JsTopicName;
 import org.ocelotds.messaging.MessageEvent;
 import org.ocelotds.messaging.MessageToClient;
