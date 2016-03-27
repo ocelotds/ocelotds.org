@@ -94,28 +94,26 @@ public class ChartServices {
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<p>This script is mainly highcharts code, only subscriber is part of ocelotds.</p>
 				<pre><code class="js">'use strict';
-<b class="cc" title="Observe when the websocket connection is open for init the chart">ocelotController.addOpenListener</b>(function () {
-   new ChartServices().<b class="cc" title="Get initial datas. 1000 samples">getDatas(1000)</b>.then(function(<b class="cc" title="This is the payload">datas</b>) {
-      var chart = new Highcharts.StockChart({
-         chart: {renderTo: 'graph-area'},
-         rangeSelector: {
-            buttons: [
-               {count: 30, type: 'second', text: '30s'},
-               {count: 2, type: 'minute', text: '2m'},
-               {count: 5, type: 'minute', text: '5m'},
-               {type: 'all', text: 'All'}
-            ],
-            inputEnabled: false,
-            selected: 0
-         },
-         title: {text: 'Live random data'},
-         exporting: {enabled: true},
-         series: [{data: datas}]
-      });
-   });
-   <b class="cc" title="Subscribe to topic named 'values'">new Subscriber("values")</b>.message(<b class="cc" title="Handler when message is post in topic">function</b> (vals) {
-      chart.series[0].addPoint([vals[0], vals[1]], true, true);
-   });
+new ChartServices().<b class="cc" title="Get initial datas. 1000 samples">getDatas(1000)</b>.then(function(<b class="cc" title="This is the payload">datas</b>) {
+	var chart = new Highcharts.StockChart({
+		chart: {renderTo: 'graph-area'},
+		rangeSelector: {
+			buttons: [
+				{count: 30, type: 'second', text: '30s'},
+				{count: 2, type: 'minute', text: '2m'},
+				{count: 5, type: 'minute', text: '5m'},
+				{type: 'all', text: 'All'}
+			],
+			inputEnabled: false,
+			selected: 0
+		},
+		title: {text: 'Live random data'},
+		exporting: {enabled: true},
+		series: [{data: datas}]
+	});
+});
+<b class="cc" title="Subscribe to topic named 'values'">new Subscriber("values")</b>.message(<b class="cc" title="Handler when message is post in topic">function</b> (vals) {
+	chart.series[0].addPoint([vals[0], vals[1]], true, true);
 });
 <b class="cc" title="Observe when the websocket connection is close.">ocelotController.addCloseListener</b>(function () {
    <b class="cc" title="Re-open connection.">ocelotController.open();</b>
