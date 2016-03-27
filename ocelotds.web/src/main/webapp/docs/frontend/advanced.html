@@ -1,13 +1,4 @@
 <h2 id="advancedfe">Advanced feature on front-end</h2>
-<h3>Launch services at document loading</h3>
-<p>Understand that some ocelot services are asynchronous.<br />
-	As subscribe to a topic. So if you try to subscribe before the connection is etablished, there will be probably a problem.<br />
-	For fix this problem (not really one) the ocelotController have a method for add handlers for when the connection is ready.</p>
-<pre><code class="javascript">ocelotController.addOpenListener(function() {
-	new subscriber("mytopic").message(function (msg) {
-      // receive message
-   });
-}</code></pre>
 <h2>Javascript integration</h2>
 <h3>minify/magnify javascript</h3>
 <p>Ocelotds serves <b>ocelot/services.js</b> minified.</p>
