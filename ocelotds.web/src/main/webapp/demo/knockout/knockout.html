@@ -89,8 +89,7 @@ public class Ticket {
 					</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="js1">
-				<pre><code class="js">
-function TicketsViewModel() {
+				<pre><code class="js">function TicketsViewModel() {
    var ticketServices = new TicketServices();
    var model = this;
    model.tickets = ko.observableArray([]);
@@ -111,10 +110,7 @@ function TicketsViewModel() {
    };
    model.loadTickets();
 }
-ocelotController.addOpenListener(function (event) {
-   ko.applyBindings(new TicketsViewModel(), document.getElementById("liveExample"));
-});
-			</code></pre>
+ko.applyBindings(new TicketsViewModel(), document.getElementById("liveExample"));</code></pre>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="html1">
 				<pre><code class="html">
