@@ -18,6 +18,4 @@ function TicketsViewModel() {
 	};
 	model.loadTickets();
 }
-ocelotController.addOpenListener(function (event) {
-	ko.applyBindings(new TicketsViewModel(), document.getElementById("liveExample"));
-});
+ko.applyBindings(new TicketsViewModel(), document.getElementById("liveExample"));
