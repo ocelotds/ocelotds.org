@@ -2,36 +2,17 @@
 <p>ocelotController is the controller of Ocelot… <br />
 	An instance is created on loading of page. You can access it by “ocelotController”.  <br />
 	You can do some actions with it.</p>
-<h3>Method addOpenListener</h3>
-<pre><code class="javascript">ocelotController.addOpenListener(openHandler:Function())</code></pre>
-<blockquote>
-	<p>Add handler when the WebSocket is open, this is retroactive</p>
-</blockquote>
-<h3>Method addCloseListener</h3>
-<pre><code class="javascript">ocelotController.addCloseListener(closeHandler:Function())</code></pre>
-<blockquote>
-	<p>Add handler when the WebSocket is close</p>
-</blockquote>
-<h3>Method addErrorListener</h3>
-<pre><code class="javascript">ocelotController.addErrorListener(errorHandler:Function())</code></pre>
-<blockquote>
-	<p>Add handler when the WebSocket throws an error</p>
-</blockquote>
-<h3>Method close</h3>
-<pre><code class="javascript">ocelotController.close():OcelotPromise</code></pre>
-<blockquote>
-	<p>Close the Websocket</p>
-</blockquote>
-<h3>Method open</h3>
-<pre><code class="javascript">ocelotController.open():OcelotPromise</code></pre>
-<blockquote>
-	<p>After close, reup the connection, redo existants subscriptions</p>
-</blockquote>
 <h3>Attribute status</h3>
 <pre><code class="javascript">ocelotController.status [Readonly]</code></pre>
 <blockquote>
-	<p>Return the state of websocket : 'CONNECTING',  'OPEN',  'CLOSING',  'CLOSED'</p>
+	<p>Return the state of websocket : 'CONNECTING',  'OPEN',  'CLOSING',  'CLOSED', 'ERROR'</p>
 </blockquote>
+<p>You can monitor status by subscribe to 'ocelot-status' topic</p>
+<pre><code class="javascript">new Subscriber('ocelot-status').message(function(status) {
+   if(status === 'ERROR') {
+      console.log("websocket is in error");
+   }
+})</code></pre>
 <h3>Method cacheManager.addEventListener</h3>
 <pre><code class="javascript">ocelotController.cacheManager.addEventListener(type:String, listener:Function(evt:Event))</code></pre>
 <blockquote>
