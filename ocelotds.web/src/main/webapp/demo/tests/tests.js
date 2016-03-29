@@ -1,7 +1,7 @@
 'use strict';
 var nbMsgToBroadcast = 500;
 ocelotController.cacheManager.clearCache();
-QUnit.module("UnreachableServices");
+QUnit.module("unreachableServices");
 QUnit.test(".getVoid()", function (assert) {
 	var done = assert.async(), srv = {
 		ds: "org.ocelotds.test.UnreachableServices",
@@ -16,7 +16,7 @@ QUnit.test(".getVoid()", function (assert) {
 		done();
 	});
 });
-QUnit.module("CdiRequestBean");
+QUnit.module("cdiRequestBean");
 QUnit.test(".getVoid()", function (assert) {
 	var done = assert.async();
 	cdiRequestBean.getVoid().event(function (evt) {
@@ -497,6 +497,19 @@ QUnit.test(".testSpecificTopicAccess()", function (assert) {
 		});
 	});
 });
+QUnit.test(".testMessageAccess()", function (assert) {
+	var sub, done = assert.async();
+	sub = new Subscriber("string5topic").event(function (evt) {
+		cdiRequestBean.sendToString5topic("abc");
+		cdiRequestBean.sendToString5topic("abcdef");
+	}).message(function(msg) {
+		assert.equal(msg, "abcdef");
+	});
+	setTimeout(function() {
+		sub.unsubscribe();
+		done();
+	}, 1000);
+});
 QUnit.test(".testGetCDIPrincipalName()", function (assert) {
 	var login, done = assert.async();
 	cdiRequestBean.getCDIPrincipalName().event(function (evt) {
@@ -734,7 +747,7 @@ QUnit.test(".methodWithArgumentDigits3_2Test()", function (assert) {
 /**
  * CDISessionBEan
  */
-QUnit.module("CdiSessionBean");
+QUnit.module("cdiSessionBean");
 QUnit.test(".getValue()", function (assert) {
 	var res, done = assert.async();
 	cdiSessionBean.getValue().event(function (evt) {
@@ -751,7 +764,7 @@ QUnit.test(".getValue()", function (assert) {
 		});
 	});
 });
-QUnit.module("CdiSingletonBean");
+QUnit.module("cdiSingletonBean");
 QUnit.test(".getValue()", function (assert) {
 	var res, done = assert.async();
 	cdiSingletonBean.getValue().event(function (evt) {
@@ -768,7 +781,7 @@ QUnit.test(".getValue()", function (assert) {
 		});
 	});
 });
-QUnit.module("EjbStateless");
+QUnit.module("ejbStateless");
 if(ejbStateless != undefined) {
 	QUnit.test(".testGetDate() with QOS", function (assert) {
 		var r1, r2, done = assert.async(), timer = setTimeout(checkResult, 4000);
@@ -840,7 +853,7 @@ if(ejbStateless != undefined) {
 		});
 	});
 }
-QUnit.module("OcelotServices");
+QUnit.module("ocelotServices");
 QUnit.test(".setLocale()", function (assert) {
 	var done = assert.async(), func;
 	func = function (evt) {
@@ -867,7 +880,7 @@ QUnit.test(".setLocale()", function (assert) {
 		assert.equal(evt.type, "RESULT");
 	});
 });
-QUnit.module("SpringPrototypeBean");
+QUnit.module("springPrototypeBean");
 QUnit.test(".getCount()", function (assert) {
 	var result = 0, nb = 10, num = 0, done = assert.async(), 
 	timer = setTimeout(checkResult, 2000),
@@ -912,7 +925,7 @@ QUnit.test(".getCountFromSingletonAutoWired()", function (assert) {
 		getCount();
 	});
 });
-QUnit.module("SpringSessionBean");
+QUnit.module("springSessionBean");
 QUnit.test(".getCount()", function (assert) {
 	var result = 0, nb = 10, num = 0, done = assert.async(), 
 	timer = setTimeout(checkResult, 2000),
@@ -937,7 +950,7 @@ QUnit.test(".getCount()", function (assert) {
 		getCount();
 	});
 });
-QUnit.module("SpringSingletonBean");
+QUnit.module("springSingletonBean");
 QUnit.test(".getCount()", function (assert) {
 	var result = 0, nb = 10, num = 0, done = assert.async(), 
 	timer = setTimeout(checkResult, 2000),

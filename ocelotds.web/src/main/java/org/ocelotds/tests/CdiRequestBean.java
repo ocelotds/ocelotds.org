@@ -255,6 +255,11 @@ public class CdiRequestBean {
 		return message;
 	}
 
+	@JsTopic(value = "string5topic")
+	public String sendToString5topic(String message) {
+		return message;
+	}
+
 	public boolean isUserInRole(String role) {
 		return ctx.isUserInRole(role);
 	}
