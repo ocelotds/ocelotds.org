@@ -63,13 +63,18 @@ public class SpecificTopicAccessControl implements JsTopicAccessController {
 <b>Create a message controller for topic.</b>
 <p>Again, with CDI is very simple, create a annotated CDI Bean that implements <strong>org.ocelotds.security.JsTopicMessageController</strong> and Qualified by <strong>org.ocelotds.annotations.JsTopicControl</strong>.</p>
 <pre><code class="java">@JsTopicControl(SPECIFIC_TOPIC)
-public class SpecificTopicMessageControl implements JsTopicMessageController {
+public class SpecificTopicMessageControl&lt;Payload&gt; implements JsTopicMessageController {
 
+   /**
+    * For check right you can use user context and payload
+    * @param ctx
+    * @param payload : this is object that will be send to user if check is ok
+    */
    @Override
-   public void checkRight(UserContext ctx, MessageToClient mtc) throws NotRecipientException {
-      // if user access to SPECIFIC_TOPIC not allowed, throw NotRecipientException
+   public void checkRight(UserContext ctx, Payload payload) throws NotRecipientException {
+      // if user must not receive payload, throw NotRecipientException
       String user = ctx.getPrincipal().getName();
-      if(!ctx.isUserInRole("ROLE")) {
+      if(!payload.getRecipients().contains(user)) { // this is an example
          throw new NotRecipientException(user);
       }
    }
