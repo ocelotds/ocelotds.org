@@ -318,7 +318,7 @@ QUnit.test(".methodThatThrowException()", function (assert) {
 	var done = assert.async();
 	cdiRequestBean.methodThatThrowException().event(function (evt) {
 		assert.equal(evt.type, "FAULT");
-		assert.equal(evt.response.classname, "org.ocelotds.tests.MethodException");
+		assert.notEqual(evt.response.classname.indexOf("MethodException"), -1);
 		done();
 	});
 });
