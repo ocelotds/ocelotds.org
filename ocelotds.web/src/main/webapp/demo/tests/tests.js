@@ -510,6 +510,19 @@ QUnit.test(".testMessageAccess()", function (assert) {
 		done();
 	}, 1000);
 });
+QUnit.test(".testMessageAccessBis()", function (assert) {
+	var sub, done = assert.async();
+	sub = new Subscriber("string5topicBis").event(function (evt) {
+		cdiRequestBean.sendToString5topicBis("abc");
+		cdiRequestBean.sendToString5topicBis("abcdef");
+	}).message(function(msg) {
+		assert.equal(msg, "abcdef");
+	});
+	setTimeout(function() {
+		sub.unsubscribe();
+		done();
+	}, 1000);
+});
 QUnit.test(".testGetCDIPrincipalName()", function (assert) {
 	var login, done = assert.async();
 	cdiRequestBean.getCDIPrincipalName().event(function (evt) {
