@@ -68,14 +68,26 @@ public class SpecificTopicMessageControl&lt;Payload&gt; implements JsTopicMessag
    /**
     * For check right you can use user context and payload
     * @param ctx
+    * @param topic
     * @param payload : this is object that will be send to user if check is ok
     */
    @Override
-   public void checkRight(UserContext ctx, Payload payload) throws NotRecipientException {
+   public void checkRight(UserContext ctx, String topic, Payload payload) throws NotRecipientException {
       // if user must not receive payload, throw NotRecipientException
       String user = ctx.getPrincipal().getName();
       if(!payload.getRecipients().contains(user)) { // this is an example
          throw new NotRecipientException(user);
       }
+   }
+}</code></pre>
+<b>Use one MessageController for more than one topic. (since 2.10.2)</b>
+<p>Often, you need to apply same rule for restric message send. You can use @JsTopicControls for repeat @JsTopicControl annotation</p>
+<pre><code class="java">@JsTopicControls({
+   @JsTopicControl(SPECIFIC_TOPIC), 
+   @JsTopicControl(SPECIFIC_TOPIC2)
+})
+public class SpecificTopicMessageControl&lt;Payload&gt; implements JsTopicMessageController {
+   @Override
+   public void checkRight(UserContext ctx, String topic, Payload payload) throws NotRecipientException {
    }
 }</code></pre>
