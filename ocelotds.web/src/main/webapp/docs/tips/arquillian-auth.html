@@ -1,5 +1,5 @@
-<h2 href="arquillian-auth">Test authentication & autorisation with arquillian and embedded glassfish</h2>
-<p>For test authentication & autorisation, users must be added to glassfish.</p>
+<h2 href="arquillian-auth">Test authentication &amp; autorisation with arquillian and embedded glassfish</h2>
+<p>For test authentication &amp; autorisation, users must be added to glassfish.</p>
 <h3>How to add users</h3>
 <p>Actually, you cannot add users to glassfish with Embedded container and arquillian mecanism.</p>
 <p>So maybe we can to use commandRunner of glassfish.</p>
@@ -50,7 +50,7 @@ user;{SSHA256}78jzX0iBjXiLGWXC7m8J3PS50P4RLGEWLO+kfrE0AVNmYY4kAdnJEw==;USERGP</c
          // have to escape ":" and "\" chars
          String keyfilepath = keyfile.getAbsolutePath().replace("\\", "\\\\").replace(":", "\\:");
          CommandResult commandResult = commandRunner.run("create-auth-realm", "--classname=com.sun.enterprise.security.auth.realm.file.FileRealm",
-            "--property=jaas-context=fileRealm:file=" + keyfilepath, "test-file");
+            "--property=jaas-context=fileRealm:file=" + keyfilepath, "test-realm");
          System.out.println(commandResult.getExitStatus().toString() + " " + commandResult.getOutput());
       }
    }
@@ -61,14 +61,14 @@ user;{SSHA256}78jzX0iBjXiLGWXC7m8J3PS50P4RLGEWLO+kfrE0AVNmYY4kAdnJEw==;USERGP</c
 <pre><code class="java">   ...
    public static boolean loginFileUser(final String username, final String password) throws Exception {
       final ProgrammaticLogin login = new ProgrammaticLogin();
-      return login.login(username, password.toCharArray(), "fileRealm", true);
+      return login.login(username, password.toCharArray(), "test-realm", true);
    }
    ...</code></pre>
 
 <p>You receive an exception.</p> 
 <pre><code class="java">WEB9102: Web Login Failed: com.sun.enterprise.security.auth.login.common.LoginException: Login failed: No LoginModule setted for fileRealm</code></pre>
 
-<p>In fact the file login.conf is not define.</p> 
+<p>In fact the file login.conf is not defined.</p> 
 <h3>login.conf</h3>
 <h4>Create the login.conf</h4>
 <p>Create login.conf in resources folder</p> 
@@ -114,7 +114,7 @@ user;{SSHA256}78jzX0iBjXiLGWXC7m8J3PS50P4RLGEWLO+kfrE0AVNmYY4kAdnJEw==;USERGP</c
     &lt;/security-constraint&gt;
     &lt;login-config&gt;
         &lt;auth-method&gt;BASIC&lt;/auth-method&gt;
-        &lt;realm-name&gt;test-file&lt;/realm-name&gt;
+        &lt;realm-name&gt;test-realm&lt;/realm-name&gt;
     &lt;/login-config&gt;
     &lt;security-role&gt;
         &lt;description/&gt;
