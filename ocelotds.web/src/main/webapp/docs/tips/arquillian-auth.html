@@ -50,7 +50,7 @@ user;{SSHA256}78jzX0iBjXiLGWXC7m8J3PS50P4RLGEWLO+kfrE0AVNmYY4kAdnJEw==;USERGP</c
          // have to escape ":" and "\" chars
          String keyfilepath = keyfile.getAbsolutePath().replace("\\", "\\\\").replace(":", "\\:");
          CommandResult commandResult = commandRunner.run("create-auth-realm", "--classname=com.sun.enterprise.security.auth.realm.file.FileRealm",
-            "--property=jaas-context=realmContext:file=" + keyfilepath, "test-realm");
+            "--property=jaas-context=fileRealm:file=" + keyfilepath, "test-realm");
          System.out.println(commandResult.getExitStatus().toString() + " " + commandResult.getOutput());
       }
    }
@@ -68,11 +68,11 @@ user;{SSHA256}78jzX0iBjXiLGWXC7m8J3PS50P4RLGEWLO+kfrE0AVNmYY4kAdnJEw==;USERGP</c
 <p>You receive an exception.</p> 
 <pre><code class="java">WEB9102: Web Login Failed: com.sun.enterprise.security.auth.login.common.LoginException: Login failed: No LoginModule setted for fileRealm</code></pre>
 
-<p>In fact the file login.conf is not define.</p> 
+<p>In fact the file login.conf is not defined.</p> 
 <h3>login.conf</h3>
 <h4>Create the login.conf</h4>
 <p>Create login.conf in resources folder</p> 
-<pre><code class="conf">realmContext {
+<pre><code class="conf">fileRealm {
 	com.sun.enterprise.security.auth.login.FileLoginModule required;
 };</code></pre>
 
