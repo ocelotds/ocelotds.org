@@ -54,7 +54,23 @@ public class SpecificTopicAccessControl implements JsTopicAccessController {
    public void checkAccess(UserContext ctx, String topic) throws IllegalAccessException {
       // if user access to SPECIFIC_TOPIC not allowed, throw IllegalAccessException
       String user = ctx.getPrincipal().getName();
-      if(!ctx.isUserInRole("ROLE")) {
+      if(!ctx.isUserInRole("CANSUBSCRIBETO_"+topic)) {
+         throw new IllegalAccessException(user);
+      }
+   }
+}</code></pre>
+<b>Use one AccessController for more than one topic. (since 2.10.2)</b>
+<p>Often, you need to apply same rule for restric subscription. You can use @JsTopicControls for repeat @JsTopicControl annotation</p>
+<pre><code class="java">@JsTopicControls({
+   @JsTopicControl(SPECIFIC_TOPIC), 
+   @JsTopicControl(SPECIFIC_TOPIC2)
+})
+public class SpecificTopicAccessControl implements JsTopicAccessController {
+   @Override
+   public void checkAccess(UserContext ctx, String topic) throws IllegalAccessException {
+      // if user access to SPECIFIC_TOPIC not allowed, throw IllegalAccessException
+      String user = ctx.getPrincipal().getName();
+      if(!ctx.isUserInRole("CANSUBSCRIBETO_"+topic)) {
          throw new IllegalAccessException(user);
       }
    }
