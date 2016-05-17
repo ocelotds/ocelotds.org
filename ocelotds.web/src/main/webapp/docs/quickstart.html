@@ -5,8 +5,7 @@
 <h3>Dependencies</h3>
 <h4>For WAR Package</h4>
 <p>Add <em>ocelot-web</em> and <em>ocelot-core</em> dependency in your maven web project</p>
-<pre><code class="xml">
-&lt;dependency&gt;
+<pre><code class="xml">&lt;dependency&gt;
    &lt;groupId&gt;org.ocelotds&lt;/groupId&gt;
    &lt;artifactId&gt;ocelot-web&lt;/artifactId&gt;
    &lt;version&gt;${ocelot.version}&lt;/version&gt;
@@ -15,25 +14,30 @@
    &lt;groupId&gt;org.ocelotds&lt;/groupId&gt;
    &lt;artifactId&gt;ocelot-core&lt;/artifactId&gt;
    &lt;version&gt;${ocelot.version}&lt;/version&gt;
-&lt;/dependency&gt;
-		</code></pre>
+&lt;/dependency&gt;</code></pre>
 <h4>For EAR Package</h4>
 <p>Add <em>ocelot-core</em> dependency in your maven ejb module project</p>
-<pre><code class="xml">
-&lt;dependency&gt;
+<pre><code class="xml">&lt;dependency&gt;
    &lt;groupId&gt;org.ocelotds&lt;/groupId&gt;
    &lt;artifactId&gt;ocelot-core&lt;/artifactId&gt;
    &lt;version&gt;${ocelot.version}&lt;/version&gt;
-&lt;/dependency&gt;
-		</code></pre>
+&lt;/dependency&gt;</code></pre>
 <p>Add <em>ocelot-web</em> dependency in your maven web module project</p>
-<pre><code class="xml">
-&lt;dependency&gt;
+<pre><code class="xml">&lt;dependency&gt;
    &lt;groupId&gt;org.ocelotds&lt;/groupId&gt;
    &lt;artifactId&gt;ocelot-web&lt;/artifactId&gt;
    &lt;version&gt;${ocelot.version}&lt;/version&gt;
-&lt;/dependency&gt;
-		</code></pre>
+&lt;/dependency&gt;</code></pre>
+<h4>Optional</h4>
+<p>In no production mode, you can add dashboard to your application.<br>This will show all services exposed in your application, and more.</p>
+<p>Add <em>ocelot-dashboard</em> dependency in your maven web module project</p>
+<pre><code class="xml">&lt;!--OPTIONAL --&gt;
+&lt;dependency&gt;
+   &lt;groupId&gt;org.ocelotds&lt;/groupId&gt;
+   &lt;artifactId&gt;ocelot-dashboard&lt;/artifactId&gt;
+   &lt;version&gt;${ocelot.version}&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+
 <p>Don't add anything else in ear pom.xml (except your own dependencies). Add ocelot only in ejb.jar modules and web.war module, only one web module.</p>
 <h3>beans.xml</h3>
 <p>In all modules, web and ejb add bean.xml.</p>
