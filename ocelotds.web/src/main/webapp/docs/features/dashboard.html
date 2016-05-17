@@ -1,0 +1,14 @@
+<h2 id="dashboard">Test services</h2>
+<p>Ocelotds generate a dashboard page</p>
+<h3>Usage</h3>
+<p>Include dependecy in pom.xml of you war project</p>
+<pre><code class="xml">
+&lt;dependency&gt;
+   &lt;groupId&gt;org.ocelotds&lt;/groupId&gt;
+   &lt;artifactId&gt;ocelot-dashboard&lt;/artifactId&gt;
+   &lt;version&gt;${ocelot.version}&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<p>After deploy your web application, ocelotds expose a web page ocelot/dashboard/index.html</p>
+<p>You can monitor your service with add <b>?ocelot={"monitor":true}</b> in the url</p>
+<p>Don't include it in production mode.</p>
+<p>You can test all services for this website : <a href="%ROOT%/ocelot/dashboard/index.html?ocelot={%22monitor%22:true}">dashboard</a>.</p>

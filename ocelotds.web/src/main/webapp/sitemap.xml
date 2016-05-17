@@ -41,10 +41,10 @@
   <loc>http://ocelotds.org/documentations</loc>
 </url>
 <url>
-  <loc>http://ocelotds.org/ocelot.htm?ocelot={%22monitor%22:true}</loc>
+  <loc>http://ocelotds.org/ocelot/dashboard/index.html?ocelot={%22monitor%22:true}</loc>
 </url>
 <url>
-  <loc>http://ocelotds.org/ocelot.htm</loc>
+  <loc>http://ocelotds.org/ocelot/dashboard/index.html</loc>
 </url>
 <url>
   <loc>http://ocelotds.org/docs/servers/tomcat.html</loc>

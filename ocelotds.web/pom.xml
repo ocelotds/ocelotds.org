@@ -45,6 +45,11 @@
 			<artifactId>ocelot-web</artifactId>
 			<version>${ocelot.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.ocelotds</groupId>
+			<artifactId>ocelot-dashboard</artifactId>
+			<version>${ocelot.version}</version>
+		</dependency>
 		<!-- WEBAPI -->
 		<dependency>
 			<groupId>javax</groupId>
