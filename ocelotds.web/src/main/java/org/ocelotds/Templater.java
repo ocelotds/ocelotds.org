@@ -36,7 +36,7 @@ public class Templater implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest servletRequest = HttpServletRequest.class.cast(request);
 		String pageRequested = servletRequest.getRequestURI();
-		if(!pageRequested.contains("ocelot/dashboard")) {
+		if(isTemplatePage(pageRequested)) {
 			InputStream before = request.getServletContext().getResourceAsStream("/templates/before.html");
 			try (BufferedReader reader = new BufferedReader(new InputStreamReader(before, "UTF-8"))) {
 				while (reader.ready()) {
@@ -53,7 +53,7 @@ public class Templater implements Filter {
 		}
 		chain.doFilter(request, response);
 
-		if(!pageRequested.contains("ocelot/dashboard")) {
+		if(isTemplatePage(pageRequested)) {
 			InputStream after = request.getServletContext().getResourceAsStream("/templates/after.html");
 			try (BufferedReader reader = new BufferedReader(new InputStreamReader(after, "UTF-8"))) {
 				while (reader.ready()) {
@@ -66,6 +66,11 @@ public class Templater implements Filter {
 			}
 		}
 	}
+	
+	boolean isTemplatePage(String pageRequested) {
+		return !pageRequested.contains("ocelot/dashboard");
+	}
+	
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
