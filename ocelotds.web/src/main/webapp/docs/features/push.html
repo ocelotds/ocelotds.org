@@ -1,6 +1,6 @@
 <h2 id="push">Notifications</h2>
-<p>Message Driven bean features, can be used to implement a mecanism for push message from server to a client.<br />
-	For exemple a chat or notify something to the client.</p>
+<p>Notification, push, Message Driven bean features, can be used to implement a mecanism for push messages from server to clients.<br />
+	For exemple a chat or notify something to clients.</p>
 <p>Publish and Subscribe-Messages are broadcast to all registered listeners through Topics. </p>
 <img src="%ROOT%/assets/topic.jpg" alt="topic schema"/>
 <h3>In Javascript</h3>
@@ -15,6 +15,7 @@
 });</code></pre>
 <h4>Unsubscribe to topic on front-end (javascript)</h4>
 <p>In javascript, get <strong>Subscriber</strong> and call unsubscribe</p>
+<b>It's important to unsubscribe it, for single page application like angularjs application with a router mecanism.</b>
 <pre><code class="javascript">sub.unsubscribe().then(function() {
    // confirm unsubscrition
 }).catch(function(fault) {
@@ -25,8 +26,9 @@
 <p>Just annotate java class method with @JsTopic</p>
 <pre><code class="java">@DataService(resolver = Constants.Resolver.CDI)
 public class MessageServices {
-   @JsTopic("TopicName")
+   @JsTopic("mytopic")
    public String publish(String message) {
+      // when you call this methode all subscriber receive the return method.
       return message;
    }
 ...</code></pre>
@@ -50,26 +52,27 @@ public String publishToTopic(String message, @JsTopicName topic) {
 <h3>Publish message from backend java</h3>
 <p>In java, publish message to all subcriber clients</p>
 <pre><code class="java">@Inject
-@JsTopicEvent("TOPIC")
-Event&lt;Object&gt; wsEvent;
+@JsTopicEvent("mytopic")
+Event&lt;Object&gt; myTopicPublisher;
 
 public void publish() {
    // You can send all serializable objects, if you want to send special object use JsonMarshaller.
-   wsEvent.fire("Message From server"); 
+   // If you want send json object use jsonPayload option
+   myTopicPublisher.fire("Message From server"); 
 }</code></pre>
 <h4>Advanced features</h4>
 <b>Use Marshaller for topic payload</b>
 <p>Ocelotds convert Java object to json object.<br>
 	object have to be a serializable object, if not or if you want to use your own serialization, use JsonMarshaller.
 <pre><code class="java">@Inject
-@JsTopicEvent("TOPIC")
+@JsTopicEvent("mytopic")
 @JsonMarshaller(SpecificMarshaller.class)
-Event&lt;Object&gt; wsEvent;
+Event&lt;Object&gt; myTopicPublisher;
 
 public void publish() {
-   wsEvent.fire(unserializableObject);
+   myTopicPublisher.fire(unserializableObject);
 }</code></pre>
-<pre><code class="java">public class SpecificMarshaller implements JsonMarshaller&lt;Object&gt;{
+<pre><code class="java">public class SpecificMarshaller implements IJsonMarshaller&lt;Object&gt;{
    @Override
    public String toJson(Object obj) throws JsonMarshallingException {
       return ".....";
@@ -80,12 +83,23 @@ public void publish() {
 <p>Finally set payload.</p>
 <pre><code class="java">@Inject
 @MessageEvent
-Event&lt;MessageToClient&gt; wsEvent;
+Event&lt;MessageToClient&gt; publisher;
 public void publish(String topic, String msg) {
-   MessageToClient messageToClient = new MessageToClient(topic);
-   messageToClient.setResult(msg); // You can send only serializable objects
-   wsEvent.fire(messageToClient);
+   MessageToClient mtc = new MessageToClient();
+   mtc.setId(topic);
+   mtc.setResult(msg); // You can send only serializable objects
+   publisher.fire(mtc);
 }</code></pre>
+<b>Send directly a json object, not a java object (from 2.11.0)</b>
+<p>In java, publish message to topic with jsonPayload option</p>
+<p>On JsTopic and JsTopicEvent, set jsonPayload option</p>
+<pre><code class="java">@JsTopicEvent(value="mytopic", jsonPayload=true)
+Event&lt;String&gt; myTopicPublisher;</code></pre>
+<pre><code class="java">@JsTopic(value="mytopic", jsonPayload=true)
+   public String publish(String message) {
+      // Return json format : "foo" in json equal "\"foo\"" 
+      return json;
+   }</code></pre>
 <h3>Listen subscribers number</h3>
 <p>When you use previous features, you can listen a special topic for know how many subscribers are connected</p>
 <p>Simply subscribe to topic name preceded by <b>subscribers:</b></p>
