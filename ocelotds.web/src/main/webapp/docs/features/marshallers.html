@@ -87,17 +87,38 @@ public class ExposedService {
       return ...;
    }
 }</code></pre>
-<h3>Marshall, unmarshall iterable object</h3>
-<p>If you want to re-use a marshaller/unmarshaller for iterable object, just set iterable to true</p>
+<h3>Marshall, unmarshall iterable object (from 2.11.0)</h3>
+<p>If you want to re-use a marshaller/unmarshaller for iterable object, just set type to JsonMarshallerType.LIST</p>
+<b>Works for all Iterable class and subclasses, (List, Collection, Set...)</b>
 <pre><code class="java">@DataService(resolver = Constants.Resolver....)
 public class ExposedService {
 
-   @JsonMarshaller(value = NoSerializableMarshaller.class, iterable = true)
-   public List&lt;NoSerializable&gt; getObjectNonSerializable() {
+   @JsonMarshaller(value = NoSerializableMarshaller.class, type = JsonMarshallerType.LIST)
+   public List&lt;NoSerializable&gt; getNonSerializableObjects() {
       return ...;
    }
 
-   public void setObjectNonSerializable(@JsonUnmarshaller(value = NoSerializableMarshaller.class, iterable = true) List&lt;NoSerializable&gt; ns) {
-      return ...;
+   public void setNonSerializableObjects(@JsonUnmarshaller(value = NoSerializableMarshaller.class, type=JsonMarshallerType.LIST) List&lt;NoSerializable&gt; ns) {
    }
 }</code></pre>
+<p>In front end you receive : </p>
+<pre><code class="javascript">// if object is {"attr1":"value1"}
+[{"attr1":"value1"}, {"attr1":"value2"}]</code></pre>
+
+<h3>Marshall, unmarshall map&lt;string, object&gt; (from 2.11.0)</h3>
+<p>If you want to re-use a marshaller/unmarshaller for object in map, just set type to JsonMarshallerType.MAP</p>
+<b>Works for map String-&gt;object</b>
+<pre><code class="java">@DataService(resolver = Constants.Resolver....)
+public class ExposedService {
+
+   @JsonMarshaller(value = NoSerializableMarshaller.class, type = JsonMarshallerType.MAP)
+   public Map&lt;String, NoSerializable&gt; getMapNonSerializableObject() {
+      return ...;
+   }
+
+   public void setMapNonSerializableObject(@JsonUnmarshaller(value = NoSerializableMarshaller.class, type=JsonMarshallerType.MAP) MAp&lt;String, NoSerializable&gt; ns) {
+   }
+}</code></pre>
+<p>In front end you receive : </p>
+<pre><code class="javascript">// if object is {"attr1":"value1"}
+{"key1":{"attr1":"value1"}, "key2":{"attr1":"value2"}}</code></pre>

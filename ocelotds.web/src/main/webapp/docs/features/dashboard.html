@@ -9,6 +9,34 @@
    &lt;version&gt;${ocelot.version}&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 <p>After deploy your web application, ocelotds expose a web page ocelot/dashboard/index.html</p>
-<p>You can monitor your service with add <b>?ocelot={"monitor":true}</b> in the url</p>
-<p>Don't include it in production mode.</p>
-<p>You can test all services for this website : <a href="%ROOT%/ocelot/dashboard/index.html?ocelot={%22monitor%22:true}">dashboard</a>.</p>
+<h3>Secure dashboard</h3>
+<p>Dashboard is usefull for devops, but not for users. So it's probably usefull to secure it</p>
+<p>For secure it, ocelot needs to know roles that you allow to access it.<br>Lot solutions availables : </p>
+<h4>One Role With CDI producer</h4>
+<p>In your application, write simply a String producer with Qualifier for dashboard. Like this :</p>
+<pre><code class="java">...
+   @Produces
+   @OcelotConfiguration(Constants.Options.DASHBOARD_ROLES)
+   String getRole() {
+      return "DASHBOARD_ROLE";
+   }
+...</code></pre>
+<h4>More than one Role With CDI producer</h4>
+<p>In your application, write simply a Collection&lt;String&gt; producer with Qualifier for dashboard. Like this :</p>
+<pre><code class="java">...
+   @Produces
+   @OcelotConfiguration(Constants.Options.DASHBOARD_ROLES)
+   Collection&lt;String&gt; getRoles() {
+      return Arrays.asList("DASHBOARD_ROLE", "ADMIN_ROLE");
+   }
+...</code></pre>
+<h4>In web.xml</h4>
+<p>In your web module/application, add context-param to web.xml :</p>
+<pre><code class="xml">...
+&lt;context-param&gt;
+   &lt;param-name&gt;ocelot.dashboard.roles&lt;/param-name&gt;
+   &lt;param-value&gt;DASHBOARD_ROLE,ADMIN_ROLE&lt;/param-value&gt;
+&lt;/context-param&gt;
+...</code></pre>
+<p>Roles as separate by ','</p>
+<p>You can test dashboard for this website here : <a href="%ROOT%/ocelot/dashboard/index.html" target="_blank">dashboard</a>.</p>

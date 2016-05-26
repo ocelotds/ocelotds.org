@@ -9,9 +9,9 @@
 &lt;/context-param&gt;
 </code></pre>
 <h4>Use CDI producer</h4>
-<p>Create simply a cdi producer qualifed by annotation<br><b>@org.ocelotds.configuration.annotations.OcelotConfiguration(OcelotConfigurationName.STACKTRACELENGTH)</b>.</p>
+<p>Create simply a cdi producer qualifed by annotation<br><b>@org.ocelotds.annotations.OcelotConfiguration(OcelotConfigurationName.STACKTRACELENGTH)</b>.</p>
 <pre><code class="java">@Produces
-@OcelotConfiguration(OcelotConfigurationName.STACKTRACELENGTH)
+@OcelotConfiguration(Constants.Options.STACKTRACE_LENGTH)
 String getStacktraceConfiguration() {
    return "20";
 }
