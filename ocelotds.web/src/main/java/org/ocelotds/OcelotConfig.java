@@ -4,9 +4,7 @@
 package org.ocelotds;
 
 import javax.enterprise.inject.Produces;
-import org.ocelotds.configuration.OcelotConfigurationName;
-import org.ocelotds.configuration.annotations.OcelotConfiguration;
-
+import org.ocelotds.annotations.OcelotConfiguration;
 /**
  *
  * @author hhfrancois
@@ -14,7 +12,7 @@ import org.ocelotds.configuration.annotations.OcelotConfiguration;
 public class OcelotConfig {
 	
 	@Produces
-	@OcelotConfiguration(OcelotConfigurationName.STACKTRACELENGTH)
+	@OcelotConfiguration(Constants.Options.STACKTRACE_LENGTH)
 	String getStackLength() {
 		return "10";
 	}
