@@ -1,0 +1,13 @@
+<h2 id="subscriberfactory">subscriberFactory</h2>
+<p>subscriberFactory is factory for create Subscriber</p>
+<p>See details in <a href="#push">Notifications</a> section</p>
+<pre><code class="javascript">subscriberFactory.createSubscriber("topicname");</code></pre>
+<h3>Angularjs</h3>
+<pre><code class="javascript">   MyCtrl.$inject = ['$scope', 'subscriberFactory'];
+   function MyCtrl($scope, subscriberFactory) {
+      ...
+      subscriberFactory.createSubscriber("topicname").message(function(msg) {
+      });
+      ...
+   }</code></pre>
+

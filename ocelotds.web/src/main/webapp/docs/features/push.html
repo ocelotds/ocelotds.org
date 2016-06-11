@@ -6,7 +6,7 @@
 <h3>In Javascript</h3>
 <h4>Subscribe to topic on front-end (javascript)</h4>
 <p>In javascript, create <strong>Subscriber</strong></p>
-<pre><code class="javascript">var sub = new Subscriber("mytopic").then(function() {
+<pre><code class="javascript">var sub = subscriberFactory.createSubscriber("mytopic").then(function() {
    // confirm subscrition
 }).catch(function(fault) {
    // subscrition fail

@@ -12,22 +12,32 @@ public class MyService {
       // Your business code
    }
 }</code></pre>
-		<h3>Do that in javavascript</h3>
+		<h3>Do that in javascript</h3>
 		<pre><code class="javascript">myService.getSomething(param1, param2).then(function (myresult) {
    doSomethingWithMyResult(myresult);
 });</code></pre>
-		<img src="https://angularjs.org/img/AngularJS-small.png" alt="Angularjs"/>
-		<p>Work's perfectly with js framework like Angularjs.<br>In your controller, just add $scope.$apply() in handler.</p>
-		<pre><code class="javascript">angular.module('app', []).controller('Controller', ['$scope', function ($scope) {
-   var inst = this;
-   inst.list = [];
-   inst.getListOfSomething = function() {
-      myService.getEntityList().then(function (list) {
-         inst.list = list;
-         $scope.$apply();
-      });
-   };
-});</code></pre>
+		
+		<h4><img alt="Ocelotds&Angular" src="assets/ocelotds-angularjs-128.png" align="left"/><br>From Ocelotds 2.11.0, works even better with Angularjs framework.<br>
+			Add dependecy 'ocelot.ds' in your application.<br>
+			In your controller, inject your service (same name of java service), call method on it<br>
+			Ocelot is asynchron, so add $scope.$apply() in handler.</h4><br><br>
+		<h3>In your index.html include angularjs generated ocelotds js</h3>
+		<pre><code class="html">&lt;script src="${CONTEXT_PATH}/ocelot/services.ng.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="${CONTEXT_PATH}/ocelot/core.ng.min.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
+		<h3>Add ocelot.ds as application dependency</h3>
+		<pre><code class="javascript">angular.module('my.app', ['ocelot.ds]);</code></pre>
+		<h3>Inject your service in your controller, naturally</h3>
+		<pre><code class="js">MyController.$inject = ['$scope', 'myService];
+function MyController($scope, myService) {
+	var inst = this;
+	inst.list = [];
+	inst.getListOfSomething = function() {
+		myService.getEntityList().then(function (list) {
+			inst.list = list;
+			$scope.$apply();
+		});
+	};
+}</code></pre>
 		<h3>Ocelotds overview</h3>
 		<p>Ocelotds is the server-based Java remoting and web messaging technology that enables developers to easily connect to back-end data and push data in real-time to Javascript applications for more responsive rich Internet application (RIA) experiences.<br>
 			The evolution to more engaging RIAs has created the need for better data connectivity options. Remoting simplifies the reuse of existing server logic automatically marshalling calls between the Javascript client and the Java methods on the server. In addition, the use of a json data transfer format increases performance.<br>

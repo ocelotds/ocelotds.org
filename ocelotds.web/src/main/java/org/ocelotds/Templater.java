@@ -68,7 +68,7 @@ public class Templater implements Filter {
 	}
 	
 	boolean isTemplatePage(String pageRequested) {
-		return !pageRequested.contains("ocelot/dashboard");
+		return !pageRequested.contains("ocelot/dashboard") && !pageRequested.contains("site");
 	}
 	
 

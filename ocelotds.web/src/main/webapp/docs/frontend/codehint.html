@@ -1,7 +1,7 @@
 <h2 id="codehint">Web developper, gulp user</h2>
 <p>Ocelotds generate javascript services from java services.<br>However Your Web IDE (netbeans, IntelliJ, Eclipse, Webstorm...) don't know generate services.</p>
 <p>It will be great, if the front-end developper can use code completion. So for that you can use the followig option</p>
-<h3>Chose generate services directory</h3>
+<h3>Chose target services directory</h3>
 <p>In <b>pom.xml</b> add compiler option <b>jsdir</b></p>
 <p>If you build enterprise application (ear), add this option in parent <b>pom.xml</b> or in each <b>pom.xml</b></p>
 <p>Becareful, use the correct version of maven plugin</p>
@@ -30,14 +30,38 @@
          &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
          &lt;version&gt;3.5.1&lt;/version&gt;
          &lt;configuration&gt;
- 			   &lt;!-- FOR MULTI ARGUMENTS --&gt;
+           &lt;!-- FOR MULTI ARGUMENTS --&gt;
            &lt;compilerArgs&gt;
                &lt;arg&gt;Ajsdir=/home/user/projects/frontend/services&lt;/arg&gt;
                &lt;arg&gt;Aargx&lt;/arg&gt;
             &lt;/compilerArgs&gt;
-			   &lt;!-- OR FOR SINGLE ARGUMENT --&gt;
-				&lt;!--compilerArgument&gt;-Ajsdir=/home/user/projects/frontend/services&lt;/compilerArgument--&gt;
+            &lt;!-- OR FOR SINGLE ARGUMENT --&gt;
+            &lt;!--compilerArgument&gt;-Ajsdir=/home/user/projects/frontend/services&lt;/compilerArgument--&gt;
          &lt;/configuration&gt;
       &lt;/plugin&gt;
    &lt;/plugins&gt;
 &lt;/build&gt;</code></pre>
+<h3>Angularjs (from 2.11.0)</h3>
+<p>From version 2.11.0 ocelotds generate javascript for flat javascript and angularjs framework<br>
+	If you want to generate angularjs service in external directory you have to specify this with javascript framework option 'jsfwk'.
+	Use correct writing depending version of maven
+</p>
+<pre><code class="xml">&lt;build&gt;
+...
+&lt;!-- for maven 2 --&gt;
+               &lt;Ajsfwk&gt;ng&lt;/Ajsfwk&gt;
+&lt;!-- or for maven 3 --&gt;
+               &lt;arg&gt;Ajsfwk=ng&lt;/arg&gt;
+...
+&lt;/build&gt;</code></pre>
+
+<h3>Use services in your application</h3>
+<p>However the easy way to use generated services in your application, is include javascript from url.</p>
+<h3>Common case</h3>
+<pre><code class="html">&lt;script src="${CONTEXT_PATH}/ocelot/services.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="${CONTEXT_PATH}/ocelot/core.min.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
+<h3>Angularjs case</h3>
+<pre><code class="html">&lt;script src="${CONTEXT_PATH}/ocelot/services.ng.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="${CONTEXT_PATH}/ocelot/core.ng.min.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
+<h3>Other framework case</h3>
+<p>In all case you can use the common case, ask me if you need more support for an other framework.</p>

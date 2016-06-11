@@ -29,7 +29,7 @@ testEJBService.getMessage(Math.floor(Math.random()*10)).event(function (evt) {
 <h4>create TopicConsumer</h4>
 <p>In javascript, create an instance of TopicConsumer</p>
 <pre><code class="javascript">
-var sub = new Subscriber("mytopic").then(function (res) {
+var sub = subscriberFactory.createSubscriber("mytopic").then(function (res) {
   subscriptionOk();
 }).catch(function (f) {
   subscriptionNok();

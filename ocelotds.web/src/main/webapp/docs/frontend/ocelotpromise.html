@@ -5,7 +5,8 @@
 <h3>Use your java service in javascript</h3>
 <p>OcelotPromise uses the design pattern 'methods chaining'</p>
 <p>With this design you can separate clearly your code</p>
-<pre><code class="javascript">service.getMessage().then(function(obj) {
+<pre><code class="javascript">service.getMessage().ignoreCache(false).timeout(10000)
+  .then(function(obj) {
    doSomethingWithResult(obj);
 }).then(function(obj) {
    doSomethingWithResult(obj);
@@ -21,6 +22,17 @@
       doSomethingWithFault(evt.response);
    }
 });</code></pre>
+<h3>ignoreCache(boolean);</h3>
+<pre><code class="javascript">occelotPromise.ignoreCache(cacheIgnored:boolean):OcelotPromise</code></pre>
+<blockquote>
+	<p>If the java service is annotated with JsCacheResult the result will be cache in the browser storage.<br />
+		With ignoreCache method, you can change the common behavior.</p>
+</blockquote>
+<h3>timeout(number);</h3>
+<pre><code class="javascript">occelotPromise.timeout(ms:number):OcelotPromise</code></pre>
+<blockquote>
+	<p>With this method you can change the default timeout. By default the timeout is defined to 10 secondes.</p>
+</blockquote>
 <h3>then(function(result));</h3>
 <pre><code class="javascript">occelotPromise.then(resultHandler:Function(result:Object)):OcelotPromise</code></pre>
 <blockquote>
