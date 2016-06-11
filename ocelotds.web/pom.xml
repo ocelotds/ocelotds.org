@@ -240,66 +240,6 @@
 					<outputInSourceDirectory>false</outputInSourceDirectory>
 				</configuration>
 			</plugin>
-			<!--plugin>
-				<artifactId>exec-maven-plugin</artifactId>
-				<groupId>org.codehaus.mojo</groupId>
-				<version>1.5.0</version>
-				<executions>
-					<execution>
-						<id>install npm</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<executable>npm</executable>
-							<arguments>
-								<argument>install</argument>
-							</arguments>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>exec-maven-plugin</artifactId>
-				<groupId>org.codehaus.mojo</groupId>
-				<version>1.5.0</version>
-				<executions>
-					<execution>
-						<id>install bower</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<executable>bower</executable>
-							<arguments>
-								<argument>install</argument>
-							</arguments>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin-->
-			<plugin>
-				<artifactId>exec-maven-plugin</artifactId>
-				<groupId>org.codehaus.mojo</groupId>
-				<version>1.5.0</version>
-				<executions>
-					<execution>
-						<id>Gulp</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<executable>gulp</executable>
-							<arguments>
-								<argument>--dist=${basedir}/target/${project.artifactId}-${project.version}/site</argument>
-							</arguments>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 </project>
