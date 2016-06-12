@@ -22,53 +22,12 @@
       fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>
-<div class="container-fluid">
-	<div class="well col-md-4" ng-app="chatApp">
-		<div class="demotitle">
-			<img class="logo pull-left" title="Ocelotds" src="../../assets/ocelot_128x128.png" alt="Ocelotds"/>
-			<img src="https://angularjs.org/img/AngularJS-large.png" width="200" alt="Angularjs" style="padding-top: 30px"/>
-		</div>
-		<div ng-controller="ChatController as chatCtrl" ng-init="init()">
-			<div class="col-md-10">
-				<form class="navbar-form form-inline">
-					<button class="btn btn-primary fa fa-facebook-official {{chatCtrl.registerOn}}" ng-click="chatCtrl.register()" title="Register with facebook"></button>
-					<button class="btn btn-warning fa fa-user-times {{chatCtrl.unregisterOn}}" ng-click="chatCtrl.unregister()" title="Unregister"></button>
-				</form>
-				<div class="chatmsg" ng-repeat="msg in chatCtrl.messages" style="padding:0px">
-					<div class="popover {{msg.pos}}">
-						<div class="arrow"></div>
-						<h3 class="popover-title">{{msg.chatter}}</h3>
-						<div class="popover-content">
-							<p>{{msg.text}}</p>
-						</div>
-					</div>
-				</div>
-				<form class="form-inline">
-					<textarea class="form-control" ng-model="chatCtrl.message" value="{{chatCtrl.message}}" required placeholder="Write message here" cols="40"></textarea>
-					<button class="btn btn-primary {{chatCtrl.unregisterOn}} fa fa-envelope" ng-click="chatCtrl.post()"></button>
-				</form>
-			</div>
-			<div class="col-md-2">
-				<div ng-repeat="chatter in chatCtrl.chatters">
-					<span>{{chatter}}</span>
-				</div>
-			</div>
-		</div>
-		<div id="disqus_thread"></div>
-		<script type="text/javascript">
-            var disqus_shortname = 'ocelot';
-            /* * * DON'T EDIT BELOW THIS LINE * * */
-               (function() {
-               var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-               })();		</script>
-		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-	</div>
-	<div class="well col-md-8">
+<div class="container">
+	<div class="well">
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#about"	aria-controls="about"	role="tab" data-toggle="tab">About</a></li>
+			<li role="presentation">					<a href="#demo"	aria-controls="demo"		role="tab" data-toggle="tab">Demo</a></li>
 			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">ChatServices.java</a></li>
 			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">Message.java</a></li>
 			<li role="presentation">					<a href="#js1"		aria-controls="js1"		role="tab" data-toggle="tab">Javascript</a></li>
@@ -77,10 +36,42 @@
 		<!-- Tab panes -->
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane active" id="about">
+				<div class="demotitle">
+					<img class="logo pull-left" title="Ocelotds" src="../../assets/ocelotds.svg" alt="Ocelotds"/>
+					<img src="https://angularjs.org/img/AngularJS-large.png" width="200" alt="Angularjs" style="padding-top: 30px"/>
+				</div>
 				<h2>About demo : Simple chat with <span style="color:darkred">A</span>ngular<span style="color:darkred">js</span> and <span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>...</h2>
 				<p>This is an other demonstration base on <a href="https://angularjs.org/">angularjs</a>.<br>With Ocelot your front end application communicate elegantly with your java back-end</p>
 				<p>This show how to implement a simple chat.</p>
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="demo" ng-controller="ChatController as chatCtrl" ng-init="init()" ng-app="chatApp">
+				<div class="row">
+					<div class="col-md-10">
+						<form class="navbar-form form-inline">
+							<button class="btn btn-primary fa fa-facebook-official {{chatCtrl.registerOn}}" ng-click="chatCtrl.register()" title="Register with facebook"></button>
+							<button class="btn btn-warning fa fa-user-times {{chatCtrl.unregisterOn}}" ng-click="chatCtrl.unregister()" title="Unregister"></button>
+						</form>
+						<div class="chatmsg" ng-repeat="msg in chatCtrl.messages" style="padding:0px">
+							<div class="popover {{msg.pos}}">
+								<div class="arrow"></div>
+								<h3 class="popover-title">{{msg.chatter}}</h3>
+								<div class="popover-content">
+									<p>{{msg.text}}</p>
+								</div>
+							</div>
+						</div>
+						<form class="form-inline">
+							<textarea class="form-control" ng-model="chatCtrl.message" value="{{chatCtrl.message}}" required placeholder="Write message here" cols="40"></textarea>
+							<button class="btn btn-primary {{chatCtrl.unregisterOn}} fa fa-envelope" ng-click="chatCtrl.post()"></button>
+						</form>
+					</div>
+					<div class="col-md-2">
+						<div ng-repeat="chatter in chatCtrl.chatters">
+							<span>{{chatter}}</span>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java1">
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
@@ -235,5 +226,15 @@ angular.module('chatApp', []).controller('ChatController', ['$scope', function (
 			</div>
 		</div>
 	</div>
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+			var disqus_shortname = 'ocelot';
+			/* * * DON'T EDIT BELOW THIS LINE * * */
+				(function() {
+				var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+					dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+					(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+				})();		</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 </div>
 

@@ -1,27 +1,11 @@
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
-<div class="container-fluid">
-	<div class="well col-md-4">
-		<div class="demotitle">
-			<img class="logo pull-left" title="Ocelotds" src="../../assets/ocelot_128x128.png" alt="Ocelotds"/>
-			<img src="http://www.highcharts.com/media/templates/highsoft_bootstrap/images/logo.svg" width="300" alt="HighChart"/>
-		</div>
-		<div id="graph-area" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-		<div id="disqus_thread"></div>
-		<script type="text/javascript">
-            var disqus_shortname = 'ocelot';
-            /* * * DON'T EDIT BELOW THIS LINE * * */
-               (function() {
-               var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-               })();		</script>
-		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-	</div>
-	<div class="well col-md-8">
+<div class="container">
+	<div class="well">
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#about"	aria-controls="about"	role="tab" data-toggle="tab">About</a></li>
+			<li role="presentation">					<a href="#demo"	aria-controls="demo"		role="tab" data-toggle="tab">Demo</a></li>
 			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">DataPublisher.java</a></li>
 			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">DataMarshaller.java</a></li>
 			<li role="presentation">					<a href="#java3"	aria-controls="java3"	role="tab" data-toggle="tab">ChartServices.java</a></li>
@@ -31,6 +15,10 @@
 		<!-- Tab panes -->
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane active" id="about">
+				<div class="demotitle">
+					<img class="logo pull-left" title="Ocelotds" src="../../assets/ocelotds.svg" alt="Ocelotds"/>
+					<img src="http://www.highcharts.com/media/templates/highsoft_bootstrap/images/logo.svg" width="300" alt="HighChart"/>
+				</div>
 				<h2>About demo : HighCharts and <span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>...</h2>
 				<p>This is a demonstration base on <a href="http://www.highcharts.com/demo/dynamic-update">highcharts</a>.<br>With Ocelot your front end application communicate elegantly with your java back-end</p>
 				<p>This shows how to implement a dynamic chart. Only tree java classes are used</p>
@@ -40,6 +28,9 @@
 					<li>Third one is an EJB Stateless for get the initial datas.</li>
 				</ul>
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="demo">
+				<div id="graph-area" style="margin: 0 auto"></div>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java1">
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
@@ -129,6 +120,16 @@ new ChartServices().<b class="cc" title="Get initial datas. 1000 samples">getDat
 			</div>
 		</div>
 	</div>
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+			var disqus_shortname = 'ocelot';
+			/* * * DON'T EDIT BELOW THIS LINE * * */
+				(function() {
+				var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+					dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+					(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+				})();		</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 </div>
 <script src="charts.js"></script>
 

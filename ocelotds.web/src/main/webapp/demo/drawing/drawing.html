@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container">
 	<style scoped>
 		#stage {
 			width: 430px;
@@ -10,45 +10,11 @@
 			position: absolute;
 		}
 	</style>
-	<div class="well col-md-4">
-		<div class="demotitle">
-			<img class="logo pull-left" title="Ocelotds" src="../../assets/ocelot_128x128.png" alt="Ocelotds"/>
-		</div>
-		<b id="subscribersNumber">0</b>&nbsp;<b>Subscribers</b><br>
-		<div class="btn-group" data-toggle="buttons">
-		  <label class="btn active"><input type="radio" name="color" autocomplete="off" checked><i style="color:#000000" class="fa fa-eyedropper"></i></label>
-		  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#1460AC" class="fa fa-eyedropper"></i></label>
-		  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#9295CA" class="fa fa-eyedropper"></i></label>
-		  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#AE70AF" class="fa fa-eyedropper"></i></label>
-		  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#F77C43" class="fa fa-eyedropper"></i></label>
-		  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#FFD600" class="fa fa-eyedropper"></i></label>
-		  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#E36662" class="fa fa-eyedropper"></i></label>
-		  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#82B6DE" class="fa fa-eyedropper"></i></label>
-		  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#AAB0B0" class="fa fa-eyedropper"></i></label>
-		  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#CFB38C" class="fa fa-eyedropper"></i></label>
-		  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#9CCCB4" class="fa fa-eyedropper"></i></label>
-		</div>
-		<div id="stage">
-			<canvas id="imageView" width="430" height="300"></canvas>
-		</div>
-		<div id="disqus_thread"></div>
-		<script type="text/javascript">
-         var disqus_shortname = 'ocelot';
-         /* * * DON'T EDIT BELOW THIS LINE * * */
-         (function () {
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-         })();
-		</script>
-		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-	</div>
-	<div class="well col-md-8">
+	<div class="well">
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#about"	aria-controls="about"	role="tab" data-toggle="tab">About</a></li>
+			<li role="presentation">					<a href="#demo"	aria-controls="demo"		role="tab" data-toggle="tab">Demo</a></li>
 			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">DrawingServices.java</a></li>
 			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">CanvasEvent.java</a></li>
 			<li role="presentation">					<a href="#js1"		aria-controls="js1"		role="tab" data-toggle="tab">Javascript</a></li>
@@ -57,6 +23,9 @@
 		<!-- Tab panes -->
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane active" id="about">
+				<div class="demotitle">
+					<img class="logo pull-left" title="Ocelotds" src="../../assets/ocelotds.svg" alt="Ocelotds"/>
+				</div>
 				<h2>About demo : collaborative painting</h2>
 				<p>This demo show how to do a collaborative page.</p>
 				<p>Open this page in multiple differents browsers, and magic <b>Ocelotds.</b></p>
@@ -67,6 +36,25 @@
 					<li>When clients subscribe or unsubscribe to the <b>eventCanvas</b> Topic, the server send the number of subscribers to <b>subscriber:eventCanvas</b> topic.</li>
 				</ul>
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="demo">
+				<b id="subscribersNumber">0</b>&nbsp;<b>Subscribers</b><br>
+				<div class="btn-group" data-toggle="buttons">
+				  <label class="btn active"><input type="radio" name="color" autocomplete="off" checked><i style="color:#000000" class="fa fa-eyedropper"></i></label>
+				  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#1460AC" class="fa fa-eyedropper"></i></label>
+				  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#9295CA" class="fa fa-eyedropper"></i></label>
+				  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#AE70AF" class="fa fa-eyedropper"></i></label>
+				  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#F77C43" class="fa fa-eyedropper"></i></label>
+				  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#FFD600" class="fa fa-eyedropper"></i></label>
+				  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#E36662" class="fa fa-eyedropper"></i></label>
+				  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#82B6DE" class="fa fa-eyedropper"></i></label>
+				  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#AAB0B0" class="fa fa-eyedropper"></i></label>
+				  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#CFB38C" class="fa fa-eyedropper"></i></label>
+				  <label class="btn"       ><input type="radio" name="color" autocomplete="off"        ><i style="color:#9CCCB4" class="fa fa-eyedropper"></i></label>
+				</div>
+				<div id="stage">
+					<canvas id="imageView" width="430" height="300"></canvas>
+				</div>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java1">
 				<pre><code class="java">
@@ -176,5 +164,18 @@ function sendMouseEvent(ev) {
 			</div>
 		</div>
 	</div>
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+		var disqus_shortname = 'ocelot';
+		/* * * DON'T EDIT BELOW THIS LINE * * */
+		(function () {
+			var dsq = document.createElement('script');
+			dsq.type = 'text/javascript';
+			dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 	<script src="drawing.js"></script>
 </div>

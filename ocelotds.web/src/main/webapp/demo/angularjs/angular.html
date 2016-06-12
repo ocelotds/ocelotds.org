@@ -1,43 +1,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 <link rel="stylesheet" href="angular.css">
 <script src="angular.js"></script>
-<div class="container-fluid">
-	<div class="well col-md-5" ng-app="todoApp">
-		<div class="demotitle">
-			<img class="logo pull-left" title="Ocelotds" src="../../assets/ocelot_128x128.png" alt="Ocelotds"/>
-			<img src="https://angularjs.org/img/AngularJS-large.png" width="200" alt="Angularjs" style="padding-top: 30px"/>
-		</div>
-		<div ng-controller="TodoListController as todoList" ng-init="init()">
-			<span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
-			[ <a href="" ng-click="todoList.archive()">archive</a> ]
-			<ul class="unstyled">
-				<li ng-repeat="todo in todoList.todos">
-					<input type="checkbox" ng-model="todo.done" ng-change="todoList.update(todo)">
-					<span class="done-{{todo.done}}">{{todo.text}}</span>
-				</li>
-			</ul>
-			<form class="form-inline" ng-submit="todoList.addTodo()">
-				<input class="form-control" type="text" ng-model="todoList.todoText"  size="30" value="{{todoList.todoText}}" placeholder="add new todo here">
-				<input class="btn btn-primary" type="submit" value="Add">
-				<input class="btn btn-primary" type="button" ng-click="todoList.refresh()" value="Refresh">
-				<input class="btn btn-danger" type="button" ng-click="todoList.reset()" value="Init">
-			</form>
-		</div>
-		<div id="disqus_thread"></div>
-		<script type="text/javascript">
-            var disqus_shortname = 'ocelot';
-            /* * * DON'T EDIT BELOW THIS LINE * * */
-               (function() {
-               var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-               })();		</script>
-		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-	</div>
-	<div class="well col-md-7">
+<div class="container">
+	<div class="well">
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#about"	aria-controls="about"	role="tab" data-toggle="tab">About</a></li>
+			<li role="presentation">					<a href="#demo"	aria-controls="demo"		role="tab" data-toggle="tab">Demo</a></li>
 			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">TodoServices.java</a></li>
 			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">Todo.java</a></li>
 			<li role="presentation">					<a href="#js1"		aria-controls="js1"		role="tab" data-toggle="tab">Javascript</a></li>
@@ -46,10 +15,30 @@
 		<!-- Tab panes -->
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane active" id="about">
+				<div class="demotitle">
+				</div>
+				<img align="left" title="Ocelotds" src="../../assets/ocelotds-angularjs-256.png" alt="Ocelotds" style="padding-right :20px"/><br><br>
 				<h2>About demo : <span style="color:darkred">A</span>ngular<span style="color:darkred">js</span> and <span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>...</h2>
 				<p>This is demonstration improved from the web site of <a href="https://angularjs.org/">angularjs</a>.<br>With Ocelot your front end application communicate elegantly with your java back-end</p>
 				<p>Compare them from angular website and see the beautifull of <b><span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>.</b></p>
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<br><br>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="demo" ng-app="todoApp" ng-controller="TodoListController as todoList" ng-init="init()">
+				<span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
+				[ <a href="" ng-click="todoList.archive()">archive</a> ]
+				<ul class="unstyled">
+					<li ng-repeat="todo in todoList.todos">
+						<input type="checkbox" ng-model="todo.done" ng-change="todoList.update(todo)">
+						<span class="done-{{todo.done}}">{{todo.text}}</span>
+					</li>
+				</ul>
+				<form class="form-inline" ng-submit="todoList.addTodo()">
+					<input class="form-control" type="text" ng-model="todoList.todoText"  size="30" value="{{todoList.todoText}}" placeholder="add new todo here">
+					<input class="btn btn-primary" type="submit" value="Add">
+					<input class="btn btn-primary" type="button" ng-click="todoList.refresh()" value="Refresh">
+					<input class="btn btn-danger" type="button" ng-click="todoList.reset()" value="Init">
+				</form>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java1">
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
@@ -184,4 +173,14 @@ public class TodoServices {
 			</div>
 		</div>
 	</div>
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+			var disqus_shortname = 'ocelot';
+			/* * * DON'T EDIT BELOW THIS LINE * * */
+				(function() {
+				var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+					dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+					(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+				})();		</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 </div>
