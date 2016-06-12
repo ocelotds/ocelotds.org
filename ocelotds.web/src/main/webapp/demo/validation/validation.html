@@ -5,8 +5,7 @@
 	<div class="well">
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
-			<li role="presentation" class="active"><a href="#about"	aria-controls="about"	role="tab" data-toggle="tab">About</a></li>
-			<li role="presentation">					<a href="#demo"	aria-controls="demo"		role="tab" data-toggle="tab">Demo</a></li>
+			<li role="presentation" class="active"><a href="#demo"	aria-controls="demo"		role="tab" data-toggle="tab">Demo</a></li>
 			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">UserServices.java</a></li>
 			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">User.java</a></li>
 			<li role="presentation">					<a href="#js1"		aria-controls="js1"		role="tab" data-toggle="tab">Javascript</a></li>
@@ -14,7 +13,7 @@
 		</ul>
 		<!-- Tab panes -->
 		<div class="tab-content">
-			<div role="tabpanel" class="tab-pane active" id="about">
+			<div role="tabpanel" class="tab-pane active" id="demo">
 				<div class="demotitle">
 					<img class="logo pull-left" title="Ocelotds" src="../../assets/ocelotds.svg" alt="Ocelotds"/>
 					<img src="https://angularjs.org/img/AngularJS-large.png" width="200" alt="Angularjs" style="padding-top: 30px"/>
@@ -23,6 +22,14 @@
 				<p>This is a really simple example about validation form, directly from Java side.</p>
 				<p>This demo use <a href="https://angularjs.org/">angularjs</a>.<br>With Ocelot your front end application communicate elegantly with your java back-end</p>
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+				<div ng-controller="ValidationController as validCtrl" ng-app="validationApp">
+					<form class="form-inline" ng-submit="todoList.addTodo()">
+						<input class="form-control" type="text" ng-model="validCtrl.user.name" placeholder="enter name here">
+						<input class="btn btn-primary" type="button" value="Save" ng-click="validCtrl.saveUser()">
+						<b>Enter text , constraint : 3 to 20 chars</b>
+					</form>
+					<div ng-repeat="vc in validCtrl.validationConstraints">{{vc.name}}.{{vc.prop}} {{vc.message}}</div>
+				</div>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java1">
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
@@ -32,15 +39,6 @@ public class UserServices {
 		
    }
 }				</code></pre>
-			</div>
-			<div role="tabpanel" class="tab-pane" id="demo">
-				<div ng-controller="ValidationController as validCtrl" ng-app="validationApp">
-					<form class="form-inline" ng-submit="todoList.addTodo()">
-						<input class="form-control" type="text" ng-model="validCtrl.user.name" placeholder="enter name here">
-						<input class="btn btn-primary" type="button" value="Save" ng-click="validCtrl.saveUser()">
-					</form>
-					<div ng-repeat="vc in validCtrl.validationConstraints">{{vc.name}}.{{vc.prop}} {{vc.message}}</div>
-				</div>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="java2">
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>

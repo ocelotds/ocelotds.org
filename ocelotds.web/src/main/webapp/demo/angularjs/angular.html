@@ -5,8 +5,7 @@
 	<div class="well">
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist">
-			<li role="presentation" class="active"><a href="#about"	aria-controls="about"	role="tab" data-toggle="tab">About</a></li>
-			<li role="presentation">					<a href="#demo"	aria-controls="demo"		role="tab" data-toggle="tab">Demo</a></li>
+			<li role="presentation" class="active"><a href="#demo"	aria-controls="demo"		role="tab" data-toggle="tab">Demo</a></li>
 			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">TodoServices.java</a></li>
 			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">Todo.java</a></li>
 			<li role="presentation">					<a href="#js1"		aria-controls="js1"		role="tab" data-toggle="tab">Javascript</a></li>
@@ -14,17 +13,13 @@
 		</ul>
 		<!-- Tab panes -->
 		<div class="tab-content">
-			<div role="tabpanel" class="tab-pane active" id="about">
-				<div class="demotitle">
-				</div>
+			<div role="tabpanel" class="tab-pane active" id="demo" ng-app="todoApp" ng-controller="TodoListController as todoList" ng-init="init()">
 				<img align="left" title="Ocelotds" src="../../assets/ocelotds-angularjs-256.png" alt="Ocelotds" style="padding-right :20px"/><br><br>
 				<h2>About demo : <span style="color:darkred">A</span>ngular<span style="color:darkred">js</span> and <span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>...</h2>
 				<p>This is demonstration improved from the web site of <a href="https://angularjs.org/">angularjs</a>.<br>With Ocelot your front end application communicate elegantly with your java back-end</p>
 				<p>Compare them from angular website and see the beautifull of <b><span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>.</b></p>
 				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
 				<br><br>
-			</div>
-			<div role="tabpanel" class="tab-pane" id="demo" ng-app="todoApp" ng-controller="TodoListController as todoList" ng-init="init()">
 				<span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
 				[ <a href="" ng-click="todoList.archive()">archive</a> ]
 				<ul class="unstyled">
