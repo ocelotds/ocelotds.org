@@ -6,6 +6,7 @@ package org.ocelotds.drawing;
 import org.ocelotds.Constants;
 import org.ocelotds.annotations.DataService;
 import org.ocelotds.annotations.JsTopic;
+import org.ocelotds.annotations.WsDataService;
 
 /**
  *
@@ -15,6 +16,7 @@ import org.ocelotds.annotations.JsTopic;
 public class DrawingServices {
 
 	@JsTopic("eventCanvas")
+	@WsDataService
 	public CanvasEvent pushCanvasEvent(CanvasEvent evt) {
 		return evt;
 	}
