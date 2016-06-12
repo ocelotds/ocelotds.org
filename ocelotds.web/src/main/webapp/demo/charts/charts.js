@@ -22,7 +22,7 @@ chartServices.getDatas(1000).then(function(datas) {
 		series: [{data: datas}]
 	});
 });
-new Subscriber("values").then(function(nb) {
+subscriberFactory.createSubscriber("values").then(function(nb) {
 	console.log("Subscribers to values :"+nb);
 }).catch(function(fault) {
 	console.log(fault);
