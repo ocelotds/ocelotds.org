@@ -8,7 +8,7 @@
 	<p>Return the state of websocket : 'CONNECTING',  'OPEN',  'CLOSING',  'CLOSED', 'ERROR'</p>
 </blockquote>
 <p>You can monitor status by subscribe to 'ocelot-status' topic</p>
-<pre><code class="javascript">new Subscriber('ocelot-status').message(function(status) {
+<pre><code class="javascript">subscriberFactory.createSubscriber('ocelot-status').message(function(status) {
    if(status === 'ERROR') {
       console.log("websocket is in error");
    }

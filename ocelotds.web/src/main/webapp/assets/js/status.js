@@ -1,4 +1,4 @@
-new Subscriber("ocelot-status").message(function (msg) {
+subscriberFactory.createSubscriber("ocelot-status").message(function (msg) {
 	var statusText = document.getElementById("status-text");
 	var statusColor = document.getElementById("status-color");
 	var statusTextShadow = document.getElementById("status-text-shadow");

@@ -64,10 +64,10 @@ imageView.addEventListener('mousedown', function (event) {
 	sendMouseEvent(event);
 }, false);
 // Subscribe Topic
-new Subscriber("subscribers:eventCanvas").message(function (nb) {
+subscriberFactory.createSubscriber("subscribers:eventCanvas").message(function (nb) {
 	document.getElementById("subscribersNumber").innerHTML = nb;
 });
-subCanvasEvent = new Subscriber("eventCanvas").message(function (evt) {
+subCanvasEvent = subscriberFactory.createSubscriber("eventCanvas").message(function (evt) {
 	pencil[evt.type](evt);
 });
 function endDrawing(event) {

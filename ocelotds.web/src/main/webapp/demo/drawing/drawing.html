@@ -149,10 +149,10 @@ if (!canvas || !canvas.getContext) {
 }
 context = canvas.getContext('2d');
 canvas.addEventListener('mousedown', sendMouseEvent, false);
-<b class="cc" title="Subcribe to topic 'subscribers:eventCanvas' and receive notification about subscribers number">new Subscriber("subscribers:eventCanvas")</b>.<b class="cc" title="Receive messages from topic 'subscribers:canvasEvent'">message</b>(function (nb) {
+<b class="cc" title="Subcribe to topic 'subscribers:eventCanvas' and receive notification about subscribers number">subscriberFactory.createSubscriber("subscribers:eventCanvas")</b>.<b class="cc" title="Receive messages from topic 'subscribers:canvasEvent'">message</b>(function (nb) {
 	document.getElementById("subscribersNumber").innerHTML = nb;
 });
-<b class="cc" title="Subcribe to topic 'eventCanvas' and receive events from all publisher">subCanvasEvent = new Subscriber("eventCanvas")</b>.<b class="cc" title="Receive messages from topic 'canvasEvent'">message</b>(function (evt) {
+<b class="cc" title="Subcribe to topic 'eventCanvas' and receive events from all publisher">subCanvasEvent = subscriberFactory.createSubscriber("eventCanvas")</b>.<b class="cc" title="Receive messages from topic 'canvasEvent'">message</b>(function (evt) {
 	pencil[evt.type](evt);
 });
 function sendMouseEvent(ev) {

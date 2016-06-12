@@ -19,7 +19,7 @@ angular.module('chatApp', []).controller('ChatController', ['$scope', function (
 			}).catch(onFault);
 		};
 		chatCtrl.register = function () {
-			chatCtrl.subChatters = new Subscriber("Chatters").message(function (list) {
+			chatCtrl.subChatters = subscriberFactory.createSubscriber("Chatters").message(function (list) {
 				$scope.$apply(function () {
 					chatCtrl.chatters = list;
 				});
@@ -51,7 +51,7 @@ angular.module('chatApp', []).controller('ChatController', ['$scope', function (
 					$scope.$apply(function () {
 						chatCtrl.registerOn = "disabled";
 						chatCtrl.unregisterOn = "";
-						chatCtrl.subChatRoom = new Subscriber("ChatRoom").message(function (msg) {
+						chatCtrl.subChatRoom = subscriberFactory.createSubscriber("ChatRoom").message(function (msg) {
 							$scope.$apply(function () {
 								msg.pos = "left";
 								if (msg.chatter === chatCtrl.chatter) {

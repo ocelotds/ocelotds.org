@@ -160,7 +160,7 @@ angular.module('chatApp', []).controller('ChatController', ['$scope', function (
       }).<b class="cc" title="Handle method exceptions">catch</b>(onFault);
    };
    chatCtrl.register = function () {
-      <b class="cc" title="Subcribe to topic 'Chatters' and receive list chatters by.">chatCtrl.subChatters = new Subscriber("Chatters")</b>.<b class="cc" title="Receive messages from topic 'Chatters'">message</b>(function (<b class="cc" title="Message payload from topic 'Chatters'">list</b>) {
+      <b class="cc" title="Subcribe to topic 'Chatters' and receive list chatters by.">chatCtrl.subChatters = subscriberFactory.createSubscriber("Chatters")</b>.<b class="cc" title="Receive messages from topic 'Chatters'">message</b>(function (<b class="cc" title="Message payload from topic 'Chatters'">list</b>) {
          $scope.$apply(function () {
             chatCtrl.chatters = list;
          });
@@ -169,7 +169,7 @@ angular.module('chatApp', []).controller('ChatController', ['$scope', function (
          $scope.$apply(function () {
             chatCtrl.registerOn = "disabled";
             chatCtrl.unregisterOn = "";
-            chatCtrl.subChatRoom = <b class="cc" title="When user is registered, subscribes to 'ChatRoom'.">new Subscriber("ChatRoom")</b>.<b class="cc" title="Receive messages from topic 'ChatRoom'">message</b>(<b class="cc" title="Message payload from topic 'ChatRoom', the message">msg</b>) {
+            chatCtrl.subChatRoom = <b class="cc" title="When user is registered, subscribes to 'ChatRoom'.">subscriberFactory.createSubscriber("ChatRoom")</b>.<b class="cc" title="Receive messages from topic 'ChatRoom'">message</b>(<b class="cc" title="Message payload from topic 'ChatRoom', the message">msg</b>) {
                $scope.$apply(function () {
                   msg.pos = "left";
                   if (msg.chatter === chatCtrl.chatter) {

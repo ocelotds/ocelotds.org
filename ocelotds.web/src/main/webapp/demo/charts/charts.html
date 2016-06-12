@@ -112,7 +112,7 @@ new ChartServices().<b class="cc" title="Get initial datas. 1000 samples">getDat
 		series: [{data: datas}]
 	});
 });
-<b class="cc" title="Subscribe to topic named 'values'">new Subscriber("values")</b>.message(<b class="cc" title="Handler when message is post in topic">function</b> (vals) {
+<b class="cc" title="Subscribe to topic named 'values'">subscriberFactory.createSubscriber("values")</b>.message(<b class="cc" title="Handler when message is post in topic">function</b> (vals) {
 	chart.series[0].addPoint([vals[0], vals[1]], true, true);
 });
 <b class="cc" title="Observe when the websocket connection is close.">ocelotController.addCloseListener</b>(function () {
