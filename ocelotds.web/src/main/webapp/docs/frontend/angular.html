@@ -1,0 +1,43 @@
+<h2 id="ng">Use angular framework</h2>
+<h3>Add Angular version of Services and Framework to html</h3>
+<p>Add generated angular services and core in html page (these scripts are provided by ocelot REST)</p>
+<pre><code class="html">&lt;header&gt;
+   &lt;script src="${CONTEXT_PATH}/ocelot/services.ng.js" type="text/javascript"&gt;&lt;/script&gt;
+   &lt;script src="${CONTEXT_PATH}/ocelot/core.ng.min.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
+<h3>Add ocelot.ds as application dependency</h3>
+<pre><code class="javascript">angular.module('my.app', ['ocelot.ds']);</code></pre>
+<h3>Inject your service in your controller, naturally</h3>
+<pre><code class="js">MyController.$inject = ['$scope', 'myService'];
+function MyController($scope, myService) {
+	var inst = this;
+	inst.list = [];
+	inst.getListOfSomething = function() {
+		myService.getEntityList().then(function (list) {
+			inst.list = list;
+			$scope.$apply();
+		});
+	};
+}</code></pre>
+<p>Don't forget to use <b>$scope.$apply()</b> for apply async result to controller scope.</p>
+<h3>Notifications</h3>
+<p>Message Driven bean features, can be used to implement a chat for example or notify something to the client.</p>
+<h4>create TopicSubscriber</h4>
+<p>In javascript, create an instance of TopicSubscriber</p>
+<h3>Inject subscriberFactory in your controller</h3>
+<pre><code class="js">MyController.$inject = ['$scope', 'subscriberFactory'];
+function MyController($scope, subscriberFactory) {
+   var sub = subscriberFactory.createSubscriber("mytopic").then(function (res) {
+      subscriptionOk();
+   }).catch(function (f) {
+      subscriptionNok();
+   }).message(function (msg) {
+      doSomethingWithMsg(msg); 
+   });
+   sub.unsubscribe("mytopic").then(function (res) {
+	   unsubscriptionOk();
+   }).catch(function (f) {
+      unsubscriptionNok();
+   });</code></pre>
+<h4>Publish messages</h4>
+<p>See details in <a href="#push">Notifications</a> section</p>
+

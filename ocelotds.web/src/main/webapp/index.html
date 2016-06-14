@@ -25,9 +25,9 @@ public class MyService {
 		<pre><code class="html">&lt;script src="${CONTEXT_PATH}/ocelot/services.ng.js" type="text/javascript"&gt;&lt;/script&gt;
 &lt;script src="${CONTEXT_PATH}/ocelot/core.ng.min.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
 		<h3>Add ocelot.ds as application dependency</h3>
-		<pre><code class="javascript">angular.module('my.app', ['ocelot.ds]);</code></pre>
+		<pre><code class="javascript">angular.module('my.app', ['ocelot.ds']);</code></pre>
 		<h3>Inject your service in your controller, naturally</h3>
-		<pre><code class="js">MyController.$inject = ['$scope', 'myService];
+		<pre><code class="js">MyController.$inject = ['$scope', 'myService'];
 function MyController($scope, myService) {
 	var inst = this;
 	inst.list = [];

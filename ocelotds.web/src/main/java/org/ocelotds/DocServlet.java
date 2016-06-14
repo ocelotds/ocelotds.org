@@ -57,7 +57,7 @@ public class DocServlet extends HttpServlet {
 				
 				"/docs/backend/backend.html", "/docs/backend/ejb.html", "/docs/backend/cdi.html", "/docs/backend/spring.html",
 				
-				"/docs/frontend/frontend.html", "/docs/frontend/codehint.html", "/docs/frontend/html.html", 
+				"/docs/frontend/frontend.html", "/docs/frontend/codehint.html", "/docs/frontend/html.html", "/docs/frontend/angular.html", 
 				"/docs/frontend/ocelotsrv.html", "/docs/frontend/subscriberFactory.html", "/docs/frontend/ocelotctrl.html", 
 				"/docs/frontend/ocelotpromise.html", "/docs/frontend/objects.html", "/docs/frontend/advanced.html",
 				
