@@ -16,4 +16,7 @@ public class OcelotConfig {
 	String getStackLength() {
 		return "10";
 	}
+//	@Produces
+//	@OcelotConfiguration(Constants.Options.DASHBOARD_ROLES)
+	String role = "ADMIN";
 }
