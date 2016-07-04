@@ -1,4 +1,4 @@
-# OCELOT
+# OCELOTDS
 [![](https://badge.imagelayers.io/hhfrancois/ocelotds.org:glassfish.svg)](https://imagelayers.io/?images=hhfrancois/ocelotds.org:glassfish 'Get your own badge on imagelayers.io')
 ## More  details on [ocelotds.org](http://ocelotds.org)
 
