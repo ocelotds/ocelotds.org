@@ -54,7 +54,7 @@ public @interface JsCacheResult {
 <p>Add a result in cache is easy, but sometime you want to remove cache entries before the limit date.</p>
 <p>With these features remove easily cache on all clients that hold these cache</p>
 <p>The remove cache feature use push notification feature.</p>
-<h4>Remove specific Results to javascript Cache</h4>
+<h4>Remove specific Result to javascript Cache</h4>
 <p>You want to remove cache entries before the limit date.</p>
 <p>Use JsCacheRemove and specify which cache this method have to remove.</p>
 <pre><code class="java">@DataService(resolver = ...)
@@ -63,6 +63,22 @@ public class TestService {
   public void doSomethingAndRemoveCache(Z z, A a) {
      // After the success of this method all cache where the entry key is footprint of 
      // test.TestService.methodCached(a.getId()) will be remove on all clients connected.
+     ...
+  }
+}</code></pre>
+<h4>Remove specifics Results to javascript Cache</h4>
+<p>Use JsCacheRemoves and add more than one JsCacheRemove.</p>
+<pre><code class="java">@DataService(resolver = ...)
+public class TestService {
+  @JsCacheRemoves({
+    @JsCacheRemove(cls=TestService.class, methodName="methodCached", keys={"a.id"}),
+    @JsCacheRemove(cls=TestService.class, methodName="otherMethodCached", keys={"z.id"})
+  })
+  public void doSomethingAndRemoveCache(Z z, A a) {
+     // After the success of this method all cache where the entry key is footprint of 
+     // pkg.TestService.methodCached(a.getId()) will be remove on all clients connected.
+     // And too
+     // pkg.TestService.otherMethodCached(z.getId()) will be remove on all clients connected.
      ...
   }
 }</code></pre>
@@ -85,6 +101,14 @@ public class TestService {
   @JsCacheRemoveAll()
   public void doSomethingAndRemoveCache(Z z, A a) {
      // After the success of this method all cache in BROWSER will be clear
+     ...
+  }
+}</code></pre>
+<h4>From any business methods</h4>
+<p>Since 2.12.0 you can use JsCacheRemove, JsCacheRemoves and JsCacheRemoveAll from any business methods.</p>
+<pre><code class="java">public class BusinessBean {
+  @JsCacheRemove(...)
+  public void doSomethingAndRemoveCache(...) {
      ...
   }
 }</code></pre>
