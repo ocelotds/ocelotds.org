@@ -11,17 +11,8 @@
 <p>After deploy your web application, ocelotds expose a web page ocelot/dashboard/index.html</p>
 <h3>Secure dashboard</h3>
 <p>Dashboard is usefull for devops, but not for users. So it's probably usefull to secure it</p>
-<p>For secure it, ocelot needs to know roles that you allow to access it.<br>Lot solutions availables : </p>
-<h4>One Role With CDI producer</h4>
-<p>In your application, write simply a String producer with Qualifier for dashboard. Like this :</p>
-<pre><code class="java">...
-   @Produces
-   @OcelotConfiguration(Constants.Options.DASHBOARD_ROLES)
-   String getRole() {
-      return "DASHBOARD_ROLE";
-   }
-...</code></pre>
-<h4>More than one Role With CDI producer</h4>
+<p>For secure it, ocelot needs to know roles that you allow to access it.<br>Two ways are availables : </p>
+<h4>With CDI producer</h4>
 <p>In your application, write simply a Collection&lt;String&gt; producer with Qualifier for dashboard. Like this :</p>
 <pre><code class="java">...
    @Produces
@@ -29,6 +20,10 @@
    Collection&lt;String&gt; getRoles() {
       return Arrays.asList("DASHBOARD_ROLE", "ADMIN_ROLE");
    }
+   // OR even simply
+   @Produces
+   @OcelotConfiguration(Constants.Options.DASHBOARD_ROLES)
+   Collection&lt;String&gt; roles = Arrays.asList("DASHBOARD_ROLE", "ADMIN_ROLE");
 ...</code></pre>
 <h4>In web.xml</h4>
 <p>In your web module/application, add context-param to web.xml :</p>

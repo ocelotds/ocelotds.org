@@ -3,6 +3,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 package org.ocelotds;
 
+import java.util.Arrays;
+import java.util.Collection;
 import javax.enterprise.inject.Produces;
 import org.ocelotds.annotations.OcelotConfiguration;
 /**
@@ -18,5 +20,5 @@ public class OcelotConfig {
 	}
 //	@Produces
 //	@OcelotConfiguration(Constants.Options.DASHBOARD_ROLES)
-	String role = "ADMIN";
+	Collection<String> roles = Arrays.asList("ADMIN");
 }
