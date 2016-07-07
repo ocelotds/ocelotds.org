@@ -22,8 +22,8 @@ public class MyService {
 			In your controller, inject your service (same name of java service), call method on it<br>
 			Ocelot is asynchron, so add $scope.$apply() in handler.</h4><br><br>
 		<h3>In your index.html include angularjs generated ocelotds js</h3>
-		<pre><code class="html">&lt;script src="${CONTEXT_PATH}/ocelot/services.ng.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="${CONTEXT_PATH}/ocelot/core.ng.min.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
+		<pre><code class="html">&lt;script src="ocelot/services.ng.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="ocelot/core.ng.min.js" type="text/javascript"&gt;&lt;/script&gt;</code></pre>
 		<h3>Add ocelot.ds as application dependency</h3>
 		<pre><code class="javascript">angular.module('my.app', ['ocelot.ds']);</code></pre>
 		<h3>Inject your service in your controller, naturally</h3>
@@ -48,7 +48,8 @@ function MyController($scope, myService) {
 		<ul>
 			<li>Built on CDI and java EE standards</li>
 			<li>Javascript code completion with gulp features</li>
-			<li>Support any js framework (angularjs, knockout...)</li>
+			<li>Specialy design for angularjs</li>
+			<li>Works in any js framework (knockout, vuejs...)</li>
 			<li>Easily connect Javascript applications built using any framework to existing Java server logic</li>
 			<li>High performance data transfer for more responsive applications</li>
 			<li>Real-time server push over standard HTTP (Websocket)</li>
