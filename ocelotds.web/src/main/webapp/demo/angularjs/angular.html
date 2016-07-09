@@ -2,180 +2,240 @@
 <link rel="stylesheet" href="angular.css">
 <script src="angular.js"></script>
 <div class="container">
-	<div class="well">
-		<!-- Nav tabs -->
-		<ul class="nav nav-tabs" role="tablist">
-			<li role="presentation" class="active"><a href="#demo"	aria-controls="demo"		role="tab" data-toggle="tab">Demo</a></li>
-			<li role="presentation">					<a href="#java1"	aria-controls="java1"	role="tab" data-toggle="tab">TodoServices.java</a></li>
-			<li role="presentation">					<a href="#java2"	aria-controls="java2"	role="tab" data-toggle="tab">Todo.java</a></li>
-			<li role="presentation">					<a href="#js1"		aria-controls="js1"		role="tab" data-toggle="tab">Javascript</a></li>
-			<li role="presentation">					<a href="#html1"	aria-controls="html1"	role="tab" data-toggle="tab">Html</a></li>
-		</ul>
-		<!-- Tab panes -->
-		<div class="tab-content">
-			<div role="tabpanel" class="tab-pane active" id="demo" ng-app="todoApp" ng-controller="TodoListController as todoList" ng-init="init()">
-				<img align="left" title="Ocelotds" src="../../assets/ocelotds-angularjs-256.png" alt="Ocelotds" style="padding-right :20px"/><br><br>
-				<h2>About demo : <span style="color:darkred">A</span>ngular<span style="color:darkred">js</span> and <span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>...</h2>
-				<p>This is demonstration improved from the web site of <a href="https://angularjs.org/">angularjs</a>.<br>With Ocelot your front end application communicate elegantly with your java back-end</p>
-				<p>Compare them from angular website and see the beautifull of <b><span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>.</b></p>
-				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
-				<br><br>
-				<span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
-				[ <a href="" ng-click="todoList.archive()">archive</a> ]
-				<ul class="unstyled">
-					<li ng-repeat="todo in todoList.todos">
-						<input type="checkbox" ng-model="todo.done" ng-change="todoList.update(todo)">
-						<span class="done-{{todo.done}}">{{todo.text}}</span>
-					</li>
-				</ul>
-				<form class="form-inline" ng-submit="todoList.addTodo()">
-					<input class="form-control" type="text" ng-model="todoList.todoText"  size="30" value="{{todoList.todoText}}" placeholder="add new todo here">
-					<input class="btn btn-primary" type="submit" value="Add">
-					<input class="btn btn-primary" type="button" ng-click="todoList.refresh()" value="Refresh">
-					<input class="btn btn-danger" type="button" ng-click="todoList.reset()" value="Init">
-				</form>
-			</div>
-			<div role="tabpanel" class="tab-pane" id="java1">
-				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
-				<pre><code class="java">@ApplicationScoped
+   <div class="well">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+         <li role="presentation" class="active"><a href="#demo"   aria-controls="demo"      role="tab" data-toggle="tab">Demo</a></li>
+         <li role="presentation">               <a href="#java1"   aria-controls="java1"   role="tab" data-toggle="tab">TodoServices.java</a></li>
+         <li role="presentation">               <a href="#java2"   aria-controls="java2"   role="tab" data-toggle="tab">Todo.java</a></li>
+         <li role="presentation">               <a href="#js1"      aria-controls="js1"      role="tab" data-toggle="tab">Javascript</a></li>
+         <li role="presentation">               <a href="#html1"   aria-controls="html1"   role="tab" data-toggle="tab">Html</a></li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content">
+         <div role="tabpanel" class="tab-pane active" id="demo" ng-app="todoApp" ng-controller="TodoListController as ctrl" ng-init="ctrl.getTodos()">
+            <img align="left" title="Ocelotds" src="../../assets/ocelotds-angularjs-256.png" alt="Ocelotds" style="padding-right :20px"/><br><br>
+            <h2>About demo : <span style="color:darkred">A</span>ngular<span style="color:darkred">js</span> and <span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>...</h2>
+            <p>This is demonstration improved from the web site of <a href="https://angularjs.org/">angularjs</a>.<br>With Ocelot your front end application communicate elegantly with your java back-end</p>
+            <p>Compare them from angular website and see the beautifull of <b><span style="color:gray">Ocelot</span><span style="color:chocolate">ds</span>.</b></p>
+            <p>Open more than one time this page and see how ocelotds synchronise them.</p>
+            <p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+            <br><br>
+            <span>{{ctrl.remaining()}} of {{ctrl.todos.length}} remaining</span>
+            [ <a href="" ng-click="ctrl.archive()">archive</a> ]
+            <ul class="unstyled">
+               <li ng-repeat="todo in ctrl.todos">
+                  <input type="checkbox" ng-model="todo.done" ng-change="ctrl.update(todo)">
+                  <span class="done-{{todo.done}}">{{todo.text}}</span>
+               </li>
+            </ul>
+            <form class="form-inline" ng-submit="ctrl.addTodo()">
+               <input class="form-control" type="text" ng-model="ctrl.todoText"  size="30" value="{{ctrl.todoText}}" placeholder="add new todo here">
+               <input class="btn btn-primary" type="submit" value="Add">
+               <input class="btn btn-danger" type="button" ng-click="ctrl.reset()" value="RESET">
+            </form>
+         </div>
+         <div role="tabpanel" class="tab-pane" id="java1">
+            <p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+            <pre><code class="java"><b class="cc" title="For demo this bean is a CDI Singleton">@ApplicationScoped</b>
 <b class="cc" title="Annotate service for expose it to the front-end">@DataService(resolver = Constants.Resolver.CDI)</b>
 public class TodoServices {
-	private List&lt;Todo&gt; todos;
-	@PostConstruct
-	protected void init() {
-		todos = new ArrayList&lt;&gt;();
-		todos.add(new Todo("learn angular", true));
-		todos.add(new Todo("build an angular app", false));
-	}
-	public List&lt;Todo&gt; getTodos() {
-		return todos;
-	}
-	public Todo addTodo(String text) {
-		Todo todo = new Todo(text, false);
-		todos.add(todo);
-		return todo;
-	}
-	public Todo updateTodo(Todo todo) {
-		for (Todo t : todos) {
-			if (t.equals(todo)) {
-				t.setDone(todo.isDone());
-			}
-		}
-		return todo;
-	}
-	public List&lt;Todo> archive() {
-		List&lt;Todo&gt; saved = new ArrayList&lt;&gt;();
-		saved.addAll(todos);
-		todos.clear();
-		for (Todo t : saved) {
-			if (!t.isDone()) {
-				todos.add(t);
-			}
-		}
-		return todos;
-	}			</code></pre>
-			</div>
-			<div role="tabpanel" class="tab-pane" id="java2">
-				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
-				<pre><code class="java">public class Todo {
-	private String text;
-	private boolean done = false;
+   private List&lt;Todo&gt; todos;
+   @PostConstruct
+   public void constructor() {
+      init();
+   } 
 
-	public String getText() {
-		return text;
-	}
-	public void setText(String text) {
-		this.text = text;
-	}
-	public boolean isDone() {
-		return done;
-	}
-	public void setDone(boolean done) {
-		this.done = done;
-	}
-}				</code></pre>
-			</div>
-			<div role="tabpanel" class="tab-pane" id="js1">
-				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
-				<pre><code class="js">angular.module('todoApp', []).controller('TodoListController', 
-['$scope', function ($scope) {
-   var todoList = this;
-   todoList.todos = [];
-   todoList.todoText = "";
-   todoList.addTodo = function () {
-      <b class="cc" title="Call TodoServices.addTodo(String todoLabel) java service&#013;Directly, as you would if you were in java side.">todoServices.addTodo(todoList.todoText)</b>.<b class="cc" title="Handle method return">then</b>(function (<b class="cc" title="Payload : method return">todo</b>) {
-         todoList.todos.push(<b class="cc" title="Use it">todo</b>);
-         todoList.todoText = '';
-         $scope.$apply();
-      }).<b class="cc" title="Handle method exceptions">catch</b>(onFault);
-   };
-   todoList.remaining = function () {
-      var count = 0;
-      angular.forEach(todoList.todos, function (todo) {
-         count += todo.done ? 0 : 1;
-      });
-      return count;
-   };
-   todoList.archive = function () {
-      <b class="cc" title="Call TodoServices.archive() java service&#013;Directly, as you would if you were in java side.">todoServices.archive()</b>.<b class="cc" title="Handle method return">then</b>(function (todos) {
-         todoList.todos = todos;
-         $scope.$apply();
-      }).<b class="cc" title="Handle method exceptions">catch</b>(onFault);
-   };
-   todoList.update = function (todo) {
-      <b class="cc" title="Call todoServices.updateTodo(Todo todo) java service&#013;Directly, as you would if you were in java side.">todoServices.updateTodo(todo)</b>.<b class="cc" title="Handle method return">then</b>(function (todo) {
-      }).<b class="cc" title="Handle method exceptions">catch</b>(onFault);
-   };
-   todoList.refresh = function () {
-      <b class="cc" title="Call todoServices.getTodos() java service&#013;Directly, as you would if you were in java side.">todoServices.getTodos()</b>.<b class="cc" title="Handle method return">then</b>(function (todos) {
-         todoList.todos = todos;
-         $scope.$apply();
-      }).<b class="cc" title="Handle method exceptions">catch</b>(onFault);
-   };
-   var onFault = function (<b class="cc" title="Fault object from ocelotds">fault</b>) {
-      alert(fault.message + "\n" + fault.classname + "\n" + fault.stacktrace.join('\n'));
-   };
-   $scope.init = function() {
-      todoList.refresh();
-   };
-}]);			</code></pre>
-			</div>
-			<div role="tabpanel" class="tab-pane" id="html1">
-				<p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
-				<pre><code class="html">&lt;html&gt;
+   <b class="cc" title="When any client call this method, results are publish in topic 'update-todos'. All subscribers receive result">@JsTopic("update-todos")</b>
+   public List&lt;Todo&gt; init() {
+      todos = new ArrayList<>();
+      todos.add(new Todo("learn angular", true));
+      todos.add(new Todo("build an angular app", false));
+      return todos;
+   }
+
+   public List&lt;Todo&gt; getTodos() {
+      return todos;
+   }
+
+   <b class="cc" title="When any client call this method, results are publish in topic 'add-todo'.  All subscribers receive result">@JsTopic("add-todo")</b>
+   public Todo addTodo(String text) {
+      Todo todo = new Todo(text, false);
+      todos.add(todo);
+      return todo;
+   }
+
+   <b class="cc" title="When any client call this method, results are publish in topic 'update-todo'.  All subscribers receive result">@JsTopic("update-todo")</b>
+   public Todo updateTodo(Todo todo) {
+      for (Todo t : todos) {
+         if (t.equals(todo)) {
+            t.setDone(todo.isDone());
+         }
+      }
+      return todo;
+   }
+
+   <b class="cc" title="When any client call this method, results are publish in topic 'update-todos'. All subscribers receive result">@JsTopic("update-todos")</b>
+   public List&lt;Todo&gt; archive() {
+      List&lt;Todo&gt; saved = new ArrayList&lt;&gt;();
+      saved.addAll(todos);
+      todos.clear();
+      for (Todo t : saved) {
+         if (!t.isDone()) {
+            todos.add(t);
+         }
+      }
+      return todos;
+   }
+}</code></pre>
+         </div>
+         <div role="tabpanel" class="tab-pane" id="java2">
+            <p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+            <pre><code class="java">public class Todo {
+   private String text;
+   private boolean done = false;
+
+   public String getText() {
+      return text;
+   }
+   public void setText(String text) {
+      this.text = text;
+   }
+   public boolean isDone() {
+      return done;
+   }
+   public void setDone(boolean done) {
+      this.done = done;
+   }
+}            </code></pre>
+         </div>
+         <div role="tabpanel" class="tab-pane" id="js1">
+            <p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+            <pre><code class="js">(function () { // closure
+   angular.module('todoApp', []); // create module
+   angular.module('todoApp').controller('TodoListController', TodoListController); // add controller
+   TodoListController.$inject = ['$scope']; // inject angular scope
+   function TodoListController($scope) { // controller
+      var ctrl = this;
+      ctrl.todos = [];
+      ctrl.todoText = "";
+      ctrl.addTodo = addTodo;
+      ctrl.remaining = remaining;
+      ctrl.archive = archive;
+      ctrl.update = update;
+      ctrl.reset = reset;
+      ctrl.getTodos = getTodos;
+
+      ctrl.addSub = null;
+      ctrl.todosSub = null;
+      ctrl.updSub = null;
+
+      activate();
+      $scope.$on('$destroy', desactivate);
+
+      function activate() {
+         console.log("subscribers initialisation...");
+         ctrl.todosSub = subscriberFactory.createSubscriber("update-todos").message(function (todos) {
+            ctrl.todos = todos;
+            $scope.$apply(); // apply to angualr scope
+         });
+         ctrl.addSub = subscriberFactory.createSubscriber("add-todo").message(function (todo) {
+            ctrl.todos.push(todo);
+            $scope.$apply(); // apply to angualr scope
+         });
+         ctrl.updSub = subscriberFactory.createSubscriber("update-todo").message(function (todo) {
+            ctrl.todos.every(function (t) {
+               if (t.text === todo.text) {
+                  t.done = todo.done;
+                  $scope.$apply(); // apply to angualr scope
+               }
+               return t.text !== todo.text; // continue or exit every;
+            })
+         });
+      }
+      function desactivate() {
+         console.log("subscribers cleaning...");
+         if (ctrl.todosSub) ctrl.todosSub.unsubscribe();
+         if (ctrl.addSub) ctrl.addSub.unsubscribe();
+         if (ctrl.updSub) ctrl.updSub.unsubscribe();
+      }
+      function addTodo() {
+         ctrl.todos.forEach(function (t) {
+            if (t.text === ctrl.todoText) {
+               return; // exit function;
+            }
+         });
+         <b class="cc" title="Call TodoServices.addTodo(String todoLabel) java service&#013;Directly, as you would if you were in java side.">todoServices.addTodo(ctrl.todoText)</b>.<b class="cc" title="Handle method exceptions">catch</b>(onFault); // todo will be add by subscriber
+         ctrl.todoText = ''; // clean input
+      }
+      function remaining() {
+         var count = 0;
+         angular.forEach(ctrl.todos, function (todo) {
+            count += todo.done ? 0 : 1;
+         });
+         return count;
+      }
+      function archive() {
+         console.log("call todoServices.archive");
+         <b class="cc" title="Call TodoServices.archive() java service&#013;Directly, as you would if you were in java side.">todoServices.archive()</b>.catch(onFault); // the result will be receive by subscriber
+      }
+      function update(todo) {
+         console.log("call todoServices.updateTodo");
+         <b class="cc" title="Call todoServices.updateTodo(Todo todo) java service&#013;Directly, as you would if you were in java side.">todoServices.updateTodo(todo)</b>.catch(onFault); // the result will be receive by subscriber
+      }
+      function reset() {
+         console.log("call todoServices.init");
+         todoServices.init().catch(onFault); // the result will be receive by subscriber
+      }
+      function onFault(fault) {
+         alert(fault.message + "\n" + fault.classname + "\n" + fault.stacktrace.join('\n'));
+      }
+      function getTodos() {
+         console.log("call todoServices.getTodos");
+         <b class="cc" title="Call todoServices.getTodos() java service&#013;Directly, as you would if you were in java side.">todoServices.getTodos()</b>.<b class="cc" title="Handle method return">then</b>(function (todos) {
+            ctrl.todos = todos; // receive todos
+            $scope.$apply(); // apply to angular scope
+         }).catch(onFault);
+      }
+   }
+})();</code></pre>
+         </div>
+         <div role="tabpanel" class="tab-pane" id="html1">
+            <p>Hover the mouse <span class="cc" title="That's it !!!">&nbsp;highlighted code&nbsp;</span> and get infos about it</p>
+            <pre><code class="html">&lt;html&gt;
    &lt;head&gt;
       <b class="cc" title="Add services generated to the page...">&lt;script src="ocelot/services.js" type="text/javascript"&gt;&lt;/script&gt;</b>
       <b class="cc" title="Add ocelot core to the page...">&lt;script src="ocelot/core.min.js" type="text/javascript"&gt;&lt;/script&gt;</b>
    &lt;/head&gt;
    &lt;body&gt;
-      &lt;div ng-controller="TodoListController as todoList" ng-init="init()"&gt;
-         &lt;span&gt;{{todoList.remaining()}} of {{todoList.todos.length}} remaining&lt;/span&gt;
-         [ &lt;a href="" ng-click="todoList.archive()"&gt;archive&lt;/a&gt; ]
+      &lt;div ng-controller="TodoListController as ctrl" ng-init="ctrl.init()"&gt;
+         &lt;span&gt;{{ctrl.remaining()}} of {{ctrl.todos.length}} remaining&lt;/span&gt;
+         [ &lt;a href="" ng-click="ctrl.archive()"&gt;archive&lt;/a&gt; ]
          &lt;ul class="unstyled"&gt;
-            &lt;li ng-repeat="todo in todoList.todos"&gt;
-               &lt;input type="checkbox" ng-model="todo.done" ng-change="todoList.update(todo)"&gt;
+            &lt;li ng-repeat="todo in ctrl.todos"&gt;
+               &lt;input type="checkbox" ng-model="todo.done" ng-change="ctrl.update(todo)"&gt;
                &lt;span class="done-{{todo.done}}"&gt;{{todo.text}}&lt;/span&gt;
             &lt;/li&gt;
          &lt;/ul&gt;
-         &lt;form ng-submit="todoList.addTodo()"&gt;
-            &lt;input type="text" ng-model="todoList.todoText"  size="30" value="{{todoList.todoText}}" placeholder="add new todo here"&gt;
+         &lt;form ng-submit="ctrl.addTodo()"&gt;
+            &lt;input type="text" ng-model="ctrl.todoText"  size="30" value="{{ctrl.todoText}}" placeholder="add new todo here"&gt;
             &lt;input class="btn-primary" type="submit" value="add"&gt;
-            &lt;input class="btn-primary" type="button" ng-click="todoList.refresh()" value="refresh"&gt;
+            &lt;nput class="btn btn-danger" type="button" ng-click="ctrl.reset()" value="RESET"&gt;
          &lt;/form&gt;
       &lt;/div&gt;
    &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-			</div>
-		</div>
-	</div>
-	<div id="disqus_thread"></div>
-	<script type="text/javascript">
-			var disqus_shortname = 'ocelot';
-			/* * * DON'T EDIT BELOW THIS LINE * * */
-				(function() {
-				var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-					dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-					(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-				})();		</script>
-	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+         </div>
+      </div>
+   </div>
+   <div id="disqus_thread"></div>
+   <script type="text/javascript">
+         var disqus_shortname = 'ocelot';
+         /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+               dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+               (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();      </script>
+   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 </div>
